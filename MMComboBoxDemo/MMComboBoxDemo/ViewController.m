@@ -18,11 +18,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.mutableArray = [NSMutableArray array];
     
     //根1
     MMItem *rootItem1 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"全部"];
-    
+    rootItem1.selectedType = MMPopupViewSingleSelection;
     //第一层
     MMItem *A_1 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"生日蛋糕"];
     MMItem *A_2 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"甜点饮品"];

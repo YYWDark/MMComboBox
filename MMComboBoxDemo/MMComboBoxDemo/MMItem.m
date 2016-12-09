@@ -20,6 +20,7 @@
 
 - (void)addNode:(MMItem *)node {
     NSParameterAssert(node);
+    node.isSelected = (self.childrenNodes.count == 0) ? YES : NO;
     [self.childrenNodes addObject:node];
 }
 

@@ -19,16 +19,6 @@
 		750708551DF80BBF00D21D49 /* MMItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708541DF80BBF00D21D49 /* MMItem.m */; };
 		750708581DF80D5C00D21D49 /* MMBaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708571DF80D5C00D21D49 /* MMBaseItem.m */; };
 		7507085B1DF810F800D21D49 /* MMAlternativeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7507085A1DF810F800D21D49 /* MMAlternativeItem.m */; };
-		7507085E1DF8EA0500D21D49 /* MMDropDownBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7507085D1DF8EA0500D21D49 /* MMDropDownBox.m */; };
-		750708611DF8EA2600D21D49 /* MMComBoBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708601DF8EA2600D21D49 /* MMComBoBoxView.m */; };
-		750708741DF8EAFD00D21D49 /* NSObject+Calculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7507086D1DF8EAFD00D21D49 /* NSObject+Calculate.m */; };
-		750708751DF8EAFD00D21D49 /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7507086F1DF8EAFD00D21D49 /* UIColor+Extension.m */; };
-		750708761DF8EAFD00D21D49 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708711DF8EAFD00D21D49 /* UIView+Extension.m */; };
-		750708B91DF94A9400D21D49 /* MMSingleFitlerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708B81DF94A9400D21D49 /* MMSingleFitlerView.m */; };
-		750708BC1DF94AD100D21D49 /* MMMultiFitlerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708BB1DF94AD100D21D49 /* MMMultiFitlerView.m */; };
-		750708BF1DF94B1900D21D49 /* MMCombinationFitlerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708BE1DF94B1900D21D49 /* MMCombinationFitlerView.m */; };
-		750708C21DFA816500D21D49 /* MMNormalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708C11DFA816500D21D49 /* MMNormalCell.m */; };
-		750708C51DFA859600D21D49 /* list_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 750708C41DFA859600D21D49 /* list_selected@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,26 +63,6 @@
 		750708571DF80D5C00D21D49 /* MMBaseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBaseItem.m; sourceTree = "<group>"; };
 		750708591DF810F800D21D49 /* MMAlternativeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAlternativeItem.h; sourceTree = "<group>"; };
 		7507085A1DF810F800D21D49 /* MMAlternativeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAlternativeItem.m; sourceTree = "<group>"; };
-		7507085C1DF8EA0500D21D49 /* MMDropDownBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDropDownBox.h; sourceTree = "<group>"; };
-		7507085D1DF8EA0500D21D49 /* MMDropDownBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDropDownBox.m; sourceTree = "<group>"; };
-		7507085F1DF8EA2600D21D49 /* MMComBoBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMComBoBoxView.h; sourceTree = "<group>"; };
-		750708601DF8EA2600D21D49 /* MMComBoBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMComBoBoxView.m; sourceTree = "<group>"; };
-		7507086C1DF8EAFD00D21D49 /* NSObject+Calculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Calculate.h"; sourceTree = "<group>"; };
-		7507086D1DF8EAFD00D21D49 /* NSObject+Calculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Calculate.m"; sourceTree = "<group>"; };
-		7507086E1DF8EAFD00D21D49 /* UIColor+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
-		7507086F1DF8EAFD00D21D49 /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
-		750708701DF8EAFD00D21D49 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
-		750708711DF8EAFD00D21D49 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
-		750708731DF8EAFD00D21D49 /* MMHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHeader.h; sourceTree = "<group>"; };
-		750708B71DF94A9400D21D49 /* MMSingleFitlerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSingleFitlerView.h; sourceTree = "<group>"; };
-		750708B81DF94A9400D21D49 /* MMSingleFitlerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSingleFitlerView.m; sourceTree = "<group>"; };
-		750708BA1DF94AD100D21D49 /* MMMultiFitlerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMultiFitlerView.h; sourceTree = "<group>"; };
-		750708BB1DF94AD100D21D49 /* MMMultiFitlerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMultiFitlerView.m; sourceTree = "<group>"; };
-		750708BD1DF94B1900D21D49 /* MMCombinationFitlerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCombinationFitlerView.h; sourceTree = "<group>"; };
-		750708BE1DF94B1900D21D49 /* MMCombinationFitlerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCombinationFitlerView.m; sourceTree = "<group>"; };
-		750708C01DFA816500D21D49 /* MMNormalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMNormalCell.h; sourceTree = "<group>"; };
-		750708C11DFA816500D21D49 /* MMNormalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMNormalCell.m; sourceTree = "<group>"; };
-		750708C41DFA859600D21D49 /* list_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list_selected@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,9 +113,6 @@
 		750708171DF80A7700D21D49 /* MMComboBoxDemo */ = {
 			isa = PBXGroup;
 			children = (
-				750708C31DFA858E00D21D49 /* Image */,
-				7507086B1DF8EAFD00D21D49 /* MMCategory */,
-				750708721DF8EAFD00D21D49 /* MMHeader */,
 				7507084F1DF80B6C00D21D49 /* Model */,
 				7507084B1DF80AE000D21D49 /* View */,
 				7507081B1DF80A7700D21D49 /* AppDelegate.h */,
@@ -190,11 +157,8 @@
 		7507084B1DF80AE000D21D49 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				750708B61DF93B2E00D21D49 /* PopupView */,
-				7507085C1DF8EA0500D21D49 /* MMDropDownBox.h */,
-				7507085D1DF8EA0500D21D49 /* MMDropDownBox.m */,
-				7507085F1DF8EA2600D21D49 /* MMComBoBoxView.h */,
-				750708601DF8EA2600D21D49 /* MMComBoBoxView.m */,
+				7507084C1DF80B1F00D21D49 /* MMBasePopupView.h */,
+				7507084D1DF80B1F00D21D49 /* MMBasePopupView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -210,52 +174,6 @@
 				7507085A1DF810F800D21D49 /* MMAlternativeItem.m */,
 			);
 			name = Model;
-			sourceTree = "<group>";
-		};
-		7507086B1DF8EAFD00D21D49 /* MMCategory */ = {
-			isa = PBXGroup;
-			children = (
-				7507086C1DF8EAFD00D21D49 /* NSObject+Calculate.h */,
-				7507086D1DF8EAFD00D21D49 /* NSObject+Calculate.m */,
-				7507086E1DF8EAFD00D21D49 /* UIColor+Extension.h */,
-				7507086F1DF8EAFD00D21D49 /* UIColor+Extension.m */,
-				750708701DF8EAFD00D21D49 /* UIView+Extension.h */,
-				750708711DF8EAFD00D21D49 /* UIView+Extension.m */,
-			);
-			path = MMCategory;
-			sourceTree = "<group>";
-		};
-		750708721DF8EAFD00D21D49 /* MMHeader */ = {
-			isa = PBXGroup;
-			children = (
-				750708731DF8EAFD00D21D49 /* MMHeader.h */,
-			);
-			path = MMHeader;
-			sourceTree = "<group>";
-		};
-		750708B61DF93B2E00D21D49 /* PopupView */ = {
-			isa = PBXGroup;
-			children = (
-				7507084C1DF80B1F00D21D49 /* MMBasePopupView.h */,
-				7507084D1DF80B1F00D21D49 /* MMBasePopupView.m */,
-				750708B71DF94A9400D21D49 /* MMSingleFitlerView.h */,
-				750708B81DF94A9400D21D49 /* MMSingleFitlerView.m */,
-				750708BA1DF94AD100D21D49 /* MMMultiFitlerView.h */,
-				750708BB1DF94AD100D21D49 /* MMMultiFitlerView.m */,
-				750708BD1DF94B1900D21D49 /* MMCombinationFitlerView.h */,
-				750708BE1DF94B1900D21D49 /* MMCombinationFitlerView.m */,
-				750708C01DFA816500D21D49 /* MMNormalCell.h */,
-				750708C11DFA816500D21D49 /* MMNormalCell.m */,
-			);
-			name = PopupView;
-			sourceTree = "<group>";
-		};
-		750708C31DFA858E00D21D49 /* Image */ = {
-			isa = PBXGroup;
-			children = (
-				750708C41DFA859600D21D49 /* list_selected@2x.png */,
-			);
-			name = Image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,7 +286,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				750708281DF80A7700D21D49 /* LaunchScreen.storyboard in Resources */,
-				750708C51DFA859600D21D49 /* list_selected@2x.png in Resources */,
 				750708251DF80A7700D21D49 /* Assets.xcassets in Resources */,
 				750708231DF80A7700D21D49 /* Main.storyboard in Resources */,
 			);
@@ -396,18 +313,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7507085B1DF810F800D21D49 /* MMAlternativeItem.m in Sources */,
-				750708611DF8EA2600D21D49 /* MMComBoBoxView.m in Sources */,
 				7507084E1DF80B1F00D21D49 /* MMBasePopupView.m in Sources */,
-				7507085E1DF8EA0500D21D49 /* MMDropDownBox.m in Sources */,
-				750708751DF8EAFD00D21D49 /* UIColor+Extension.m in Sources */,
-				750708741DF8EAFD00D21D49 /* NSObject+Calculate.m in Sources */,
-				750708761DF8EAFD00D21D49 /* UIView+Extension.m in Sources */,
 				750708201DF80A7700D21D49 /* ViewController.m in Sources */,
-				750708BF1DF94B1900D21D49 /* MMCombinationFitlerView.m in Sources */,
-				750708BC1DF94AD100D21D49 /* MMMultiFitlerView.m in Sources */,
 				7507081D1DF80A7700D21D49 /* AppDelegate.m in Sources */,
-				750708B91DF94A9400D21D49 /* MMSingleFitlerView.m in Sources */,
-				750708C21DFA816500D21D49 /* MMNormalCell.m in Sources */,
 				750708581DF80D5C00D21D49 /* MMBaseItem.m in Sources */,
 				7507081A1DF80A7700D21D49 /* main.m in Sources */,
 				750708551DF80BBF00D21D49 /* MMItem.m in Sources */,

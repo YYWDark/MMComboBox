@@ -13,6 +13,11 @@ typedef NS_ENUM(NSUInteger, MMPopupViewMarkType) {  //选中的状态
 //    MMPopupViewDisplayTypeFilters = 2,
 };
 
+typedef NS_ENUM(NSUInteger, MMPopupViewSelectedType) {     //是否支持单选或者多选
+    MMPopupViewSingleSelection,                            //单选
+    MMPopupViewMultilSeMultiSelection,                    //多选
+};
+
 typedef NS_ENUM(NSUInteger, MMPopupViewDisplayType) {  //分辨弹出来的view类型
     MMPopupViewDisplayTypeNormal = 0,
     MMPopupViewDisplayTypeMultilayer = 1,
@@ -22,4 +27,5 @@ typedef NS_ENUM(NSUInteger, MMPopupViewDisplayType) {  //分辨弹出来的view�
 @interface MMBaseItem : NSObject
 @property (nonatomic, assign) MMPopupViewMarkType markType;
 @property (nonatomic, assign) MMPopupViewDisplayType displayType;
+@property (nonatomic, assign) MMPopupViewSelectedType selectedType;
 @end

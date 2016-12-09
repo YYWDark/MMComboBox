@@ -11,10 +11,11 @@
 #import "MMHeader.h"
 #import "MMBasePopupView.h"
 
-@interface MMComBoBoxView () <MMDropDownBoxDelegate>
+@interface MMComBoBoxView () <MMDropDownBoxDelegate,MMPopupViewDelegate>
 //@property (nonatomic, strong) NSArray *data;
 @property (nonatomic, strong) NSMutableArray *dropDownBoxArray;
 @property (nonatomic, strong) NSMutableArray *itemArray;
+@property (nonatomic, strong) NSMutableArray *symbolArray;  //当成一个队列来标记那个弹出视图
 @end
 
 @implementation MMComBoBoxView
@@ -23,6 +24,7 @@
     if (self) {
         self.dropDownBoxArray = [NSMutableArray array];
         self.itemArray = [NSMutableArray array];
+        self.symbolArray = [NSMutableArray arrayWithCapacity:1];
         self.backgroundColor = [UIColor greenColor];
         
     }
@@ -39,7 +41,6 @@
     if ([self.dataSource respondsToSelector:@selector(comBoBoxView:infomationForColumn:)]) {
         for (NSUInteger i = 0; i < count; i ++) {
             MMItem *item = [self.dataSource comBoBoxView:self infomationForColumn:i];
-            
             MMDropDownBox *dropBox = [[MMDropDownBox alloc] initWithFrame:CGRectMake(i*width, 0, width, self.height) titleName:item.title];
             dropBox.tag = i;
             dropBox.delegate = self;
@@ -52,10 +53,24 @@
 
 #pragma mark - MMDropDownBoxDelegate
 - (void)didTapDropDownBox:(MMDropDownBox *)dropDownBox atIndex:(NSUInteger)index{
-    MMItem *item = self.itemArray[index];
-    MMBasePopupView *popupView = [MMBasePopupView getSubPopupView:item];
+    //点击后先判断symbolArray有没有标示
+    if (self.symbolArray.count) {
+        //移除
+        MMBasePopupView * lastView = self.symbolArray[0];
+        [lastView dismiss];
+        [self.symbolArray removeObjectAtIndex:0];
+        
+    }else{
+        MMItem *item = self.itemArray[index];
+        MMBasePopupView *popupView = [MMBasePopupView getSubPopupView:item];
+        popupView.delegate = self;
+        [popupView popupViewFromSourceFrame:self.frame];
+        [self.symbolArray addObject:popupView];
+    }
+}
+
+#pragma mark - MMPopupViewDelegate
+- (void)popupView:(MMBasePopupView *)popupView didSelectedItemsPackagingInDictionary:(NSDictionary*)dictionary {
     
-//    [popupView popupViewWithItem:item sourceFrame:self.frame];
-    [popupView popupViewFromSourceFrame:self.frame];
 }
 @end

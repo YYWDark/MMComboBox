@@ -9,13 +9,20 @@
 #import "MMMultiFitlerView.h"
 
 @implementation MMMultiFitlerView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (id)initWithItem:(MMItem *)item{
+    self = [super init];
+    if (self) {
+        self.item = item;
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
 }
-*/
 
+- (void)popupViewFromSourceFrame:(CGRect)frame {
+    
+}
+
+- (void)dismiss{
+    
+}
 @end

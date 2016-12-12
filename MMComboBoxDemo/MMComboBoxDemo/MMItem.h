@@ -17,7 +17,8 @@
 @property (nonatomic, assign) Boolean isSelected; //默认0
 @property (nonatomic, strong) NSString * subTitle;               //第一层默认没有
 
-- (void)addNode:(MMItem *)node ;
+- (void)addNode:(MMItem *)node;
 - (void)findTheTypeOfPopUpView;
 + (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title;
++ (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title subTileName:(NSString *)subTile;
 @end

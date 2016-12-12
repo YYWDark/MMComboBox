@@ -19,9 +19,9 @@ typedef NS_ENUM(NSUInteger, MMPopupViewSelectedType) {     //是否支持单选�
 };
 
 typedef NS_ENUM(NSUInteger, MMPopupViewDisplayType) {  //分辨弹出来的view类型
-    MMPopupViewDisplayTypeNormal = 0,
-    MMPopupViewDisplayTypeMultilayer = 1,
-    MMPopupViewDisplayTypeFilters = 2,
+    MMPopupViewDisplayTypeNormal = 0,                //一层
+    MMPopupViewDisplayTypeMultilayer = 1,            //两层
+    MMPopupViewDisplayTypeFilters = 2,               //混合
 };
 
 @interface MMBaseItem : NSObject

@@ -9,5 +9,11 @@
 #import "MMBaseItem.h"
 
 @implementation MMBaseItem
-
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        self.displayType = MMPopupViewDisplayTypeNormal;
+    }
+    return self;
+}
 @end

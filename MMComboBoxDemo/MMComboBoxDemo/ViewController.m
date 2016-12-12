@@ -23,38 +23,43 @@
     
     //根1
     MMItem *rootItem1 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"全部"];
-    rootItem1.selectedType = MMPopupViewSingleSelection;
+    rootItem1.selectedType = MMPopupViewMultilSeMultiSelection;
     //第一层
-    MMItem *A_1 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"生日蛋糕"];
-    MMItem *A_2 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"甜点饮品"];
-    MMItem *A_3 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"生日蛋糕"];
-    MMItem *A_4 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"甜点饮品"];
-    MMItem *A_5 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"生日蛋糕"];
-    MMItem *A_6 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"甜点饮品"];
-    MMItem *A_7 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"生日蛋糕"];
-    MMItem *A_8 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"甜点饮品"];
-    MMItem *A_9 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"生日蛋糕"];
-    MMItem *A_10 = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:@"甜点饮品"];
-    
-    [rootItem1 addNode:A_1];
-    [rootItem1 addNode:A_2];
-    [rootItem1 addNode:A_3];
-    [rootItem1 addNode:A_4];
-    [rootItem1 addNode:A_5];
-    [rootItem1 addNode:A_6];
-    [rootItem1 addNode:A_7];
-    [rootItem1 addNode:A_8];
-    [rootItem1 addNode:A_9];
-    [rootItem1 addNode:A_10];
-    
-    for (int i = 0; i < 4; i ++) {
-        [self.mutableArray addObject:rootItem1];
+//    [rootItem1 addNode:rootItem1];
+    for (int i = 0; i < 20; i ++) {
+        [rootItem1 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"蛋糕系列%d",i] subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
     }
     
+   //根2
+   MMItem *rootItem2 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"智能排序"];
+   //第一层
+   [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"智能排序"]]];
+   [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"离我最近"]]];
+   [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"好评优先"]]];
+   [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"人气最高"]]];
+   
+    
+    //根3
+    MMItem *rootItem3 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"附近"];
+    
+    for (int i = 0; i < 10; i++){
+        MMItem *item_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:[NSString stringWithFormat:@"市区%d",i]];
+        [rootItem3 addNode:item_A];
+        for (int j = 0; j < 10; j ++) {
+        [item_A addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"市区%d县%d",i,j]subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
+        }
+    }
+    
+    [self.mutableArray addObject:rootItem1];
+    [self.mutableArray addObject:rootItem2];
+    [self.mutableArray addObject:rootItem3];
     MMComBoBoxView *view = [[MMComBoBoxView alloc] initWithFrame:CGRectMake(0, 100, kScreenWidth, 40)];
     view.dataSource = self;
     [self.view addSubview:view];
     [view reload];
+    
+    
+    
 }
 
 

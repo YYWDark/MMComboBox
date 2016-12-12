@@ -24,22 +24,31 @@
     [self.childrenNodes addObject:node];
 }
 
-+ (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title{
++ (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title subTileName:(NSString *)subTile{
+    MMItem *item = [MMItem itemWithItemType:type titleName:title];
+    if (subTile != nil) {
+        item.subTitle = subTile;
+    }
+
+    return item;
+}
+
++ (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title {
     MMItem *item = [[[self class] alloc] init];
     item.markType = type;
     item.title = title;
+    
     return item;
 }
 
 - (void)findTheTypeOfPopUpView{
-
+    if (self.AlternativeArray.count) {
+        self.displayType = MMPopupViewDisplayTypeFilters;
+        return;
+    }
     for (MMItem *item in self.childrenNodes) { //目前只支持两层 所以不需要去做递归
         if (item.childrenNodes.count != 0) {
-            if (self.AlternativeArray.count == 0) {
-              self.displayType = MMPopupViewDisplayTypeMultilayer;
-            }else{
-              self.displayType = MMPopupViewDisplayTypeFilters;
-            }
+            self.displayType = MMPopupViewDisplayTypeMultilayer;
             return;
         }
     }

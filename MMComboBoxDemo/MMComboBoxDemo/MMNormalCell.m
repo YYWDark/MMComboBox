@@ -33,7 +33,7 @@ static const CGFloat horizontalMargin = 10.0f;
 - (void)layoutSubviews{
     [super layoutSubviews];
     self.selectedImageview.frame = CGRectMake(horizontalMargin, (self.height -16)/2, 16, 16);
-    self.title.frame = CGRectMake(self.selectedImageview.right + 5, 0, 100, self.height);
+    self.title.frame = CGRectMake(self.selectedImageview.right + 20, 0, 100, self.height);
     if (_item.subTitle != nil) {
         self.subTitle.frame = CGRectMake(self.width - horizontalMargin - 100 , 0, 100, self.height);
     }
@@ -42,6 +42,7 @@ static const CGFloat horizontalMargin = 10.0f;
 - (void)setItem:(MMItem *)item{
     _item = item;
     self.title.text = item.title;
+    self.title.textColor = item.isSelected?[UIColor colorWithHexString:titleSelectedColor]:[UIColor blackColor];
     if (item.subTitle != nil) {
     self.subTitle.text  = item.subTitle;
     }

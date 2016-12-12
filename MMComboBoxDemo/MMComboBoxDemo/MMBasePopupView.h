@@ -19,6 +19,9 @@
 @property (nonatomic, strong) UIView *shadowView;
 @property (nonatomic, strong) UITableView *mainTableView;
 @property (nonatomic, strong) UITableView *subTableView;
+//@property (nonatomic, strong) UIImageView *imageView;
+
+
 @property (nonatomic, weak) id<MMPopupViewDelegate> delegate;
 
 + (MMBasePopupView *)getSubPopupView:(MMItem *)item;
@@ -28,5 +31,8 @@
 @end
 
 @protocol MMPopupViewDelegate <NSObject>
-- (void)popupView:(MMBasePopupView *)popupView didSelectedItemsPackagingInDictionary:(NSDictionary*)dictionary;
+@optional
+- (void)popupView:(MMBasePopupView *)popupView didSelectedItemsPackagingInDictionary:(NSDictionary*)dictionary atIndex:(NSUInteger)index;
+@required
+- (void)popupViewWillDismiss:(MMBasePopupView *)popupView;
 @end

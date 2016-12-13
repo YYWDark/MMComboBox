@@ -31,6 +31,7 @@
 		750708C51DFA859600D21D49 /* list_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 750708C41DFA859600D21D49 /* list_selected@2x.png */; };
 		750708C81DFE490E00D21D49 /* pullup.png in Resources */ = {isa = PBXBuildFile; fileRef = 750708C61DFE490E00D21D49 /* pullup.png */; };
 		750708C91DFE490E00D21D49 /* pulldown.png in Resources */ = {isa = PBXBuildFile; fileRef = 750708C71DFE490E00D21D49 /* pulldown.png */; };
+		750708CC1DFFC91400D21D49 /* MMLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708CB1DFFC91400D21D49 /* MMLeftCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,8 @@
 		750708C41DFA859600D21D49 /* list_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list_selected@2x.png"; sourceTree = "<group>"; };
 		750708C61DFE490E00D21D49 /* pullup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pullup.png; sourceTree = "<group>"; };
 		750708C71DFE490E00D21D49 /* pulldown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pulldown.png; sourceTree = "<group>"; };
+		750708CA1DFFC91300D21D49 /* MMLeftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLeftCell.h; sourceTree = "<group>"; };
+		750708CB1DFFC91400D21D49 /* MMLeftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLeftCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +243,7 @@
 		750708B61DF93B2E00D21D49 /* PopupView */ = {
 			isa = PBXGroup;
 			children = (
+				7507084C1DF80B1F00D21D49 /* MMBasePopupView.h */,
 				7507084D1DF80B1F00D21D49 /* MMBasePopupView.m */,
 				750708B71DF94A9400D21D49 /* MMSingleFitlerView.h */,
 				750708B81DF94A9400D21D49 /* MMSingleFitlerView.m */,
@@ -249,6 +253,8 @@
 				750708BE1DF94B1900D21D49 /* MMCombinationFitlerView.m */,
 				750708C01DFA816500D21D49 /* MMNormalCell.h */,
 				750708C11DFA816500D21D49 /* MMNormalCell.m */,
+				750708CA1DFFC91300D21D49 /* MMLeftCell.h */,
+				750708CB1DFFC91400D21D49 /* MMLeftCell.m */,
 			);
 			name = PopupView;
 			sourceTree = "<group>";
@@ -257,7 +263,6 @@
 			isa = PBXGroup;
 			children = (
 				750708C61DFE490E00D21D49 /* pullup.png */,
-				7507084C1DF80B1F00D21D49 /* MMBasePopupView.h */,
 				750708C71DFE490E00D21D49 /* pulldown.png */,
 				750708C41DFA859600D21D49 /* list_selected@2x.png */,
 			);
@@ -413,6 +418,7 @@
 				750708201DF80A7700D21D49 /* ViewController.m in Sources */,
 				750708BF1DF94B1900D21D49 /* MMCombinationFitlerView.m in Sources */,
 				750708BC1DF94AD100D21D49 /* MMMultiFitlerView.m in Sources */,
+				750708CC1DFFC91400D21D49 /* MMLeftCell.m in Sources */,
 				7507081D1DF80A7700D21D49 /* AppDelegate.m in Sources */,
 				750708B91DF94A9400D21D49 /* MMSingleFitlerView.m in Sources */,
 				750708C21DFA816500D21D49 /* MMNormalCell.m in Sources */,

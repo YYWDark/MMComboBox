@@ -24,6 +24,12 @@
     [self.childrenNodes addObject:node];
 }
 
+- (void)addNodeWithoutMark:(MMItem *)node{
+    NSParameterAssert(node);
+    node.isSelected = NO;
+    [self.childrenNodes addObject:node];
+}
+
 + (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title subTileName:(NSString *)subTile{
     MMItem *item = [MMItem itemWithItemType:type titleName:title];
     if (subTile != nil) {

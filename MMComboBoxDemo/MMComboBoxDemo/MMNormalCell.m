@@ -14,6 +14,7 @@ static const CGFloat horizontalMargin = 10.0f;
 @property (nonatomic, strong) UILabel *title;
 @property (nonatomic, strong) UILabel *subTitle;
 @property (nonatomic, strong) UIImageView *selectedImageview;
+@property (nonatomic, strong) CALayer *bottomLine;
 @end
 
 @implementation MMNormalCell
@@ -37,6 +38,7 @@ static const CGFloat horizontalMargin = 10.0f;
     if (_item.subTitle != nil) {
         self.subTitle.frame = CGRectMake(self.width - horizontalMargin - 100 , 0, 100, self.height);
     }
+    self.bottomLine.frame = CGRectMake(0, self.height - 1.0/scale , self.width, 1.0/scale);
 }
 
 - (void)setItem:(MMItem *)item{
@@ -53,7 +55,7 @@ static const CGFloat horizontalMargin = 10.0f;
     if (!_title) {
         _title = [[UILabel alloc] init];
         _title.textColor = [UIColor blackColor];
-        _title.font = [UIFont systemFontOfSize:14];
+        _title.font = [UIFont systemFontOfSize:MainTitleFontSize];
         [self addSubview:_title];
     }
     return _title;
@@ -64,7 +66,7 @@ static const CGFloat horizontalMargin = 10.0f;
         _subTitle = [[UILabel alloc] init];
         _subTitle.textColor = [UIColor blackColor];
         _subTitle.textAlignment = NSTextAlignmentRight;
-        _subTitle.font = [UIFont systemFontOfSize:12];
+        _subTitle.font = [UIFont systemFontOfSize:SubTitleFontSize];
         [self addSubview:_subTitle];
     }
     return _subTitle;
@@ -76,5 +78,14 @@ static const CGFloat horizontalMargin = 10.0f;
         [self addSubview:_selectedImageview];
     }
     return _selectedImageview;
+}
+
+- (CALayer *)bottomLine {
+    if (!_bottomLine) {
+        _bottomLine = [CALayer layer];
+        _bottomLine.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.3].CGColor;
+        [self.layer addSublayer:_bottomLine];
+    }
+    return _bottomLine;
 }
 @end

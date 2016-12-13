@@ -71,11 +71,7 @@
 - (void)didTapDropDownBox:(MMDropDownBox *)dropDownBox atIndex:(NSUInteger)index{
     for (int i = 0; i <self.dropDownBoxArray.count; i++) {
         MMDropDownBox *currentBox  = self.dropDownBoxArray[i];
-        if (i == index) {
-            [currentBox updateTitleState:YES];
-        }else {
-            [currentBox updateTitleState:NO];
-        }
+        [currentBox updateTitleState:(i == index)];
     }
     
     //点击后先判断symbolArray有没有标示
@@ -112,7 +108,7 @@
 
 - (void)popupViewWillDismiss:(MMBasePopupView *)popupView {
   [self.symbolArray removeAllObjects];
-  for (MMDropDownBox *currentBox in self.dropDownBoxArray) {
+   for (MMDropDownBox *currentBox in self.dropDownBoxArray) {
         [currentBox updateTitleState:NO];
     }
 }

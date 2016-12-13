@@ -19,16 +19,26 @@
 // CGFloat scale = [UIScreen mainScreen].scale;
 #define scale [UIScreen mainScreen].scale
 static  NSString *titleSelectedColor = @"4EBC72";
-static const CGFloat  buttonFontSize = 14.0f;
+static const CGFloat  ButtonFontSize = 14.0f;
 //MMPopupView
+
 static const CGFloat PopupViewRowHeight = 44.0f;
 static const CGFloat DistanceBeteewnPopupViewAndBottom = 40.0f;
 static const CGFloat PopupViewTabBarHeight = 40.0f;
-
-static  NSString *cellID = @"cellID";
+static const CGFloat LeftCellHorizontalMargin = 20.0f;
+static const CGFloat LeftCellWidth = 100.0f;
+//static const CGFloat
+static  NSString *MainCellID = @"MainCellID";
+static  NSString *SubCellID = @"SubCellID";
 static const NSTimeInterval AnimationDuration= .4;
+static const CGFloat ButtonHorizontalMargin = 10.0f;
 
-static const CGFloat buttonHorizontalMargin = 10.0f;
+/* fontSize*/
+static const CGFloat MainTitleFontSize = 13.0f;
+static const CGFloat SubTitleFontSize = 12.0f;
+/* color */
+static  NSString *SelectedBGColor = @"F2F2F2";
+static  NSString *UnselectedBGColor = @"FFFFFF";
 //MMComBoBoxView
 
 

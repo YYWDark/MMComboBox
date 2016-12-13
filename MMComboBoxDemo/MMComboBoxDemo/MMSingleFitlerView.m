@@ -33,7 +33,6 @@
 - (void)popupViewFromSourceFrame:(CGRect)frame {
     UIView *rootView = [[UIApplication sharedApplication] keyWindow];
     self.sourceFrame = frame;
-    
     CGFloat top =  CGRectGetMaxY(self.sourceFrame);
     CGFloat maxHeight = kScreenHeigth - DistanceBeteewnPopupViewAndBottom - top - PopupViewTabBarHeight;
     CGFloat resultHeight = MIN(maxHeight, self.item.childrenNodes.count * PopupViewRowHeight);
@@ -50,7 +49,7 @@
 //    self.backgroundColor = [UIColor blueColor];
     self.mainTableView.delegate = self;
     self.mainTableView.dataSource = self;
-    [self.mainTableView registerClass:[MMNormalCell class] forCellReuseIdentifier:cellID];
+    [self.mainTableView registerClass:[MMNormalCell class] forCellReuseIdentifier:MainCellID];
     [self addSubview:self.mainTableView];
     
     //出现的动画
@@ -68,14 +67,14 @@
         
         NSArray *titleArray = @[@"取消",@"确定"];
         for (int i = 0; i < 2 ; i++) {
-            CGFloat left = ((i == 0)?buttonHorizontalMargin:self.width - buttonHorizontalMargin - 100);
+            CGFloat left = ((i == 0)?ButtonHorizontalMargin:self.width - ButtonHorizontalMargin - 100);
             UIColor *titleColor = ((i == 0)?[UIColor blackColor]:[UIColor colorWithHexString:titleSelectedColor]);
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(left, 0, 100, PopupViewTabBarHeight);
             button.tag = i;
             [button setTitle:titleArray[i] forState:UIControlStateNormal];
             [button setTitleColor:titleColor forState:UIControlStateNormal];
-            button.titleLabel.font = [UIFont systemFontOfSize:buttonFontSize];
+            button.titleLabel.font = [UIFont systemFontOfSize:ButtonFontSize];
             [button addTarget:self action:@selector(respondsToButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             [self.bottomView addSubview:button];
         }
@@ -116,6 +115,8 @@
         });
     }
 }
+
+
 #pragma mark - Action
 - (void)respondsToButtonAction:(UIButton *)sender{
     if (sender.tag == 0) {//取消
@@ -130,7 +131,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MMNormalCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    MMNormalCell *cell = [tableView dequeueReusableCellWithIdentifier:MainCellID forIndexPath:indexPath];
     MMItem *item = self.item.childrenNodes[indexPath.row];
     cell.item = item;
     return cell;

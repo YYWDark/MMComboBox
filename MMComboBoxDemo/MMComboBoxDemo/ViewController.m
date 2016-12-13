@@ -42,11 +42,13 @@
     //根3
     MMItem *rootItem3 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"附近"];
     
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 30; i++){
         MMItem *item_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:[NSString stringWithFormat:@"市区%d",i]];
         [rootItem3 addNode:item_A];
-        for (int j = 0; j < 10; j ++) {
-        [item_A addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"市区%d县%d",i,j]subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
+        for (int j = 0; j < random()%30; j ++) {
+                [item_A addNodeWithoutMark:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"市区%d县%d",i,j]subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
+            
+        
         }
     }
     

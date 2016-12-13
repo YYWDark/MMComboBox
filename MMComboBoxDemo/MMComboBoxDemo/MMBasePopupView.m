@@ -20,6 +20,7 @@
     if (self) {
         self.shadowView = [[UIView alloc] init];
         self.shadowView.backgroundColor = [UIColor colorWithHexString:@"484848"];
+        
     }
     return self;
 }

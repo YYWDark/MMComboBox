@@ -9,5 +9,17 @@
 #import "MMAlternativeItem.h"
 
 @implementation MMAlternativeItem
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
 
++ (instancetype)itemWithTitle:(NSString *)title isSelected:(BOOL)isSelected {
+    MMAlternativeItem *item = [[[self class] alloc] init];
+    item.title = title;
+    item.isSelected = isSelected;
+    return item;
+}
 @end

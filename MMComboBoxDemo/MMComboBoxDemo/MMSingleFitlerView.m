@@ -36,7 +36,7 @@
     return self;
 }
 
-- (void)popupViewFromSourceFrame:(CGRect)frame {
+- (void)popupViewFromSourceFrame:(CGRect)frame completion:(void (^ __nullable)(void))completion {
     UIView *rootView = [[UIApplication sharedApplication] keyWindow];
     self.sourceFrame = frame;
     CGFloat top =  CGRectGetMaxY(self.sourceFrame);
@@ -64,6 +64,7 @@
         self.mainTableView.frame = self.bounds;
         self.shadowView.alpha = .3;
     } completion:^(BOOL finished) {
+        completion();
         if (self.item.selectedType == MMPopupViewSingleSelection) return ;
         self.height += PopupViewTabBarHeight;
         self.bottomView = [[UIView alloc] init];
@@ -86,6 +87,7 @@
         }
         
     }];
+    
 }
 
 - (void)dismiss{

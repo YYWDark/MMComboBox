@@ -20,6 +20,7 @@
 @property (nonatomic, strong) CALayer *topLine;
 @property (nonatomic, strong) CALayer *bottomLine;
 @property (nonatomic, assign) NSInteger lastTapIndex;       //默认 -1
+@property (nonatomic, assign) BOOL isAnimation;
 @end
 
 @implementation MMComBoBoxView
@@ -70,6 +71,7 @@
 
 #pragma mark - MMDropDownBoxDelegate
 - (void)didTapDropDownBox:(MMDropDownBox *)dropDownBox atIndex:(NSUInteger)index{
+    if (self.isAnimation == YES) return;
     for (int i = 0; i <self.dropDownBoxArray.count; i++) {
         MMDropDownBox *currentBox  = self.dropDownBoxArray[i];
         [currentBox updateTitleState:(i == index)];
@@ -83,11 +85,14 @@
         [self.symbolArray removeAllObjects];
         
     }else{
+        self.isAnimation = YES;
         MMItem *item = self.itemArray[index];
         MMBasePopupView *popupView = [MMBasePopupView getSubPopupView:item];
         popupView.delegate = self;
         popupView.tag = index;
-        [popupView popupViewFromSourceFrame:self.frame];
+        [popupView popupViewFromSourceFrame:self.frame completion:^{
+           self.isAnimation = NO;
+        }];
         [self.symbolArray addObject:popupView];
     }
 }

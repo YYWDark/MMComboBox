@@ -10,6 +10,7 @@
 
 @interface MMAlternativeItem : NSObject
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, assign) BOOL *isSelected;
-@property (nonatomic, strong) NSMutableArray *childNode;
+@property (nonatomic, assign) BOOL isSelected;
+
++ (instancetype)itemWithTitle:(NSString *)title isSelected:(BOOL)isSelected;
 @end

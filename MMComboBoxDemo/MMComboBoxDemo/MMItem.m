@@ -12,7 +12,7 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        
+        self.alternativeArray = [NSMutableArray array];
         self.childrenNodes = [NSMutableArray array];
     }
     return self;
@@ -48,7 +48,7 @@
 }
 
 - (void)findTheTypeOfPopUpView{
-    if (self.AlternativeArray.count) {
+    if (self.alternativeArray.count) {
         self.displayType = MMPopupViewDisplayTypeFilters;
         return;
     }

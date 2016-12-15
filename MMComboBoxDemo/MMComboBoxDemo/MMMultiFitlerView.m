@@ -10,10 +10,13 @@
 #import "MMHeader.h"
 #import "MMLeftCell.h"
 #import "MMNormalCell.h"
+#import "MMSelectedPath.h"
+
 @interface MMMultiFitlerView ()
 @property (nonatomic, assign) NSUInteger selectedIndex;
 @property (nonatomic, assign) NSUInteger minRowNumber;
-@property (nonatomic, strong) NSIndexPath *lastIndexPath; //记录上一个点击右边的路劲
+
+//@property (nonatomic, strong) NSIndexPath *lastIndexPath; //记录上一个点击右边的路劲
 
 @end
 @implementation MMMultiFitlerView
@@ -21,10 +24,14 @@
     self = [super init];
     if (self) {
         self.item = item;
+//        self.selectedIndex = [self _findLeftSelectedIndex];
+        MMSelectedPath *selectedPath = [MMSelectedPath pathWithFirstPath:[self _findLeftSelectedIndex]];
         self.selectedIndex = [self _findLeftSelectedIndex];
         if ([self _findRightSelectedIndex:self.selectedIndex] != -1) {
-            self.lastIndexPath = [NSIndexPath indexPathForRow:[self _findRightSelectedIndex:self.selectedIndex] inSection:self.selectedIndex];
+//            self.lastIndexPath = [NSIndexPath indexPathForRow:[self _findRightSelectedIndex:self.selectedIndex] inSection:self.selectedIndex];
+            selectedPath.secondPath = [self _findRightSelectedIndex:self.selectedIndex];
         }
+        [self.selectedArray addObject:selectedPath];
         self.minRowNumber = 4;
         self.backgroundColor = [UIColor whiteColor];
     }
@@ -48,8 +55,16 @@
 }
 
 - (void)callBackDelegate {
-    if ([self.delegate respondsToSelector:@selector(popupView:didSelectedItemsPackagingInDictionary: atIndex:)]) {
-        [self.delegate popupView:self didSelectedItemsPackagingInDictionary:@{self.item.childrenNodes[self.lastIndexPath.section].title : self.selectedArray} atIndex:self.tag];
+//    if ([self.delegate respondsToSelector:@selector(popupView:didSelectedItemsPackagingInDictionary: atIndex:)]) {
+//        [self.delegate popupView:self didSelectedItemsPackagingInDictionary:@{self.item.childrenNodes[self.lastIndexPath.section].title : self.selectedArray} atIndex:self.tag];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [self dismiss];
+//        });
+//    }
+    
+    if ([self.delegate respondsToSelector:@selector(popupView:didSelectedItemsPackagingInArray:atIndex:)]) {
+        [self.delegate popupView:self didSelectedItemsPackagingInArray:self.selectedArray  atIndex:self.tag];
+//        [self.mainTableView reloadData];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self dismiss];
         });
@@ -57,7 +72,7 @@
 }
 #pragma mark - public method
 
-- (void)popupViewFromSourceFrame:(CGRect)frame {
+- (void)popupViewFromSourceFrame:(CGRect)frame completion:(void (^ __nullable)(void))completion {
     UIView *rootView = [[UIApplication sharedApplication] keyWindow];
     self.sourceFrame = frame;
     CGFloat top =  CGRectGetMaxY(self.sourceFrame);
@@ -104,16 +119,17 @@
         self.mainTableView.frame = CGRectMake(0, 0, LeftCellWidth, self.height);
         self.subTableView.frame = CGRectMake(LeftCellWidth, 0,  self.width - LeftCellWidth, self.height);
     } completion:^(BOOL finished) {
-        
+        completion();
     }];
     
 }
 
 - (void)dismiss{
     //设置最后选中的赋给left cell
-    if ([self _findLeftSelectedIndex] != self.lastIndexPath.section) {
+    MMSelectedPath *path = [self.selectedArray lastObject];
+    if ([self _findLeftSelectedIndex] != path.firstPath) {
         self.item.childrenNodes[[self _findLeftSelectedIndex]].isSelected = NO;
-        self.item.childrenNodes[self.lastIndexPath.section].isSelected = YES;
+        self.item.childrenNodes[path.firstPath].isSelected = YES;
     }
     
     if ([self.delegate respondsToSelector:@selector(popupViewWillDismiss:)]) {
@@ -165,18 +181,17 @@
         [self.mainTableView reloadData];
         [self.subTableView reloadData];
     }else{ //subTableView
-        //单选所以直接清空
-        [self.selectedArray removeAllObjects];
-        if(self.lastIndexPath != nil){
-        MMItem *lastItem =self.item.childrenNodes[self.lastIndexPath.section].childrenNodes[self.lastIndexPath.row];
+        
+        MMSelectedPath *selectdPath = [self.selectedArray lastObject];
+        if (selectdPath.firstPath == self.selectedIndex && selectdPath.secondPath == indexPath.row) return;
+        MMItem *lastItem = self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath];
         lastItem.isSelected = NO;
-        }
+        [self.selectedArray removeAllObjects];
         MMItem *currentIndex =self.item.childrenNodes[self.selectedIndex].childrenNodes[indexPath.row];
         currentIndex.isSelected = YES;
-        self.lastIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:self.selectedIndex];
-
+        [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:self.selectedIndex secondPath:indexPath.row]];
         [self.subTableView reloadData];
-//        [self callBackDelegate];
+        [self callBackDelegate];
 
     }
     

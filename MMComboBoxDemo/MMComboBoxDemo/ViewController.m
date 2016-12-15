@@ -10,6 +10,8 @@
 #import "MMComBoBoxView.h"
 #import "MMItem.h"
 #import "MMHeader.h"
+#import "MMAlternativeItem.h"
+
 @interface ViewController () <MMComBoBoxViewDataSource>
 @property (nonatomic, strong) NSMutableArray *mutableArray;
 @end
@@ -27,6 +29,7 @@
     //第一层
 //    [rootItem1 addNode:rootItem1];
     for (int i = 0; i < 20; i ++) {
+        
         [rootItem1 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"蛋糕系列%d",i] subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
     }
     
@@ -41,25 +44,41 @@
     
     //根3
     MMItem *rootItem3 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"附近"];
-    
     for (int i = 0; i < 30; i++){
-        MMItem *item_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:[NSString stringWithFormat:@"市区%d",i]];
-        [rootItem3 addNode:item_A];
+        MMItem *item3_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:[NSString stringWithFormat:@"市区%d",i]];
+        [rootItem3 addNode:item3_A];
         for (int j = 0; j < random()%30; j ++) {
             if (i == 0 &&j == 0) {
-                 [item_A addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"市区%d县%d",i,j]subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
+                 [item3_A addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"市区%d县%d",i,j]subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
             }else{
-                [item_A addNodeWithoutMark:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"市区%d县%d",i,j]subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
+                [item3_A addNodeWithoutMark:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"市区%d县%d",i,j]subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
             }
-            
-            
-        
+        }
+    }
+    
+    //根四
+    MMItem *rootItem4 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"筛选"];
+    MMAlternativeItem *alternativeItem1 = [MMAlternativeItem itemWithTitle:@"" isSelected:NO];
+    MMAlternativeItem *alternativeItem2 = [MMAlternativeItem itemWithTitle:@"" isSelected:NO];
+    [rootItem4.alternativeArray addObject:alternativeItem1];
+    [rootItem4.alternativeArray addObject:alternativeItem2];
+    
+    NSArray *arr = @[@{@"用餐时段":@[@"不限",@"早餐",@"午餐",@"下午茶",@"晚餐",@"夜宵"]},
+                     @{@"用餐人数":@[@"不限",@"单人餐",@"双人餐",@"3~4人餐",@"5~10人餐",@"10人以上",@"代金券",@"其他"]},
+                     @{@"餐厅服务":@[@"不限",@"优惠买单",@"在线点餐",@"外卖送餐",@"预定",@"食客推荐",@"在线排队"]} ];
+    
+    for (NSDictionary *itemDic in arr) {
+        MMItem *item4_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:[itemDic.allKeys lastObject]];
+        [rootItem4 addNode:item4_A];
+        for (NSString *title in itemDic.allValues) {
+            [item4_A addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:title]];
         }
     }
     
     [self.mutableArray addObject:rootItem1];
     [self.mutableArray addObject:rootItem2];
     [self.mutableArray addObject:rootItem3];
+    [self.mutableArray addObject:rootItem4];
     MMComBoBoxView *view = [[MMComBoBoxView alloc] initWithFrame:CGRectMake(0, 100, kScreenWidth, 40)];
     view.dataSource = self;
     [self.view addSubview:view];

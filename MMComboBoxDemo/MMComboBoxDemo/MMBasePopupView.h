@@ -27,7 +27,8 @@
 
 + (MMBasePopupView *)getSubPopupView:(MMItem *)item;
 - (id)initWithItem:(MMItem *)item;
-- (void)popupViewFromSourceFrame:(CGRect)frame;
+
+- (void)popupViewFromSourceFrame:(CGRect)frame completion:(void (^ __nullable)(void))completion;
 - (void)dismiss;
 @end
 

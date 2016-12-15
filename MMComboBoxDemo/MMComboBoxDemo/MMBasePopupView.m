@@ -20,7 +20,8 @@
     if (self) {
         self.shadowView = [[UIView alloc] init];
         self.shadowView.backgroundColor = [UIColor colorWithHexString:@"484848"];
-        
+        self.selectedArray = [NSMutableArray array];
+        self.temporaryArray = [NSMutableArray array];
     }
     return self;
 }

@@ -23,7 +23,7 @@ static const CGFloat  ButtonFontSize = 14.0f;
 //MMPopupView
 
 static const CGFloat PopupViewRowHeight = 44.0f;
-static const CGFloat DistanceBeteewnPopupViewAndBottom = 40.0f;
+static const CGFloat DistanceBeteewnPopupViewAndBottom = 80.0f;
 static const CGFloat PopupViewTabBarHeight = 40.0f;
 static const CGFloat LeftCellHorizontalMargin = 20.0f;
 static const CGFloat LeftCellWidth = 100.0f;

@@ -9,9 +9,10 @@
 #import "MMSingleFitlerView.h"
 #import "MMHeader.h"
 #import "MMNormalCell.h"
+#import "MMSelectedPath.h"
 
 @interface MMSingleFitlerView ()
-@property (nonatomic, strong) NSMutableArray *selectedArray;
+@property (nonatomic, assign) BOOL isSuccessfulToCallBack;
 @property (nonatomic, strong) UIView *bottomView;
 @end
 @implementation MMSingleFitlerView
@@ -20,11 +21,16 @@
     if (self) {
         self.item = item;
         self.selectedArray = [NSMutableArray array];
+        
         for (int i = 0; i < self.item.childrenNodes.count; i++) {
             MMItem *subItem = item.childrenNodes[i];
-            if (subItem.isSelected == YES)
-                [self.selectedArray addObject:@(i)];
+            if (subItem.isSelected == YES){
+                MMSelectedPath *path = [[MMSelectedPath alloc] init];
+                path.firstPath = i;
+                [self.selectedArray addObject:path];
+            }
         }
+        self.temporaryArray= [[NSArray alloc] initWithArray:self.selectedArray copyItems:YES] ;
         self.backgroundColor = [UIColor whiteColor];
     }
     return self;
@@ -46,7 +52,7 @@
     
     self.mainTableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain];
     self.mainTableView.rowHeight = PopupViewRowHeight;
-//    self.backgroundColor = [UIColor blueColor];
+
     self.mainTableView.delegate = self;
     self.mainTableView.dataSource = self;
     [self.mainTableView registerClass:[MMNormalCell class] forCellReuseIdentifier:MainCellID];
@@ -83,10 +89,11 @@
 }
 
 - (void)dismiss{
+    [self _resetValue];
+    
     if ([self.delegate respondsToSelector:@selector(popupViewWillDismiss:)]) {
         [self.delegate popupViewWillDismiss:self];
     }
-    
     
     if (self.item.selectedType == MMPopupViewMultilSeMultiSelection) {
         self.bottomView.hidden = YES;   
@@ -95,7 +102,6 @@
     CGFloat top =  CGRectGetMaxY(self.sourceFrame);
     //消失的动画
     [UIView animateWithDuration:AnimationDuration animations:^{
-//        self.imageView.hidden = YES;
         self.frame = CGRectMake(0, top, kScreenWidth, 0);
         self.mainTableView.frame = self.bounds;
         self.shadowView.alpha = 0.0;
@@ -107,21 +113,48 @@
 }
 
 - (void)callBackDelegate {
-    if ([self.delegate respondsToSelector:@selector(popupView:didSelectedItemsPackagingInDictionary: atIndex:)]) {
-        [self.delegate popupView:self didSelectedItemsPackagingInDictionary:@{self.item.title : self.selectedArray} atIndex:self.tag];
+    if ([self.delegate respondsToSelector:@selector(popupView:didSelectedItemsPackagingInArray:atIndex:)]) {
+        [self.delegate popupView:self didSelectedItemsPackagingInArray:self.selectedArray  atIndex:self.tag];
         [self.mainTableView reloadData];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self dismiss];
-        });
+                    [self dismiss];
+                });
+    }
+}
+#pragma mark - Private Method
+- (void)_resetValue{
+    //恢复成以前的值
+    if (self.isSuccessfulToCallBack == NO) {
+        for (MMItem *item in self.item.childrenNodes) {
+            item.isSelected = NO;
+        }
+        for (MMSelectedPath *path in self.temporaryArray) {
+            self.item.childrenNodes[path.firstPath].isSelected = YES;
+        }
     }
 }
 
+- (BOOL)_iscontainsSelectedPath:(MMSelectedPath *)path sourceArray:(NSMutableArray *)array{
+    for (MMSelectedPath *selectedpath in array) {
+        if (selectedpath.firstPath == path.firstPath ) return YES;
+    }
+    return NO;
+}
 
+- (void)_removePath:(MMSelectedPath *)path sourceArray:(NSMutableArray *)array {
+    for (MMSelectedPath *selectedpath in array) {
+        if (selectedpath.firstPath == path.firstPath ) {
+            [array removeObject:selectedpath];
+            return;
+        }
+    }
+}
 #pragma mark - Action
 - (void)respondsToButtonAction:(UIButton *)sender{
     if (sender.tag == 0) {//取消
       [self dismiss];
     } else if (sender.tag == 1) {//确定
+    self.isSuccessfulToCallBack = YES;
     [self callBackDelegate];
     }
 }
@@ -139,27 +172,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.item.selectedType == MMPopupViewMultilSeMultiSelection) { //多选
-        if ([self.selectedArray containsObject:@(indexPath.row)]) {
-            [self.selectedArray removeObject:@(indexPath.row)];
+        if ([self _iscontainsSelectedPath:[MMSelectedPath pathWithFirstPath:indexPath.row] sourceArray:self.selectedArray]) {
+            [self _removePath:[MMSelectedPath pathWithFirstPath:indexPath.row] sourceArray:self.selectedArray];
             self.item.childrenNodes[indexPath.row].isSelected = NO;
         }else {
-            [self.selectedArray addObject:@(indexPath.row)];
+            [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:indexPath.row]];
             self.item.childrenNodes[indexPath.row].isSelected = YES;
         }
       [self.mainTableView reloadData];
     }else if (self.item.selectedType == MMPopupViewSingleSelection) { //单选
         //如果点击的已经选中的直接返回
-        if ([self.selectedArray containsObject:@(indexPath.row)]) return;
+        if ([self _iscontainsSelectedPath:[MMSelectedPath pathWithFirstPath:indexPath.row] sourceArray:self.selectedArray]) return;
            //remove
-            NSUInteger lastItem = [self.selectedArray[0] integerValue];
-            self.item.childrenNodes[lastItem].isSelected = NO;
+            MMSelectedPath *lastSelectedPath = self.selectedArray[0] ;
+            self.item.childrenNodes[lastSelectedPath.firstPath].isSelected = NO;
             [self.selectedArray removeLastObject];
            //add
             self.item.childrenNodes[indexPath.row].isSelected = YES;
-            [self.selectedArray addObject:@(indexPath.row)];
+            [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:indexPath.row]];
         
             [self callBackDelegate];
-        
     }
 }
 

@@ -59,4 +59,11 @@
         }
     }
 }
+
+- (NSString *)findTitleBySelectedPath:(MMSelectedPath *)selectedPath{
+    if (selectedPath.secondPath != -1) {
+        return [self.childrenNodes[selectedPath.firstPath].childrenNodes[selectedPath.secondPath] title];
+    }
+    return [self.childrenNodes[selectedPath.firstPath] title];
+}
 @end

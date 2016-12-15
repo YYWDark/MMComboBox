@@ -14,20 +14,18 @@
 @property (nonatomic, assign) NSUInteger selectedIndex;
 @property (nonatomic, assign) NSUInteger minRowNumber;
 @property (nonatomic, strong) NSIndexPath *lastIndexPath; //记录上一个点击右边的路劲
-@property (nonatomic, strong) NSMutableArray *selectedArray;
+
 @end
 @implementation MMMultiFitlerView
 - (id)initWithItem:(MMItem *)item{
     self = [super init];
     if (self) {
-        self.selectedArray = [NSMutableArray array];
         self.item = item;
         self.selectedIndex = [self _findLeftSelectedIndex];
         if ([self _findRightSelectedIndex:self.selectedIndex] != -1) {
             self.lastIndexPath = [NSIndexPath indexPathForRow:[self _findRightSelectedIndex:self.selectedIndex] inSection:self.selectedIndex];
         }
         self.minRowNumber = 4;
-       
         self.backgroundColor = [UIColor whiteColor];
     }
     return self;

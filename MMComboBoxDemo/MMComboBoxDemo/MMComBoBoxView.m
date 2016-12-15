@@ -10,6 +10,7 @@
 #import "MMDropDownBox.h"
 #import "MMHeader.h"
 #import "MMBasePopupView.h"
+#import "MMSelectedPath.h"
 
 @interface MMComBoBoxView () <MMDropDownBoxDelegate,MMPopupViewDelegate>
 //@property (nonatomic, strong) NSArray *data;
@@ -101,7 +102,18 @@
         NSNumber *number = indexArray[i]; 
         [title appendString:i?[NSString stringWithFormat:@";%@",[item.childrenNodes[[number integerValue]] title]]:[item.childrenNodes[[number integerValue]] title]];
     }
+    MMDropDownBox *box = self.dropDownBoxArray[index];
+    [box updateTitleContent:title];
+}
 
+- (void)popupView:(MMBasePopupView *)popupView didSelectedItemsPackagingInArray:(NSArray *)array atIndex:(NSUInteger)index{
+    //拼接选择项
+    MMItem *item = self.itemArray[index];
+    NSMutableString *title = [NSMutableString string];
+    for (int i = 0; i <array.count; i++) {
+        MMSelectedPath *path = array[i];
+        [title appendString:i?[NSString stringWithFormat:@";%@",[item findTitleBySelectedPath:path]]:[item findTitleBySelectedPath:path]];
+    }
     MMDropDownBox *box = self.dropDownBoxArray[index];
     [box updateTitleContent:title];
 }

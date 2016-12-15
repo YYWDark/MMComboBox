@@ -32,6 +32,7 @@
 		750708C81DFE490E00D21D49 /* pullup.png in Resources */ = {isa = PBXBuildFile; fileRef = 750708C61DFE490E00D21D49 /* pullup.png */; };
 		750708C91DFE490E00D21D49 /* pulldown.png in Resources */ = {isa = PBXBuildFile; fileRef = 750708C71DFE490E00D21D49 /* pulldown.png */; };
 		750708CC1DFFC91400D21D49 /* MMLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708CB1DFFC91400D21D49 /* MMLeftCell.m */; };
+		7547C68A1E00D6BC00DD0398 /* MMSelectedPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 7547C6891E00D6BC00DD0398 /* MMSelectedPath.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,8 @@
 		750708C71DFE490E00D21D49 /* pulldown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pulldown.png; sourceTree = "<group>"; };
 		750708CA1DFFC91300D21D49 /* MMLeftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLeftCell.h; sourceTree = "<group>"; };
 		750708CB1DFFC91400D21D49 /* MMLeftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLeftCell.m; sourceTree = "<group>"; };
+		7547C6881E00D6BC00DD0398 /* MMSelectedPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSelectedPath.h; sourceTree = "<group>"; };
+		7547C6891E00D6BC00DD0398 /* MMSelectedPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSelectedPath.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +218,8 @@
 				750708541DF80BBF00D21D49 /* MMItem.m */,
 				750708591DF810F800D21D49 /* MMAlternativeItem.h */,
 				7507085A1DF810F800D21D49 /* MMAlternativeItem.m */,
+				7547C6881E00D6BC00DD0398 /* MMSelectedPath.h */,
+				7547C6891E00D6BC00DD0398 /* MMSelectedPath.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 				7507084E1DF80B1F00D21D49 /* MMBasePopupView.m in Sources */,
 				7507085E1DF8EA0500D21D49 /* MMDropDownBox.m in Sources */,
 				750708751DF8EAFD00D21D49 /* UIColor+Extension.m in Sources */,
+				7547C68A1E00D6BC00DD0398 /* MMSelectedPath.m in Sources */,
 				750708741DF8EAFD00D21D49 /* NSObject+Calculate.m in Sources */,
 				750708761DF8EAFD00D21D49 /* UIView+Extension.m in Sources */,
 				750708201DF80A7700D21D49 /* ViewController.m in Sources */,

@@ -33,6 +33,7 @@
 		750708C91DFE490E00D21D49 /* pulldown.png in Resources */ = {isa = PBXBuildFile; fileRef = 750708C71DFE490E00D21D49 /* pulldown.png */; };
 		750708CC1DFFC91400D21D49 /* MMLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708CB1DFFC91400D21D49 /* MMLeftCell.m */; };
 		7547C68A1E00D6BC00DD0398 /* MMSelectedPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 7547C6891E00D6BC00DD0398 /* MMSelectedPath.m */; };
+		75F760B01E03D4AE00487438 /* MMLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F760AF1E03D4AE00487438 /* MMLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,8 @@
 		750708CB1DFFC91400D21D49 /* MMLeftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLeftCell.m; sourceTree = "<group>"; };
 		7547C6881E00D6BC00DD0398 /* MMSelectedPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSelectedPath.h; sourceTree = "<group>"; };
 		7547C6891E00D6BC00DD0398 /* MMSelectedPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSelectedPath.m; sourceTree = "<group>"; };
+		75F760AE1E03D4AE00487438 /* MMLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLayout.h; sourceTree = "<group>"; };
+		75F760AF1E03D4AE00487438 /* MMLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +263,8 @@
 				750708C11DFA816500D21D49 /* MMNormalCell.m */,
 				750708CA1DFFC91300D21D49 /* MMLeftCell.h */,
 				750708CB1DFFC91400D21D49 /* MMLeftCell.m */,
+				75F760AE1E03D4AE00487438 /* MMLayout.h */,
+				75F760AF1E03D4AE00487438 /* MMLayout.m */,
 			);
 			name = PopupView;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				750708BF1DF94B1900D21D49 /* MMCombinationFitlerView.m in Sources */,
 				750708BC1DF94AD100D21D49 /* MMMultiFitlerView.m in Sources */,
 				750708CC1DFFC91400D21D49 /* MMLeftCell.m in Sources */,
+				75F760B01E03D4AE00487438 /* MMLayout.m in Sources */,
 				7507081D1DF80A7700D21D49 /* AppDelegate.m in Sources */,
 				750708B91DF94A9400D21D49 /* MMSingleFitlerView.m in Sources */,
 				750708C21DFA816500D21D49 /* MMNormalCell.m in Sources */,

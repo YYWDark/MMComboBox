@@ -7,7 +7,7 @@
 //
 
 #import "MMItem.h"
-
+#import "MMLayout.h"
 @implementation MMItem
 - (instancetype)init{
     self = [super init];
@@ -50,6 +50,7 @@
 - (void)findTheTypeOfPopUpView{
     if (self.alternativeArray.count) {
         self.displayType = MMPopupViewDisplayTypeFilters;
+        self.layout = [MMLayout layoutWithItem:self];
         return;
     }
     for (MMItem *item in self.childrenNodes) { //目前只支持两层 所以不需要去做递归
@@ -59,6 +60,7 @@
         }
     }
 }
+
 
 - (NSString *)findTitleBySelectedPath:(MMSelectedPath *)selectedPath{
     if (selectedPath.secondPath != -1) {

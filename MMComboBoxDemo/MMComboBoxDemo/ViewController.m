@@ -70,7 +70,7 @@
     for (NSDictionary *itemDic in arr) {
         MMItem *item4_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:[itemDic.allKeys lastObject]];
         [rootItem4 addNode:item4_A];
-        for (NSString *title in itemDic.allValues) {
+        for (NSString *title in [itemDic.allValues lastObject]) {
             [item4_A addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:title]];
         }
     }
@@ -79,7 +79,7 @@
     [self.mutableArray addObject:rootItem2];
     [self.mutableArray addObject:rootItem3];
     [self.mutableArray addObject:rootItem4];
-    MMComBoBoxView *view = [[MMComBoBoxView alloc] initWithFrame:CGRectMake(0, 100, kScreenWidth, 40)];
+    MMComBoBoxView *view = [[MMComBoBoxView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, 40)];
     view.dataSource = self;
     [self.view addSubview:view];
     [view reload];

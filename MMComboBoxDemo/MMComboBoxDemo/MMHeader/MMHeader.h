@@ -41,7 +41,17 @@ static  NSString *SelectedBGColor = @"F2F2F2";
 static  NSString *UnselectedBGColor = @"FFFFFF";
 //MMComBoBoxView
 
+//MMCombinationFitlerView
+static const CGFloat AlternativeTitleVerticalMargin = 5.0f;
+static const CGFloat AlternativeTitleHeight = 20.0f;
 
+static const CGFloat TitleVerticalMargin = 5.0f;
+static const CGFloat TitleHeight  = 20.0f;
+
+static const CGFloat ItemHeight  = 20.0f;
+static const CGFloat ItemWidth  = 20.0f;
+static const CGFloat ItemHorizontalMargin = 10.0f;
+static const CGFloat ItemHorizontalDistance = 5.0f;
 //MMDropDownBox
 static const CGFloat DropDownBoxFontSize = 12.0f;
 static const CGFloat ArrowSide = 8.0f;

@@ -25,13 +25,26 @@
 }
 
 - (void)popupViewFromSourceFrame:(CGRect)frame completion:(void (^ __nullable)(void))completion {
+
     UIView *rootView = [[UIApplication sharedApplication] keyWindow];
     self.sourceFrame = frame;
     CGFloat top =  CGRectGetMaxY(self.sourceFrame);
     CGFloat maxHeight = kScreenHeigth - DistanceBeteewnPopupViewAndBottom - top - PopupViewTabBarHeight;
-    CGFloat resultHeight = MIN(maxHeight, self.item.childrenNodes.count * PopupViewRowHeight);
+    CGFloat resultHeight = MIN(maxHeight, self.item.layout.totalHeight);
     self.frame = CGRectMake(0, top, kScreenWidth, 0);
     [rootView addSubview:self];
+    
+    //addSubView
+    self.shadowView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeigth - top);
+    self.shadowView.alpha = 0.0;
+    [self addSubview:self.shadowView];
+    
+    self.mainTableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain];
+    self.mainTableView.delegate = self;
+    self.mainTableView.dataSource = self;
+    [self.mainTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:MainCellID];
+    [self addSubview:self.mainTableView];
+    
     
     [UIView animateWithDuration:AnimationDuration animations:^{
         self.frame = CGRectMake(0, top, kScreenWidth, resultHeight);
@@ -39,24 +52,6 @@
         self.shadowView.alpha = .3;
     } completion:^(BOOL finished) {
         completion();
-//        self.height += PopupViewTabBarHeight;
-//        self.bottomView = [[UIView alloc] init];
-//        self.bottomView.backgroundColor = [UIColor whiteColor];
-//        self.bottomView.frame = CGRectMake(0, self.mainTableView.bottom, self.width, PopupViewTabBarHeight);
-//        [self addSubview:self.bottomView];
-//        NSArray *titleArray = @[@"取消",@"确定"];
-//        for (int i = 0; i < 2 ; i++) {
-//            CGFloat left = ((i == 0)?ButtonHorizontalMargin:self.width - ButtonHorizontalMargin - 100);
-//            UIColor *titleColor = ((i == 0)?[UIColor blackColor]:[UIColor colorWithHexString:titleSelectedColor]);
-//            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//            button.frame = CGRectMake(left, 0, 100, PopupViewTabBarHeight);
-//            button.tag = i;
-//            [button setTitle:titleArray[i] forState:UIControlStateNormal];
-//            [button setTitleColor:titleColor forState:UIControlStateNormal];
-//            button.titleLabel.font = [UIFont systemFontOfSize:ButtonFontSize];
-//            [button addTarget:self action:@selector(respondsToButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-//            [self.bottomView addSubview:button];
-//        }
     }];
 
 }
@@ -78,4 +73,27 @@
         }
     }];
 }
+
+#pragma mark - UITableViewDataSource
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *hearView = [[UIView alloc] init];
+    hearView.backgroundColor = [UIColor redColor];
+    return hearView;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return self.item.layout.headerViewHeight;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.item.childrenNodes.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MainCellID forIndexPath:indexPath];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+ 
+}
+
 @end

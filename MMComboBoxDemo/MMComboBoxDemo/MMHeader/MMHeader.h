@@ -49,7 +49,7 @@ static const CGFloat TitleVerticalMargin = 5.0f;
 static const CGFloat TitleHeight  = 20.0f;
 
 static const CGFloat ItemHeight  = 20.0f;
-static const CGFloat ItemWidth  = 20.0f;
+static const CGFloat ItemWidth  = 40.0f;
 static const CGFloat ItemHorizontalMargin = 10.0f;
 static const CGFloat ItemHorizontalDistance = 5.0f;
 //MMDropDownBox

@@ -8,6 +8,8 @@
 
 #import "MMItem.h"
 #import "MMLayout.h"
+
+#import "MMSelectedPath.h"
 @implementation MMItem
 - (instancetype)init{
     self = [super init];

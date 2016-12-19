@@ -7,15 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MMItem.h"
+@class MMItem;
 #import "MMHeader.h"
 
 @interface MMLayout : NSObject
-@property (nonatomic, assign) NSInteger headerHeight;
-@property (nonatomic, assign) NSInteger alternativeTitleHeight;
-@property (nonatomic, assign) NSInteger titleHeight;
+@property (nonatomic, assign) CGFloat headerViewHeight;
+@property (nonatomic, assign) CGFloat alternativeTitleHeight;
+@property (nonatomic, assign) CGFloat titleHeight;
+@property (nonatomic, assign) CGFloat totalHeight;
 
-@property (nonatomic, strong) NSMutableArray *cellLayoutInfo;
-
+@property (nonatomic, assign) NSInteger rowNumber;
+@property (nonatomic, strong) NSMutableArray *cellLayoutTotalHeight;
+@property (nonatomic, strong) NSMutableArray *cellLayoutTotalInfo;
+//@property (nonatomic, strong) NSMutableArray *
 + (instancetype)layoutWithItem:(MMItem *)item;
 @end

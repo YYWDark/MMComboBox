@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "MMBaseItem.h"
-#import "MMSelectedPath.h"
+@class MMSelectedPath;
 @class MMLayout;
+#import "MMLayout.h"
 @interface MMItem : MMBaseItem
 @property (nonatomic, copy) NSString *title; 
 @property (nonatomic, strong) NSMutableArray <MMItem *> *childrenNodes;     //储存 MMItem

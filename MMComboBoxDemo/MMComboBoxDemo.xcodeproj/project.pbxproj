@@ -215,6 +215,8 @@
 		7507084F1DF80B6C00D21D49 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				75F760AE1E03D4AE00487438 /* MMLayout.h */,
+				75F760AF1E03D4AE00487438 /* MMLayout.m */,
 				750708561DF80D5C00D21D49 /* MMBaseItem.h */,
 				750708571DF80D5C00D21D49 /* MMBaseItem.m */,
 				750708531DF80BBF00D21D49 /* MMItem.h */,
@@ -263,8 +265,6 @@
 				750708C11DFA816500D21D49 /* MMNormalCell.m */,
 				750708CA1DFFC91300D21D49 /* MMLeftCell.h */,
 				750708CB1DFFC91400D21D49 /* MMLeftCell.m */,
-				75F760AE1E03D4AE00487438 /* MMLayout.h */,
-				75F760AF1E03D4AE00487438 /* MMLayout.m */,
 			);
 			name = PopupView;
 			sourceTree = "<group>";

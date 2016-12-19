@@ -27,7 +27,6 @@
    
 }
 
-
 + (MMBasePopupView *)getSubPopupView:(MMItem *)item{
     MMBasePopupView *view;
     switch (item.displayType) {

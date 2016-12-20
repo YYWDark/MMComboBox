@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MMComboBoxDemo/MMMultiFitlerView.m"
-            timestampString = "503483012.992224"
+            filePath = "MMComboBoxDemo/MMCombinationFitlerView.m"
+            timestampString = "503920205.703067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "-callBackDelegate"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "-headerView:didSelectedAtIndex:currentState:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

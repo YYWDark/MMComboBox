@@ -24,11 +24,9 @@
     self = [super init];
     if (self) {
         self.item = item;
-//        self.selectedIndex = [self _findLeftSelectedIndex];
         MMSelectedPath *selectedPath = [MMSelectedPath pathWithFirstPath:[self _findLeftSelectedIndex]];
         self.selectedIndex = [self _findLeftSelectedIndex];
         if ([self _findRightSelectedIndex:self.selectedIndex] != -1) {
-//            self.lastIndexPath = [NSIndexPath indexPathForRow:[self _findRightSelectedIndex:self.selectedIndex] inSection:self.selectedIndex];
             selectedPath.secondPath = [self _findRightSelectedIndex:self.selectedIndex];
         }
         [self.selectedArray addObject:selectedPath];
@@ -55,16 +53,8 @@
 }
 
 - (void)callBackDelegate {
-//    if ([self.delegate respondsToSelector:@selector(popupView:didSelectedItemsPackagingInDictionary: atIndex:)]) {
-//        [self.delegate popupView:self didSelectedItemsPackagingInDictionary:@{self.item.childrenNodes[self.lastIndexPath.section].title : self.selectedArray} atIndex:self.tag];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [self dismiss];
-//        });
-//    }
-    
     if ([self.delegate respondsToSelector:@selector(popupView:didSelectedItemsPackagingInArray:atIndex:)]) {
         [self.delegate popupView:self didSelectedItemsPackagingInArray:self.selectedArray  atIndex:self.tag];
-//        [self.mainTableView reloadData];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self dismiss];
         });

@@ -23,7 +23,7 @@ static const CGFloat  ButtonFontSize = 14.0f;
 //MMPopupView
 
 static const CGFloat PopupViewRowHeight = 44.0f;
-static const CGFloat DistanceBeteewnPopupViewAndBottom = 80.0f;
+static const CGFloat DistanceBeteewnPopupViewAndBottom =40.0f;
 static const CGFloat PopupViewTabBarHeight = 40.0f;
 static const CGFloat LeftCellHorizontalMargin = 20.0f;
 static const CGFloat LeftCellWidth = 100.0f;
@@ -42,14 +42,14 @@ static  NSString *UnselectedBGColor = @"FFFFFF";
 //MMComBoBoxView
 
 //MMCombinationFitlerView
-static const CGFloat AlternativeTitleVerticalMargin = 5.0f;
-static const CGFloat AlternativeTitleHeight = 20.0f;
+static const CGFloat AlternativeTitleVerticalMargin = 10.0f;
+static const CGFloat AlternativeTitleHeight = 31.0f;
 
-static const CGFloat TitleVerticalMargin = 5.0f;
+static const CGFloat TitleVerticalMargin = 10.0f;
 static const CGFloat TitleHeight  = 20.0f;
 
-static const CGFloat ItemHeight  = 20.0f;
-static const CGFloat ItemWidth  = 40.0f;
+static const CGFloat ItemHeight  = 30.0f;
+static const CGFloat ItemWidth  = 80.0f;
 static const CGFloat ItemHorizontalMargin = 10.0f;
 static const CGFloat ItemHorizontalDistance = 5.0f;
 //MMDropDownBox

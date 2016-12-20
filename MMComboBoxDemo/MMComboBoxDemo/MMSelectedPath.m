@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         self.secondPath = -1;
+        self.isKindOfAlternative = NO;
     }
     return self;
 }
@@ -29,6 +30,13 @@
     MMSelectedPath *path = [[[self class] alloc] init];
     path.firstPath = firstPath;
     return path;
+}
+
++ (instancetype)pathWithFirstPath:(NSInteger)firstPath isKindOfAlternative:(BOOL)isKindOfAlternative isOn:(BOOL)isOn{
+   MMSelectedPath *path = [MMSelectedPath pathWithFirstPath:firstPath];
+   path.isKindOfAlternative = YES;
+   path.isOn = isOn;
+   return path;
 }
 
 - (id)copyWithZone:(nullable NSZone *)zone{

@@ -58,8 +58,8 @@
     
     //根四
     MMItem *rootItem4 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"筛选"];
-    MMAlternativeItem *alternativeItem1 = [MMAlternativeItem itemWithTitle:@"" isSelected:NO];
-    MMAlternativeItem *alternativeItem2 = [MMAlternativeItem itemWithTitle:@"" isSelected:NO];
+    MMAlternativeItem *alternativeItem1 = [MMAlternativeItem itemWithTitle:@"只看免预约" isSelected:NO];
+    MMAlternativeItem *alternativeItem2 = [MMAlternativeItem itemWithTitle:@"节假日可用" isSelected:YES];
     [rootItem4.alternativeArray addObject:alternativeItem1];
     [rootItem4.alternativeArray addObject:alternativeItem2];
     

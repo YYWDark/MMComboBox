@@ -152,7 +152,7 @@
     }
 }
 #pragma mark - Action
-- (void)respondsToButtonAction:(UIButton *)sender{
+- (void)respondsToButtonAction:(UIButton *)sender {
     if (sender.tag == 0) {//取消
       [self dismiss];
     } else if (sender.tag == 1) {//确定

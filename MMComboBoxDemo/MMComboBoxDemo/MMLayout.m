@@ -41,11 +41,11 @@
         for (int j = 0; j < columnNumber; j ++){
             if ( j ==  columnNumber -1) {
                 for (int k = 0; k < (subItem.childrenNodes.count %layout.rowNumber?subItem.childrenNodes.count%layout.rowNumber:layout.rowNumber) ; k++) {
-                    [array addObject:@[@(k*ItemWidth + ItemHorizontalMargin),@((2*TitleVerticalMargin + ItemHeight) + j*(ItemHeight + TitleVerticalMargin))]];
+                    [array addObject:@[@(k*(ItemWidth + ItemHorizontalDistance) + ItemHorizontalMargin),@((2*TitleVerticalMargin + ItemHeight) + j*(ItemHeight + TitleVerticalMargin))]];
                 }
             }else {
                 for (int m = 0; m < layout.rowNumber; m++) {
-                    [array addObject:@[@(m*ItemWidth + ItemHorizontalMargin),@((2*TitleVerticalMargin + ItemHeight) + j*(ItemHeight + TitleVerticalMargin))]];
+                    [array addObject:@[@(m*(ItemWidth + ItemHorizontalDistance) + ItemHorizontalMargin),@((2*TitleVerticalMargin + ItemHeight) + j*(ItemHeight + TitleVerticalMargin))]];
                 }
             }
         }

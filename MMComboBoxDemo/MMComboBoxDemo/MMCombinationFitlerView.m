@@ -8,8 +8,12 @@
 
 #import "MMCombinationFitlerView.h"
 #import "MMHeader.h"
-
-@interface MMCombinationFitlerView ()
+#import "MMCombineCell.h"
+#import "MMHeaderView.h"
+#import "MMSelectedPath.h"
+#import "MMAlternativeItem.h"
+@interface MMCombinationFitlerView () <MMHeaderViewDelegate,MMCombineCellDelegate>
+@property (nonatomic, strong) UIView *bottomView;
 @end
 
 @implementation MMCombinationFitlerView
@@ -19,7 +23,25 @@
     if (self) {
         self.item = item;
         self.selectedArray = [NSMutableArray array];
-        self.backgroundColor = [UIColor randomColor];
+        
+        //单选
+        for (int i = 0; i < self.item.alternativeArray.count; i++) {
+            MMAlternativeItem *alternativeItem = self.item.alternativeArray[i];
+            [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:i isKindOfAlternative:YES isOn:alternativeItem.isSelected]];
+        }
+        //多层
+        for (int i = 0; i < self.item.childrenNodes.count; i++) {
+            MMItem *subItem = item.childrenNodes[i];
+            for (int j = 0; j <subItem.childrenNodes.count; j++) {
+                MMItem *secondItem = subItem.childrenNodes[j];
+                if (secondItem.isSelected == YES){
+                    [self.selectedArray addObject: [MMSelectedPath pathWithFirstPath:i secondPath:j]];
+                    break;
+                }
+            }
+        }
+        self.temporaryArray= [[NSArray alloc] initWithArray:self.selectedArray copyItems:YES] ;
+        
     }
     return self;
 }
@@ -39,10 +61,10 @@
     self.shadowView.alpha = 0.0;
     [self addSubview:self.shadowView];
     
-    self.mainTableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain];
+    self.mainTableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStyleGrouped];
     self.mainTableView.delegate = self;
     self.mainTableView.dataSource = self;
-    [self.mainTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:MainCellID];
+    [self.mainTableView registerClass:[MMCombineCell class] forCellReuseIdentifier:MainCellID];
     [self addSubview:self.mainTableView];
     
     
@@ -52,6 +74,24 @@
         self.shadowView.alpha = .3;
     } completion:^(BOOL finished) {
         completion();
+        self.height += PopupViewTabBarHeight;
+        self.bottomView = [[UIView alloc] init];
+        self.bottomView.backgroundColor = [UIColor colorWithHexString:@"FCFAFD"];
+        self.bottomView.frame = CGRectMake(0, self.mainTableView.bottom, self.width, PopupViewTabBarHeight);
+        [self addSubview:self.bottomView];
+        NSArray *titleArray = @[@"重置",@"确定"];
+        for (int i = 0; i < 2 ; i++) {
+            CGFloat left = ((i == 0)?ButtonHorizontalMargin:self.width - ButtonHorizontalMargin - 100);
+            UIColor *titleColor = ((i == 0)?[UIColor blackColor]:[UIColor colorWithHexString:titleSelectedColor]);
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.frame = CGRectMake(left, 0, 100, PopupViewTabBarHeight);
+            button.tag = i;
+            [button setTitle:titleArray[i] forState:UIControlStateNormal];
+            [button setTitleColor:titleColor forState:UIControlStateNormal];
+            button.titleLabel.font = [UIFont systemFontOfSize:ButtonFontSize];
+            [button addTarget:self action:@selector(respondsToButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+            [self.bottomView addSubview:button];
+        }
     }];
 
 }
@@ -74,26 +114,105 @@
     }];
 }
 
+- (BOOL)_iscontainsSelectedPath:(MMSelectedPath *)path sourceArray:(NSMutableArray *)array{
+    for (MMSelectedPath *selectedpath in array) {
+        if (selectedpath.firstPath == path.firstPath && selectedpath.secondPath == path.secondPath) return YES;
+    }
+    return NO;
+}
+
+- (MMSelectedPath *)_removePath:(MMSelectedPath *)path sourceArray:(NSMutableArray *)array {
+    for (MMSelectedPath *selectedpath in array) {
+        if (selectedpath.firstPath == path.firstPath && selectedpath.isKindOfAlternative == NO) {
+            MMSelectedPath *returnPath = selectedpath;
+            [array removeObject:selectedpath];
+            return returnPath;
+        }
+    }
+    return nil;
+}
+
+- (MMSelectedPath *)_findAlternativeItemAtIndex:(NSInteger)index sourceArray:(NSMutableArray *)array{
+    for (MMSelectedPath *selectedpath in array) {
+        if (selectedpath.firstPath == index && selectedpath.isKindOfAlternative == YES) {
+            return selectedpath;
+        }
+    }
+    return nil;
+}
+
+- (void)resetValue {    
+    for (int i = 0; i < self.selectedArray.count; i++) {
+        MMSelectedPath *path = self.selectedArray[i];
+        if (path.isKindOfAlternative == YES) {
+            MMItem *item = self.item.alternativeArray[path.firstPath];
+            item.isSelected = NO;
+        }else {
+//            MMItem *item = self.item.childrenNodes[path.firstPath];
+            
+        }
+    }
+    [self.mainTableView reloadData];
+}
+
+#pragma mark - Action
+- (void)respondsToButtonAction:(UIButton *)sender{
+    if (sender.tag == 0) {//重置
+        
+    } else if (sender.tag == 1) {//确定
+        
+
+    }
+}
+
 #pragma mark - UITableViewDataSource
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *hearView = [[UIView alloc] init];
-    hearView.backgroundColor = [UIColor redColor];
-    return hearView;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return self.item.layout.headerViewHeight;
-}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.item.childrenNodes.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MainCellID forIndexPath:indexPath];
+    MMCombineCell *cell = [tableView dequeueReusableCellWithIdentifier:MainCellID forIndexPath:indexPath];
+    cell.item = self.item.childrenNodes[indexPath.row];
+    cell.delegate = self;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
- 
+#pragma mark - UITableViewDelegate
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    MMHeaderView *hearView = [[MMHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.width,self.item.layout.headerViewHeight)];
+    hearView.backgroundColor = [UIColor whiteColor];
+    hearView.item = self.item;
+    hearView.delegate = self;
+    return hearView;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [self.item.layout.cellLayoutTotalHeight[indexPath.row] floatValue];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return self.item.layout.headerViewHeight;
+}
+
+#pragma mark - MMHeaderViewDelegate
+- (void)headerView:(MMHeaderView *)headerView didSelectedAtIndex:(NSInteger)index currentState:(BOOL)isSelected {
+   MMSelectedPath *selectedPath = [self _findAlternativeItemAtIndex:index sourceArray:self.selectedArray];
+   selectedPath.isOn = isSelected;
+}
+
+#pragma mark - MMCombineCellDelegate
+- (void)combineCell:(MMCombineCell *)combineCell didSelectedAtIndex:(NSInteger)index{
+    NSIndexPath *indexPath = [self.mainTableView indexPathForCell:combineCell];
+    if ([self _iscontainsSelectedPath:[MMSelectedPath pathWithFirstPath:indexPath.row secondPath:index] sourceArray:self.selectedArray]) {//包含
+        return;
+    } else {
+      MMSelectedPath *removeIndexPath = [self _removePath:[MMSelectedPath pathWithFirstPath:indexPath.row] sourceArray:self.selectedArray];
+        self.item.childrenNodes[removeIndexPath.firstPath].childrenNodes[removeIndexPath.secondPath].isSelected = NO;
+       [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:indexPath.row secondPath:index]];
+        self.item.childrenNodes[indexPath.row].childrenNodes[index].isSelected = YES;
+    }
+    [self.mainTableView reloadData];
+}
+
 
 @end

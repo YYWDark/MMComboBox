@@ -34,6 +34,8 @@
 		750708CC1DFFC91400D21D49 /* MMLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708CB1DFFC91400D21D49 /* MMLeftCell.m */; };
 		7547C68A1E00D6BC00DD0398 /* MMSelectedPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 7547C6891E00D6BC00DD0398 /* MMSelectedPath.m */; };
 		75F760B01E03D4AE00487438 /* MMLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F760AF1E03D4AE00487438 /* MMLayout.m */; };
+		75F9B3411E08BA9B00E12FF3 /* MMCombineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9B3401E08BA9B00E12FF3 /* MMCombineCell.m */; };
+		75F9B3441E08C01700E12FF3 /* MMHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9B3431E08C01700E12FF3 /* MMHeaderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +108,10 @@
 		7547C6891E00D6BC00DD0398 /* MMSelectedPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSelectedPath.m; sourceTree = "<group>"; };
 		75F760AE1E03D4AE00487438 /* MMLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLayout.h; sourceTree = "<group>"; };
 		75F760AF1E03D4AE00487438 /* MMLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLayout.m; sourceTree = "<group>"; };
+		75F9B33F1E08BA9B00E12FF3 /* MMCombineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCombineCell.h; sourceTree = "<group>"; };
+		75F9B3401E08BA9B00E12FF3 /* MMCombineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCombineCell.m; sourceTree = "<group>"; };
+		75F9B3421E08C01700E12FF3 /* MMHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHeaderView.h; sourceTree = "<group>"; };
+		75F9B3431E08C01700E12FF3 /* MMHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMHeaderView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +271,10 @@
 				750708C11DFA816500D21D49 /* MMNormalCell.m */,
 				750708CA1DFFC91300D21D49 /* MMLeftCell.h */,
 				750708CB1DFFC91400D21D49 /* MMLeftCell.m */,
+				75F9B33F1E08BA9B00E12FF3 /* MMCombineCell.h */,
+				75F9B3401E08BA9B00E12FF3 /* MMCombineCell.m */,
+				75F9B3421E08C01700E12FF3 /* MMHeaderView.h */,
+				75F9B3431E08C01700E12FF3 /* MMHeaderView.m */,
 			);
 			name = PopupView;
 			sourceTree = "<group>";
@@ -419,6 +429,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7507085B1DF810F800D21D49 /* MMAlternativeItem.m in Sources */,
+				75F9B3411E08BA9B00E12FF3 /* MMCombineCell.m in Sources */,
+				75F9B3441E08C01700E12FF3 /* MMHeaderView.m in Sources */,
 				750708611DF8EA2600D21D49 /* MMComBoBoxView.m in Sources */,
 				7507084E1DF80B1F00D21D49 /* MMBasePopupView.m in Sources */,
 				7507085E1DF8EA0500D21D49 /* MMDropDownBox.m in Sources */,

@@ -105,7 +105,7 @@
     //出现的动画
     [UIView animateWithDuration:AnimationDuration animations:^{
         self.frame = CGRectMake(0, top, kScreenWidth, resultHeight);
-        self.shadowView.alpha = .3;
+        self.shadowView.alpha = ShadowAlpha;
         self.mainTableView.frame = CGRectMake(0, 0, LeftCellWidth, self.height);
         self.subTableView.frame = CGRectMake(LeftCellWidth, 0,  self.width - LeftCellWidth, self.height);
     } completion:^(BOOL finished) {

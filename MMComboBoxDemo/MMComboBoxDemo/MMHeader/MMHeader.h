@@ -21,16 +21,16 @@
 static  NSString *titleSelectedColor = @"4EBC72";
 static const CGFloat  ButtonFontSize = 14.0f;
 //MMPopupView
-
 static const CGFloat PopupViewRowHeight = 44.0f;
-static const CGFloat DistanceBeteewnPopupViewAndBottom =40.0f;
+static const CGFloat DistanceBeteewnPopupViewAndBottom =80.0f;
 static const CGFloat PopupViewTabBarHeight = 40.0f;
 static const CGFloat LeftCellHorizontalMargin = 20.0f;
 static const CGFloat LeftCellWidth = 100.0f;
+static const CGFloat ShadowAlpha = .5;
 //static const CGFloat
 static  NSString *MainCellID = @"MainCellID";
 static  NSString *SubCellID = @"SubCellID";
-static const NSTimeInterval AnimationDuration= .4;
+static const NSTimeInterval AnimationDuration= .25;
 static const CGFloat ButtonHorizontalMargin = 10.0f;
 
 /* fontSize*/

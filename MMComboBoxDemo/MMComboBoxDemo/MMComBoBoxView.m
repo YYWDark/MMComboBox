@@ -114,17 +114,18 @@
 }
 
 - (void)popupView:(MMBasePopupView *)popupView didSelectedItemsPackagingInArray:(NSArray *)array atIndex:(NSUInteger)index{
-    if (index == self.itemArray.count - 1) return; //筛选不做UI赋值操作 直接将item的路径回调回去就好了
-    //拼接选择项
     MMItem *item = self.itemArray[index];
-    NSMutableString *title = [NSMutableString string];
-    for (int i = 0; i <array.count; i++) {
-        MMSelectedPath *path = array[i];
-        [title appendString:i?[NSString stringWithFormat:@";%@",[item findTitleBySelectedPath:path]]:[item findTitleBySelectedPath:path]];
-    }
-    MMDropDownBox *box = self.dropDownBoxArray[index];
-    [box updateTitleContent:title];
-    
+    if (item.displayType == MMPopupViewDisplayTypeMultilayer || item.displayType == MMPopupViewDisplayTypeNormal) {
+        //拼接选择项
+        NSMutableString *title = [NSMutableString string];
+        for (int i = 0; i <array.count; i++) {
+            MMSelectedPath *path = array[i];
+            [title appendString:i?[NSString stringWithFormat:@";%@",[item findTitleBySelectedPath:path]]:[item findTitleBySelectedPath:path]];
+        }
+        MMDropDownBox *box = self.dropDownBoxArray[index];
+        [box updateTitleContent:title];
+    }; //筛选不做UI赋值操作 直接将item的路径回调回去就好了
+  
     if ([self.delegate respondsToSelector:@selector(comBoBoxView:didSelectedItemsPackagingInArray:atIndex:)]) {
         [self.delegate comBoBoxView:self didSelectedItemsPackagingInArray:array atIndex:index];
     }

@@ -72,7 +72,7 @@
     [UIView animateWithDuration:AnimationDuration animations:^{
         self.frame = CGRectMake(0, top, kScreenWidth, resultHeight);
         self.mainTableView.frame = self.bounds;
-        self.shadowView.alpha = .3;
+        self.shadowView.alpha = ShadowAlpha;
     } completion:^(BOOL finished) {
         completion();
         self.height += PopupViewTabBarHeight;

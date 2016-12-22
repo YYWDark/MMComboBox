@@ -24,7 +24,6 @@
         self.temporaryArray = [NSMutableArray array];
     }
     return self;
-   
 }
 
 + (MMBasePopupView *)getSubPopupView:(MMItem *)item{

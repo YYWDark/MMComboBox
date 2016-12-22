@@ -11,7 +11,7 @@
 #import "MMItem.h"
 #import "MMHeader.h"
 #import "MMAlternativeItem.h"
-
+#import "MMSelectedPath.h"
 @interface ViewController () <MMComBoBoxViewDataSource, MMComBoBoxViewDelegate>
 @property (nonatomic, strong) NSMutableArray *mutableArray;
 @end
@@ -27,12 +27,11 @@
     rootItem1.selectedType = MMPopupViewMultilSeMultiSelection;
     //first floor
     for (int i = 0; i < 20; i ++) {
-        
         [rootItem1 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"蛋糕系列%d",i] subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
     }
     
    //second root
-   MMItem *rootItem2 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"智能排序"];
+   MMItem *rootItem2 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"排序"];
    //first floor
    [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"智能排序"]]];
    [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"离我最近"]]];
@@ -87,7 +86,9 @@
     [self.view addSubview:view];
     [view reload];
     
-    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, view.bottom, self.view.width, self.view.height - 64)];
+    imageView.image = [UIImage imageNamed:@"1.jpg"];
+    [self.view addSubview:imageView];
     
 }
 
@@ -107,6 +108,38 @@
 
 #pragma mark - MMComBoBoxViewDelegate
 - (void)comBoBoxView:(MMComBoBoxView *)comBoBoxViewd didSelectedItemsPackagingInArray:(NSArray *)array atIndex:(NSUInteger)index{
-    
+    MMItem *rootItem = self.mutableArray[index];
+    switch (rootItem.displayType) {
+        case MMPopupViewDisplayTypeNormal:
+        case MMPopupViewDisplayTypeMultilayer:{
+            //拼接选择项
+            NSMutableString *title = [NSMutableString string];
+           __block NSInteger firstPath;
+            [array enumerateObjectsUsingBlock:^(MMSelectedPath * path, NSUInteger idx, BOOL * _Nonnull stop) {
+                [title appendString:idx?[NSString stringWithFormat:@";%@",[rootItem findTitleBySelectedPath:path]]:[rootItem findTitleBySelectedPath:path]];
+                if (idx == 0) {
+                firstPath = path.firstPath;
+              }
+            }];
+            NSLog(@"当title为%@时，所选字段为 %@",rootItem.title ,title);
+            break;}
+            
+        case MMPopupViewDisplayTypeFilters:{
+            [array enumerateObjectsUsingBlock:^(MMSelectedPath * path, NSUInteger idx, BOOL * _Nonnull stop) {
+                //当displayType为MMPopupViewDisplayTypeFilters时有MMAlternativeItem类型和MMItem类型两种
+                if (path.isKindOfAlternative == YES) { //MMAlternativeItem类型
+                    MMAlternativeItem *alternativeItem = rootItem.alternativeArray[path.firstPath];
+                    NSLog(@"当title为%@时，选中状态为 %d",alternativeItem.title,alternativeItem.isSelected);
+                } else {
+                    MMItem *firstItem = rootItem.childrenNodes[path.firstPath];
+                    MMItem *SecondItem = rootItem.childrenNodes[path.firstPath].childrenNodes[path.secondPath];
+                    NSLog(@"当title为%@时，所选字段为 %@",firstItem.title,SecondItem.title);
+                }
+            }];
+            break;}
+            
+        default:
+            break;
+    }
 }
 @end

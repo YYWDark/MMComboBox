@@ -62,7 +62,7 @@
     [UIView animateWithDuration:AnimationDuration animations:^{
         self.frame = CGRectMake(0, top, kScreenWidth, resultHeight);
         self.mainTableView.frame = self.bounds;
-        self.shadowView.alpha = .3;
+        self.shadowView.alpha = ShadowAlpha;
     } completion:^(BOOL finished) {
         completion();
         if (self.item.selectedType == MMPopupViewSingleSelection) return ;
@@ -92,15 +92,12 @@
 
 - (void)dismiss{
     [self _resetValue];
-    
     if ([self.delegate respondsToSelector:@selector(popupViewWillDismiss:)]) {
         [self.delegate popupViewWillDismiss:self];
     }
-    
     if (self.item.selectedType == MMPopupViewMultilSeMultiSelection) {
         self.bottomView.hidden = YES;   
     }
- 
     CGFloat top =  CGRectGetMaxY(self.sourceFrame);
     //消失的动画
     [UIView animateWithDuration:AnimationDuration animations:^{
@@ -172,9 +169,11 @@
     return cell;
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.item.selectedType == MMPopupViewMultilSeMultiSelection) { //多选
         if ([self _iscontainsSelectedPath:[MMSelectedPath pathWithFirstPath:indexPath.row] sourceArray:self.selectedArray]) {
+            if (self.selectedArray.count == 1) return;
             [self _removePath:[MMSelectedPath pathWithFirstPath:indexPath.row] sourceArray:self.selectedArray];
             self.item.childrenNodes[indexPath.row].isSelected = NO;
         }else {
@@ -192,7 +191,6 @@
            //add
             self.item.childrenNodes[indexPath.row].isSelected = YES;
             [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:indexPath.row]];
-        
             [self callBackDelegate];
     }
 }

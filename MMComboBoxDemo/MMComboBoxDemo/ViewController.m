@@ -12,7 +12,7 @@
 #import "MMHeader.h"
 #import "MMAlternativeItem.h"
 
-@interface ViewController () <MMComBoBoxViewDataSource>
+@interface ViewController () <MMComBoBoxViewDataSource, MMComBoBoxViewDelegate>
 @property (nonatomic, strong) NSMutableArray *mutableArray;
 @end
 
@@ -21,28 +21,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.mutableArray = [NSMutableArray array];
-    
-    //根1
+//===============================================Package Data===============================================
+    //first root
     MMItem *rootItem1 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"全部"];
     rootItem1.selectedType = MMPopupViewMultilSeMultiSelection;
-    //第一层
-//    [rootItem1 addNode:rootItem1];
+    //first floor
     for (int i = 0; i < 20; i ++) {
         
         [rootItem1 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"蛋糕系列%d",i] subTileName:[NSString stringWithFormat:@"%ld",random()%10000]]];
     }
     
-   //根2
+   //second root
    MMItem *rootItem2 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"智能排序"];
-   //第一层
+   //first floor
    [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"智能排序"]]];
    [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"离我最近"]]];
    [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"好评优先"]]];
    [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"人气最高"]]];
    
     
-    //根3
+    //third root
     MMItem *rootItem3 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"附近"];
     for (int i = 0; i < 30; i++){
         MMItem *item3_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:[NSString stringWithFormat:@"市区%d",i]];
@@ -56,7 +54,7 @@
         }
     }
     
-    //根四
+    //fourth root
     MMItem *rootItem4 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"筛选"];
     MMAlternativeItem *alternativeItem1 = [MMAlternativeItem itemWithTitle:@"只看免预约" isSelected:NO];
     MMAlternativeItem *alternativeItem2 = [MMAlternativeItem itemWithTitle:@"节假日可用" isSelected:YES];
@@ -75,12 +73,17 @@
         }
     }
     
+    self.mutableArray = [NSMutableArray array];
     [self.mutableArray addObject:rootItem1];
     [self.mutableArray addObject:rootItem2];
     [self.mutableArray addObject:rootItem3];
     [self.mutableArray addObject:rootItem4];
+
+//===============================================Init===============================================
+    
     MMComBoBoxView *view = [[MMComBoBoxView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, 40)];
     view.dataSource = self;
+    view.delegate = self;
     [self.view addSubview:view];
     [view reload];
     
@@ -102,4 +105,8 @@
     return self.mutableArray[column];
 }
 
+#pragma mark - MMComBoBoxViewDelegate
+- (void)comBoBoxView:(MMComBoBoxView *)comBoBoxViewd didSelectedItemsPackagingInArray:(NSArray *)array atIndex:(NSUInteger)index{
+    
+}
 @end

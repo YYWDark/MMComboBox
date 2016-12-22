@@ -109,9 +109,12 @@
     }
     MMDropDownBox *box = self.dropDownBoxArray[index];
     [box updateTitleContent:title];
+    
+   
 }
 
 - (void)popupView:(MMBasePopupView *)popupView didSelectedItemsPackagingInArray:(NSArray *)array atIndex:(NSUInteger)index{
+    if (index == self.itemArray.count - 1) return; //筛选不做UI赋值操作 直接将item的路径回调回去就好了
     //拼接选择项
     MMItem *item = self.itemArray[index];
     NSMutableString *title = [NSMutableString string];
@@ -121,6 +124,10 @@
     }
     MMDropDownBox *box = self.dropDownBoxArray[index];
     [box updateTitleContent:title];
+    
+    if ([self.delegate respondsToSelector:@selector(comBoBoxView:didSelectedItemsPackagingInArray:atIndex:)]) {
+        [self.delegate comBoBoxView:self didSelectedItemsPackagingInArray:array atIndex:index];
+    }
 }
 
 - (void)popupViewWillDismiss:(MMBasePopupView *)popupView {

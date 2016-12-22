@@ -14,6 +14,7 @@
 #import "MMAlternativeItem.h"
 @interface MMCombinationFitlerView () <MMHeaderViewDelegate,MMCombineCellDelegate>
 @property (nonatomic, strong) UIView *bottomView;
+@property (nonatomic, assign) BOOL isSuccessfulToCallBack;
 @end
 
 @implementation MMCombinationFitlerView
@@ -101,6 +102,30 @@
         [self.delegate popupViewWillDismiss:self];
     }
     
+    //根据isSuccessfulToCallBack字段判断是否要将数据回归到temporaryArray
+    if (self.isSuccessfulToCallBack == NO) {
+        [self.selectedArray enumerateObjectsUsingBlock:^(MMSelectedPath *path, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (path.isKindOfAlternative == YES) {
+                MMItem *item = self.item.alternativeArray[path.firstPath];
+                item.isSelected = NO;
+            }else {
+                MMItem *lastItem = self.item.childrenNodes[path.firstPath].childrenNodes[path.secondPath];
+                lastItem.isSelected = NO;
+            }
+        }];
+        [self.temporaryArray enumerateObjectsUsingBlock:^(MMSelectedPath *path, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (path.isKindOfAlternative == YES) {
+                MMItem *item = self.item.alternativeArray[path.firstPath];
+                item.isSelected = path.isOn;
+            }else {
+                MMItem *lastItem = self.item.childrenNodes[path.firstPath].childrenNodes[path.secondPath];
+                lastItem.isSelected = YES;
+            }
+        }];   
+    }
+   
+    
+    self.bottomView.hidden = YES;
     CGFloat top =  CGRectGetMaxY(self.sourceFrame);
     //消失的动画
     [UIView animateWithDuration:AnimationDuration animations:^{
@@ -141,27 +166,39 @@
     return nil;
 }
 
-- (void)resetValue {    
+- (void)resetValue {
     for (int i = 0; i < self.selectedArray.count; i++) {
         MMSelectedPath *path = self.selectedArray[i];
         if (path.isKindOfAlternative == YES) {
             MMItem *item = self.item.alternativeArray[path.firstPath];
             item.isSelected = NO;
         }else {
-//            MMItem *item = self.item.childrenNodes[path.firstPath];
-            
+            MMItem *lastItem = self.item.childrenNodes[path.firstPath].childrenNodes[path.secondPath];
+            lastItem.isSelected = NO;
+            MMItem *currentItem = self.item.childrenNodes[path.firstPath].childrenNodes[0];
+            currentItem.isSelected = YES;
+            path.secondPath = 0;
         }
     }
     [self.mainTableView reloadData];
 }
 
+- (void)callBackDelegate {
+    if ([self.delegate respondsToSelector:@selector(popupView:didSelectedItemsPackagingInArray:atIndex:)]) {
+        self.isSuccessfulToCallBack = YES;
+        [self.delegate popupView:self didSelectedItemsPackagingInArray:self.selectedArray  atIndex:self.tag];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismiss];
+            self.isSuccessfulToCallBack = NO;
+        });
+    }
+}
 #pragma mark - Action
 - (void)respondsToButtonAction:(UIButton *)sender{
     if (sender.tag == 0) {//重置
-        
+        [self resetValue];
     } else if (sender.tag == 1) {//确定
-        
-
+        [self callBackDelegate];
     }
 }
 
@@ -198,6 +235,8 @@
 - (void)headerView:(MMHeaderView *)headerView didSelectedAtIndex:(NSInteger)index currentState:(BOOL)isSelected {
    MMSelectedPath *selectedPath = [self _findAlternativeItemAtIndex:index sourceArray:self.selectedArray];
    selectedPath.isOn = isSelected;
+   MMItem *item = self.item.alternativeArray[index];
+   item.isSelected = isSelected;
 }
 
 #pragma mark - MMCombineCellDelegate

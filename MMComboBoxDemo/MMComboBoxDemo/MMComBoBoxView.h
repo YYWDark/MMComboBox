@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "MMItem.h"
-@protocol MMComBoBoxViewDataSource;
 
+@protocol MMComBoBoxViewDataSource;
+@protocol MMComBoBoxViewDelegate;
 @interface MMComBoBoxView : UIView
 @property (nonatomic, weak) id<MMComBoBoxViewDataSource> dataSource;
-
-//- (id)initWithFrame:(CGRect)frame sourceData:(NSArray *)data;
+@property (nonatomic, weak) id<MMComBoBoxViewDelegate> delegate;
 - (void)reload;
 @end
 
@@ -21,4 +21,9 @@
 @required;
 - (NSUInteger)numberOfColumnsIncomBoBoxView :(MMComBoBoxView *)comBoBoxView;
 - (MMItem *)comBoBoxView:(MMComBoBoxView *)comBoBoxView infomationForColumn:(NSUInteger)column;
+@end
+
+@protocol MMComBoBoxViewDelegate <NSObject>
+@optional
+- (void)comBoBoxView:(MMComBoBoxView *)comBoBoxViewd didSelectedItemsPackagingInArray:(NSArray *)array atIndex:(NSUInteger)index;
 @end

@@ -40,6 +40,9 @@
 }
 
 - (id)copyWithZone:(nullable NSZone *)zone{
-    return [MMSelectedPath pathWithFirstPath:self.firstPath secondPath:self.secondPath];
+    MMSelectedPath *path = [MMSelectedPath pathWithFirstPath:self.firstPath secondPath:self.secondPath];
+    path.isKindOfAlternative = self.isKindOfAlternative;
+    path.isOn = self.isOn;
+    return path;
 }
 @end

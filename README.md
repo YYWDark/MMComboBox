@@ -1,7 +1,7 @@
 ![封面.jpg](http://upload-images.jianshu.io/upload_images/307963-baad2a29322a01bb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ##前言
-数据大致是模范美团外卖数据。由于每个公司的业务场景不同所以这只是一个[demo](https://github.com/YYWDark/MMComboBox)
+数据大致是模范美团外卖数据。由于每个公司的业务场景不同所以这只是一个demo
 ##Demo效果：
 ![效果图.gif](http://upload-images.jianshu.io/upload_images/307963-588c68a0a4db185a.gif?imageMogr2/auto-orient/strip)
 ###工程结构图：
@@ -30,15 +30,21 @@ typedef NS_ENUM(NSUInteger, MMPopupViewDisplayType) {  //分辨弹出来的view
 当然我这里是模拟数据。下面给出一种建立树模型的思路：
 
 ![屏幕快照 2016-12-22 下午11.14.13.png](http://upload-images.jianshu.io/upload_images/307963-7708a77530870004.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 1.1 首先我们把上图的根节点放到队列中
+
 ![1.1.png](http://upload-images.jianshu.io/upload_images/307963-ae6a2e9ef9e6df53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 1.2 根据A持有子节点的指针把B，C放进队列，相当于把B,C添加到A的`childrenNodes`。然后把A给移出队列。
+
 ![1.2](http://upload-images.jianshu.io/upload_images/307963-5cfa962948165968.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 1.3 然后按照上面的逻辑一个一个的遍历每个节点。直到队列为空的时候代表一颗建立完毕。下面图未给全，只是部分状态的时刻图。
 
 ![1.3.png](http://upload-images.jianshu.io/upload_images/307963-4380f8b8e57539c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![1.4.png](http://upload-images.jianshu.io/upload_images/307963-82c04ee55e654461.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![1.5.png](http://upload-images.jianshu.io/upload_images/307963-4f08f95a88d1887c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 

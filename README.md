@@ -107,4 +107,5 @@ typedef NS_ENUM(NSUInteger, MMPopupViewDisplayType) {  //分辨弹出来的view
     }
 }
 ```
+文章地址：http://www.jianshu.com/p/f947ecbe8524
 如果你觉得这篇文章对你有所帮助，欢迎like或star!谢谢！

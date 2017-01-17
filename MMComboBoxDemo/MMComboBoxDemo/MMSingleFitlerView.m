@@ -20,6 +20,7 @@
     self = [super init];
     if (self) {
         self.item = item;
+        self.isSuccessfulToCallBack = (self.item.selectedType == MMPopupViewSingleSelection)?YES:NO;
         self.selectedArray = [NSMutableArray array];
         for (int i = 0; i < self.item.childrenNodes.count; i++) {
             MMItem *subItem = item.childrenNodes[i];

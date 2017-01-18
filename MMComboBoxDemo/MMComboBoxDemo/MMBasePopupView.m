@@ -56,6 +56,13 @@
    //写这些方法是为了消除警告；
 }
 
+- (void)dismissWithOutAnimation {
+    if (self.superview) {
+        [self.shadowView removeFromSuperview];
+        [self removeFromSuperview];
+    }
+}
+
 - (void)popupViewFromSourceFrame:(CGRect)frame completion:(void (^)(void))completion {
   //写这些方法是为了消除警告；
 }

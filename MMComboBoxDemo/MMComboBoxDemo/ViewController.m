@@ -14,13 +14,14 @@
 #import "MMSelectedPath.h"
 @interface ViewController () <MMComBoBoxViewDataSource, MMComBoBoxViewDelegate>
 @property (nonatomic, strong) NSMutableArray *mutableArray;
+@property (nonatomic, strong) MMComBoBoxView *comBoBoxView;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
 //===============================================Package Data===============================================
     //first root
     MMItem *rootItem1 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"全部"];
@@ -80,18 +81,22 @@
 
 //===============================================Init===============================================
     
-    MMComBoBoxView *view = [[MMComBoBoxView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, 40)];
-    view.dataSource = self;
-    view.delegate = self;
-    [self.view addSubview:view];
-    [view reload];
+    self.comBoBoxView = [[MMComBoBoxView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, 40)];
+    self.comBoBoxView.dataSource = self;
+    self.comBoBoxView.delegate = self;
+    [self.view addSubview:self.comBoBoxView];
+    [self.comBoBoxView reload];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, view.bottom, self.view.width, self.view.height - 64)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.comBoBoxView.bottom, self.view.width, self.view.height - 64)];
     imageView.image = [UIImage imageNamed:@"1.jpg"];
     [self.view addSubview:imageView];
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.comBoBoxView dimissPopView];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

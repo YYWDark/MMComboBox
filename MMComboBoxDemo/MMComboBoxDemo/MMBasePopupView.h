@@ -27,6 +27,8 @@
 
 - (void)popupViewFromSourceFrame:(CGRect)frame completion:(void (^)(void))completion;
 - (void)dismiss;
+- (void)dismissWithOutAnimation;
+
 @end
 
 @protocol MMPopupViewDelegate <NSObject>

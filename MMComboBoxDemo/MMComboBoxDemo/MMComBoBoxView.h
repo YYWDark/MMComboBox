@@ -15,6 +15,7 @@
 @property (nonatomic, weak) id<MMComBoBoxViewDataSource> dataSource;
 @property (nonatomic, weak) id<MMComBoBoxViewDelegate> delegate;
 - (void)reload;
+- (void)dimissPopView;
 @end
 
 @protocol MMComBoBoxViewDataSource <NSObject>

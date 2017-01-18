@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray *symbolArray;  //当成一个队列来标记那个弹出视图
 @property (nonatomic, strong) CALayer *topLine;
 @property (nonatomic, strong) CALayer *bottomLine;
+@property (nonatomic, strong) MMBasePopupView *popupView;
 @property (nonatomic, assign) NSInteger lastTapIndex;       //默认 -1
 @property (nonatomic, assign) BOOL isAnimation;
 @end
@@ -35,17 +36,7 @@
     }
     return self;
 }
-- (void)_addLine {
-    self.topLine = [CALayer layer];
-    self.topLine.frame = CGRectMake(0, 0 , self.width, 1.0/scale);
-    self.topLine.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.3].CGColor;
-    [self.layer addSublayer:self.topLine];
-    
-    self.bottomLine = [CALayer layer];
-    self.bottomLine.frame = CGRectMake(0, self.height - 1.0/scale , self.width, 1.0/scale);
-    self.bottomLine.backgroundColor = [UIColor colorWithHexString:@"e8e8e8"].CGColor;
-    [self.layer addSublayer:self.bottomLine];
-}
+
 
 - (void)reload {
     NSUInteger count = 0;
@@ -69,6 +60,24 @@
     [self _addLine];
 }
 
+- (void)dimissPopView {
+    if (self.popupView.superview) {
+        [self.popupView dismissWithOutAnimation];
+    }
+}
+
+#pragma mark - Private Method
+- (void)_addLine {
+    self.topLine = [CALayer layer];
+    self.topLine.frame = CGRectMake(0, 0 , self.width, 1.0/scale);
+    self.topLine.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.3].CGColor;
+    [self.layer addSublayer:self.topLine];
+    
+    self.bottomLine = [CALayer layer];
+    self.bottomLine.frame = CGRectMake(0, self.height - 1.0/scale , self.width, 1.0/scale);
+    self.bottomLine.backgroundColor = [UIColor colorWithHexString:@"e8e8e8"].CGColor;
+    [self.layer addSublayer:self.bottomLine];
+}
 #pragma mark - MMDropDownBoxDelegate
 - (void)didTapDropDownBox:(MMDropDownBox *)dropDownBox atIndex:(NSUInteger)index {
     if (self.isAnimation == YES) return;
@@ -76,7 +85,6 @@
         MMDropDownBox *currentBox  = self.dropDownBoxArray[i];
         [currentBox updateTitleState:(i == index)];
     }
-    
     //点击后先判断symbolArray有没有标示
     if (self.symbolArray.count) {
         //移除
@@ -90,6 +98,7 @@
         MMBasePopupView *popupView = [MMBasePopupView getSubPopupView:item];
         popupView.delegate = self;
         popupView.tag = index;
+        self.popupView = popupView;
         [popupView popupViewFromSourceFrame:self.frame completion:^{
            self.isAnimation = NO;
         }];

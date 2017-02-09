@@ -96,6 +96,7 @@
 }
 
 - (void)dismiss{
+    [super dismiss];
     [self _resetValue];
     if ([self.delegate respondsToSelector:@selector(popupViewWillDismiss:)]) {
         [self.delegate popupViewWillDismiss:self];

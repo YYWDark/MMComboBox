@@ -53,7 +53,10 @@
 }
 
 - (void)dismiss {
-   //写这些方法是为了消除警告；
+    if (self.superview) {
+        [self.shadowView removeFromSuperview];
+        
+    }
 }
 
 - (void)dismissWithOutAnimation {

@@ -105,6 +105,7 @@
 }
 
 - (void)dismiss{
+    [super dismiss];
     if ([self.delegate respondsToSelector:@selector(popupViewWillDismiss:)]) {
         [self.delegate popupViewWillDismiss:self];
     }

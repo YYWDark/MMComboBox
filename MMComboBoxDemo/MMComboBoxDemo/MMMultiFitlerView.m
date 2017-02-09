@@ -95,6 +95,7 @@
 }
 
 - (void)dismiss{
+    [super dismiss];
     //设置最后选中的赋给left cell
     MMSelectedPath *path = [self.selectedArray lastObject];
     if ([self _findLeftSelectedIndex] != path.firstPath) {

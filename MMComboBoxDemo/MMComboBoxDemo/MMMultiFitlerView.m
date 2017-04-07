@@ -13,7 +13,7 @@
 #import "MMSelectedPath.h"
 
 @interface MMMultiFitlerView () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, assign) NSUInteger selectedIndex;
+@property (nonatomic, assign) NSUInteger selectedIndex;        /* 记录了左边的index**/
 @property (nonatomic, assign) NSUInteger minRowNumber;
 @end
 @implementation MMMultiFitlerView
@@ -123,6 +123,7 @@
 }
 
 #pragma mark - private method
+//
 - (NSUInteger)_findLeftSelectedIndex {
     for (MMItem *item in self.item.childrenNodes) {
         if (item.isSelected) return [self.item.childrenNodes indexOfObject:item];
@@ -174,7 +175,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.tag == 0) { //mainTableView
-        
         if (self.selectedIndex == indexPath.row) return;
         self.item.childrenNodes[indexPath.row].isSelected = YES;
         self.item.childrenNodes[self.selectedIndex].isSelected = NO;
@@ -182,7 +182,6 @@
         [self.mainTableView reloadData];
         [self.subTableView reloadData];
     }else{ //subTableView
-        
         MMSelectedPath *selectdPath = [self.selectedArray lastObject];
         if (selectdPath.firstPath == self.selectedIndex && selectdPath.secondPath == indexPath.row) return;
         MMItem *lastItem = self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath];

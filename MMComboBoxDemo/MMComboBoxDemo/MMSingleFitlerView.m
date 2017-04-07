@@ -20,8 +20,9 @@
     self = [super init];
     if (self) {
         self.item = item;
+        //当为MMPopupViewSingleSelection类型时，默认为YES。因为单选不存在修改了值而取消的情况
         self.isSuccessfulToCallBack = (self.item.selectedType == MMPopupViewSingleSelection)?YES:NO;
-        self.selectedArray = [NSMutableArray array];
+        //将默认选中的值
         for (int i = 0; i < self.item.childrenNodes.count; i++) {
             MMItem *subItem = item.childrenNodes[i];
             if (subItem.isSelected == YES){
@@ -119,23 +120,25 @@
 
 #pragma mark - Private Method
 - (void)_resetValue{
-    //恢复成以前的值
-    if (self.isSuccessfulToCallBack == NO) {
+    if (self.isSuccessfulToCallBack == YES) return;
         for (MMItem *item in self.item.childrenNodes) {
             item.isSelected = NO;
         }
+    //恢复成以前的值
         for (MMSelectedPath *path in self.temporaryArray) {
             self.item.childrenNodes[path.firstPath].isSelected = YES;
         }
-    }
+
 }
 
+//该容器里面有没有包含这个path
 - (BOOL)_iscontainsSelectedPath:(MMSelectedPath *)path sourceArray:(NSMutableArray *)array{
     for (MMSelectedPath *selectedpath in array) {
         if (selectedpath.firstPath == path.firstPath ) return YES;
     }
     return NO;
 }
+
 
 - (void)_removePath:(MMSelectedPath *)path sourceArray:(NSMutableArray *)array {
     for (MMSelectedPath *selectedpath in array) {
@@ -160,6 +163,7 @@
     if (sender.tag == 0) {//取消
       [self dismiss];
     } else if (sender.tag == 1) {//确定
+    //点击确认的时候代表确定修改成现在选中的值
     self.isSuccessfulToCallBack = YES;
     [self _callBackDelegate];
     }
@@ -182,7 +186,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.item.selectedType == MMPopupViewMultilSeMultiSelection) { //多选
+        
         if ([self _iscontainsSelectedPath:[MMSelectedPath pathWithFirstPath:indexPath.row] sourceArray:self.selectedArray]) {
+            //如果已经有了这个路径 而且数组里面就一个数据
             if (self.selectedArray.count == 1) return;
             [self _removePath:[MMSelectedPath pathWithFirstPath:indexPath.row] sourceArray:self.selectedArray];
             self.item.childrenNodes[indexPath.row].isSelected = NO;
@@ -192,13 +198,13 @@
         }
       [self.mainTableView reloadData];
     }else if (self.item.selectedType == MMPopupViewSingleSelection) { //单选
-        //如果点击的已经选中的直接返回
+        //因为要选中一个，如果点击的已经选中的直接返回，
         if ([self _iscontainsSelectedPath:[MMSelectedPath pathWithFirstPath:indexPath.row] sourceArray:self.selectedArray]) return;
-           //remove
+           //移除之前的储存的路劲
             MMSelectedPath *lastSelectedPath = self.selectedArray[0] ;
             self.item.childrenNodes[lastSelectedPath.firstPath].isSelected = NO;
             [self.selectedArray removeLastObject];
-           //add
+           //添加当前的路劲
             self.item.childrenNodes[indexPath.row].isSelected = YES;
             [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:indexPath.row]];
             [self _callBackDelegate];

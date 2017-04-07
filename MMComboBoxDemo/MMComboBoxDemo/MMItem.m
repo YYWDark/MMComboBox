@@ -22,11 +22,14 @@
 }
 
 + (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title subTileName:(NSString *)subTile{
-    MMItem *item = [MMItem itemWithItemType:type titleName:title];
-    if (subTile != nil) {
-        item.subTitle = subTile;
-    }
-    
+    MMItem *item = [[[self class] alloc] init];
+    item.markType = type;
+    item.title = title;
+    item.subTitle = subTile;
+//    MMItem *item = [MMItem itemWithItemType:type titleName:title];
+//    if (subTile != nil) {
+//        item.subTitle = subTile;
+//    }
     return item;
 }
 
@@ -35,7 +38,7 @@
     item.markType = type;
     item.title = title;
     
-    return item;
+    return [MMItem itemWithItemType:type titleName:title subTileName:nil];
 }
 
 #pragma mark - public method
@@ -50,8 +53,6 @@
     node.isSelected = NO;
     [self.childrenNodes addObject:node];
 }
-
-
 
 - (void)findTheTypeOfPopUpView {
     if (self.alternativeArray.count) {

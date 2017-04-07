@@ -21,28 +21,43 @@
 }
 
 + (instancetype)pathWithFirstPath:(NSInteger)firstPath secondPath:(NSInteger)secondPath {
-    MMSelectedPath *path = [MMSelectedPath pathWithFirstPath:firstPath];
-    path.secondPath = secondPath;
-    return path;
+    return [MMSelectedPath pathWithFirstPath:firstPath
+                                  secondPath:secondPath
+                         isKindOfAlternative:NO
+                                        isOn:NO];
 }
 
 + (instancetype)pathWithFirstPath:(NSInteger)firstPath {
+    return [MMSelectedPath pathWithFirstPath:firstPath
+                                  secondPath:-1
+                         isKindOfAlternative:NO
+                                        isOn:NO];
+}
+
++ (instancetype)pathWithFirstPath:(NSInteger)firstPath isOn:(BOOL)isOn {
+    return [MMSelectedPath pathWithFirstPath:firstPath
+                                  secondPath:-1
+                         isKindOfAlternative:YES
+                                        isOn:isOn];
+}
+
++ (instancetype)pathWithFirstPath:(NSInteger)firstPath
+                       secondPath:(NSInteger)secondPath
+              isKindOfAlternative:(BOOL)isKindOfAlternative
+                             isOn:(BOOL)isOn {
     MMSelectedPath *path = [[[self class] alloc] init];
     path.firstPath = firstPath;
+    path.secondPath = secondPath;
+    path.isKindOfAlternative = isKindOfAlternative;
+    path.isOn = isOn;
     return path;
 }
 
-+ (instancetype)pathWithFirstPath:(NSInteger)firstPath isKindOfAlternative:(BOOL)isKindOfAlternative isOn:(BOOL)isOn {
-   MMSelectedPath *path = [MMSelectedPath pathWithFirstPath:firstPath];
-   path.isKindOfAlternative = YES;
-   path.isOn = isOn;
-   return path;
-}
-
 - (id)copyWithZone:(nullable NSZone *)zone {
-    MMSelectedPath *path = [MMSelectedPath pathWithFirstPath:self.firstPath secondPath:self.secondPath];
-    path.isKindOfAlternative = self.isKindOfAlternative;
-    path.isOn = self.isOn;
+    MMSelectedPath *path = [MMSelectedPath pathWithFirstPath:self.firstPath
+                                                  secondPath:self.secondPath
+                                         isKindOfAlternative:self.isKindOfAlternative
+                                                        isOn:self.isOn];
     return path;
 }
 @end

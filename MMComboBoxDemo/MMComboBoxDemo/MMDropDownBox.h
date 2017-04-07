@@ -19,5 +19,6 @@
 @end
 
 @protocol MMDropDownBoxDelegate <NSObject>
+/*点击了dropDownBox**/
 - (void)didTapDropDownBox:(MMDropDownBox *)dropDownBox atIndex:(NSUInteger)index;
 @end

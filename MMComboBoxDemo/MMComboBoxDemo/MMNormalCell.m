@@ -9,7 +9,6 @@
 #import "MMNormalCell.h"
 #import "MMHeader.h"
 static const CGFloat horizontalMargin = 10.0f;
-
 @interface MMNormalCell ()
 @property (nonatomic, strong) UILabel *title;
 @property (nonatomic, strong) UILabel *subTitle;
@@ -21,15 +20,11 @@ static const CGFloat horizontalMargin = 10.0f;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
 }
-
-
 
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -50,6 +45,7 @@ static const CGFloat horizontalMargin = 10.0f;
     }
     self.selectedImageview.hidden = !item.isSelected;
 }
+
 #pragma mark - get
 - (UILabel *)title {
     if (!_title) {

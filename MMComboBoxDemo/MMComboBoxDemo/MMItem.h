@@ -19,11 +19,15 @@
 @property (nonatomic, assign) BOOL isSelected;                          //默认0
 @property (nonatomic, strong) NSString *subTitle;                       //第一层默认没有
 @property (nonatomic, strong) MMLayout *layout;
++ (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title;
++ (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title subTileName:(NSString *)subTile;
 
 - (void)addNode:(MMItem *)node;
 - (void)addNodeWithoutMark:(MMItem *)node;
 - (void)findTheTypeOfPopUpView;
 - (NSString *)findTitleBySelectedPath:(MMSelectedPath *)selectedPath;
-+ (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title;
-+ (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title subTileName:(NSString *)subTile;
+
+//- (void)update
+
+
 @end

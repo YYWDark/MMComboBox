@@ -13,26 +13,22 @@
 #import "MMSelectedPath.h"
 
 @interface MMComBoBoxView () <MMDropDownBoxDelegate,MMPopupViewDelegate>
-//@property (nonatomic, strong) NSArray *data;
-@property (nonatomic, strong) NSMutableArray *dropDownBoxArray;
-@property (nonatomic, strong) NSMutableArray *itemArray;
-@property (nonatomic, strong) NSMutableArray *symbolArray;  //当成一个队列来标记那个弹出视图
+@property (nonatomic, strong) NSMutableArray <MMDropDownBox *>*dropDownBoxArray;
+@property (nonatomic, strong) NSMutableArray <MMItem *>*itemArray;
+@property (nonatomic, strong) NSMutableArray <MMBasePopupView *>*symbolArray;  /*当成一个队列来标记那个弹出视图**/
 @property (nonatomic, strong) CALayer *topLine;
 @property (nonatomic, strong) CALayer *bottomLine;
 @property (nonatomic, strong) MMBasePopupView *popupView;
-@property (nonatomic, assign) NSInteger lastTapIndex;       //默认 -1
-@property (nonatomic, assign) BOOL isAnimation;
+@property (nonatomic, assign) BOOL isAnimation;                               /*防止多次快速点击**/
 @end
 
 @implementation MMComBoBoxView
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.lastTapIndex = -1;
         self.dropDownBoxArray = [NSMutableArray array];
         self.itemArray = [NSMutableArray array];
         self.symbolArray = [NSMutableArray arrayWithCapacity:1];
-       
     }
     return self;
 }
@@ -109,6 +105,7 @@
 #pragma mark - MMPopupViewDelegate
 - (void)popupView:(MMBasePopupView *)popupView didSelectedItemsPackagingInArray:(NSArray *)array atIndex:(NSUInteger)index {
     MMItem *item = self.itemArray[index];
+    //混合类型不做UI赋值操作 直接将item的路径回调回去就好了
     if (item.displayType == MMPopupViewDisplayTypeMultilayer || item.displayType == MMPopupViewDisplayTypeNormal) {
         //拼接选择项
         NSMutableString *title = [NSMutableString string];
@@ -117,8 +114,9 @@
             [title appendString:i?[NSString stringWithFormat:@";%@",[item findTitleBySelectedPath:path]]:[item findTitleBySelectedPath:path]];
         }
         MMDropDownBox *box = self.dropDownBoxArray[index];
+        //UI赋值操作
         [box updateTitleContent:title];
-    }; //筛选不做UI赋值操作 直接将item的路径回调回去就好了
+    };
   
     if ([self.delegate respondsToSelector:@selector(comBoBoxView:didSelectedItemsPackagingInArray:atIndex:)]) {
         [self.delegate comBoBoxView:self didSelectedItemsPackagingInArray:array atIndex:index];
@@ -126,7 +124,7 @@
 }
 
 - (void)popupViewWillDismiss:(MMBasePopupView *)popupView {
-  [self.symbolArray removeAllObjects];
+   [self.symbolArray removeAllObjects];
    for (MMDropDownBox *currentBox in self.dropDownBoxArray) {
         [currentBox updateTitleState:NO];
     }

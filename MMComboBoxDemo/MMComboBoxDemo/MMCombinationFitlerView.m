@@ -24,12 +24,11 @@
     self = [super init];
     if (self) {
         self.item = item;
-        self.selectedArray = [NSMutableArray array];
         
         //单选
         for (int i = 0; i < self.item.alternativeArray.count; i++) {
             MMAlternativeItem *alternativeItem = self.item.alternativeArray[i];
-            [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:i isKindOfAlternative:YES isOn:alternativeItem.isSelected]];
+            [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:i isOn:alternativeItem.isSelected]];
         }
         //多层
         for (int i = 0; i < self.item.childrenNodes.count; i++) {

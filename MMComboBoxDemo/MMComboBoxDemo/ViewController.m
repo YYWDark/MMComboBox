@@ -3,7 +3,7 @@
 //  MMComboBoxDemo
 //
 //  Created by wyy on 2016/12/7.
-//  Copyright © 2016年 wyy. All rights reserved.
+//  Copyri2ght © 2016年 wyy. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -42,7 +42,7 @@
     
     //third root
     MMItem *rootItem3 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"附近"];
-    for (int i = 0; i < 30; i++){
+    for (int i = 0; i < 1; i++){
         MMItem *item3_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:[NSString stringWithFormat:@"市区%d",i]];
         [rootItem3 addNode:item3_A];
         for (int j = 0; j < random()%30; j ++) {
@@ -97,11 +97,6 @@
     [super viewWillDisappear:animated];
     [self.comBoBoxView dimissPopView];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 
 #pragma mark - MMComBoBoxViewDataSource
 - (NSUInteger)numberOfColumnsIncomBoBoxView :(MMComBoBoxView *)comBoBoxView {

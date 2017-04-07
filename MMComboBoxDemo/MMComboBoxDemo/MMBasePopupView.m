@@ -17,12 +17,13 @@
 @end
 @implementation MMBasePopupView
 - (id)initWithItem:(MMItem *)item {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.item = item;
     }
     return self;
 }
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -55,7 +56,6 @@
 - (void)dismiss {
     if (self.superview) {
         [self.shadowView removeFromSuperview];
-        
     }
 }
 

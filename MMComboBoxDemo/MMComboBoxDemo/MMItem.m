@@ -21,56 +21,68 @@
     return self;
 }
 
-+ (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title subTileName:(NSString *)subTile{
-    MMItem *item = [[[self class] alloc] init];
-    item.markType = type;
-    item.title = title;
-    item.subTitle = subTile;
-//    MMItem *item = [MMItem itemWithItemType:type titleName:title];
-//    if (subTile != nil) {
-//        item.subTitle = subTile;
-//    }
-    return item;
++ (instancetype)itemWithItemType:(MMPopupViewMarkType)type
+                       titleName:(NSString *)title
+                     subTileName:(NSString *)subTile{
+    return [MMItem itemWithItemType:type
+                         isSelected:NO
+                          titleName:title
+                       subtitleName:subTile
+                               code:nil];
 }
 
-+ (instancetype)itemWithItemType:(MMPopupViewMarkType)type titleName:(NSString *)title {
++ (instancetype)itemWithItemType:(MMPopupViewMarkType)type
+                       titleName:(NSString *)title {
+    return [MMItem itemWithItemType:type
+                         isSelected:NO
+                          titleName:title
+                       subtitleName:nil
+                               code:nil];
+}
+
++ (instancetype)itemWithItemType:(MMPopupViewMarkType)type
+                      isSelected:(BOOL)isSelected
+                       titleName:(NSString *)title
+                     subTileName:(NSString *)subTile {
+    return [MMItem itemWithItemType:type
+                         isSelected:isSelected
+                          titleName:title
+                       subtitleName:subTile
+                               code:nil];
+}
+
++ (instancetype)itemWithItemType:(MMPopupViewMarkType)type
+                      isSelected:(BOOL)isSelected
+                       titleName:(NSString *)title
+                    subtitleName:(NSString *)subtitle
+                            code:(NSString *)code {
     MMItem *item = [[[self class] alloc] init];
     item.markType = type;
+    item.isSelected = isSelected;
     item.title = title;
-    
-    return [MMItem itemWithItemType:type titleName:title subTileName:nil];
+    item.subTitle = subtitle;
+    item.code = code;
+    return item;
 }
 
 #pragma mark - public method
 - (void)addNode:(MMItem *)node {
     NSParameterAssert(node);
-    node.isSelected = (self.childrenNodes.count == 0) ? YES : NO;
     [self.childrenNodes addObject:node];
 }
 
-- (void)addNodeWithoutMark:(MMItem *)node {
-    NSParameterAssert(node);
-    node.isSelected = NO;
-    [self.childrenNodes addObject:node];
-}
 
-- (void)findTheTypeOfPopUpView {
-    if (self.alternativeArray.count) {
-        self.displayType = MMPopupViewDisplayTypeFilters;
-        self.layout = [MMLayout layoutWithItem:self];
-        for (int i = 0; i < self.childrenNodes.count; i++) {
+
+- (void)addLayoutInformationWhenTypeFilters {
+   if (self.displayType != MMPopupViewDisplayTypeFilters)  return;
+    
+   self.layout = [MMLayout layoutWithItem:self];
+   for (int i = 0; i < self.childrenNodes.count; i++) {
             MMItem *subItem = self.childrenNodes[i];
             subItem.layout = [[MMLayout alloc] init];
             [subItem.layout.cellLayoutTotalInfo addObjectsFromArray:self.layout.cellLayoutTotalInfo[i]];
-        }
-        return;
     }
-    for (MMItem *item in self.childrenNodes) { //目前只支持两层 所以不需要去做递归
-        if (item.childrenNodes.count != 0) {
-            self.displayType = MMPopupViewDisplayTypeMultilayer;
-            return;
-        }
-    }
+    
 }
 
 

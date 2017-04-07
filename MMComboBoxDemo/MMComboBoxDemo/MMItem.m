@@ -92,4 +92,9 @@
     }
     return [self.childrenNodes[selectedPath.firstPath] title];
 }
+
+
+- (BOOL)isHasSwitch {
+    return (self.alternativeArray.count != 0);
+}
 @end

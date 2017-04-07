@@ -185,6 +185,7 @@
      //root 4
         MMItem *rootItem4 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"筛选"];
         rootItem4.displayType = MMPopupViewDisplayTypeFilters;
+        rootItem4.selectedType = MMPopupViewMultilSeMultiSelection;
         MMAlternativeItem *alternativeItem1 = [MMAlternativeItem itemWithTitle:@"只看免预约" isSelected:NO];
         MMAlternativeItem *alternativeItem2 = [MMAlternativeItem itemWithTitle:@"节假日可用" isSelected:YES];
         [rootItem4.alternativeArray addObject:alternativeItem1];
@@ -195,8 +196,6 @@
                          @{@"餐厅服务":@[@"不限",@"优惠买单",@"在线点餐",@"外卖送餐",@"预定",@"食客推荐",@"在线排队"]} ];
         
         for (NSDictionary *itemDic in arr) {
-            
-            
             MMItem *item4_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:[itemDic.allKeys lastObject]];
             [rootItem4 addNode:item4_A];
             for (int i = 0; i <  [[itemDic.allValues lastObject] count]; i++) {

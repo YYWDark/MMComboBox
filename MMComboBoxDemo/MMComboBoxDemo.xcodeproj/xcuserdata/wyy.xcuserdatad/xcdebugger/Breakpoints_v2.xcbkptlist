@@ -36,12 +36,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MMComboBoxDemo/MMCombinationFitlerView.m"
-            timestampString = "513261467.941596"
+            timestampString = "513311962.410362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "-_removePath:sourceArray:"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "-combineCell:didSelectedAtIndex:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -52,12 +52,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MMComboBoxDemo/MMCombinationFitlerView.m"
-            timestampString = "513261490.517207"
+            timestampString = "513311962.410362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "-_removePath:sourceArray:"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
+            landmarkName = "-combineCell:didSelectedAtIndex:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MMComboBoxDemo/MMCombinationFitlerView.m"
+            timestampString = "513311962.410362"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "-_clearItemsStateOfSelectedArray"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MMComboBoxDemo/MMCombinationFitlerView.m"
+            timestampString = "513311726.361991"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "-_resetValue"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MMComboBoxDemo/MMCombinationFitlerView.m"
+            timestampString = "513311962.410362"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "-_resetValue"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

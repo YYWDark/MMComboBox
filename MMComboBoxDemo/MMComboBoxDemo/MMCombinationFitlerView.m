@@ -107,33 +107,15 @@
 
 }
 
+
 - (void)dismiss{
     [super dismiss];
     if ([self.delegate respondsToSelector:@selector(popupViewWillDismiss:)]) {
         [self.delegate popupViewWillDismiss:self];
     }
     
-    //根据isSuccessfulToCallBack字段判断是否要将数据回归到temporaryArray
-    if (self.isSuccessfulToCallBack == NO) {
-        [self.selectedArray enumerateObjectsUsingBlock:^(MMSelectedPath *path, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (path.isKindOfAlternative == YES) {
-                MMAlternativeItem *item = self.item.alternativeArray[path.firstPath];
-                item.isSelected = NO;
-            }else {
-                MMItem *lastItem = self.item.childrenNodes[path.firstPath].childrenNodes[path.secondPath];
-                lastItem.isSelected = NO;
-            }
-        }];
-        [self.temporaryArray enumerateObjectsUsingBlock:^(MMSelectedPath *path, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (path.isKindOfAlternative == YES) {
-                MMAlternativeItem *item = self.item.alternativeArray[path.firstPath];
-                item.isSelected = path.isOn;
-            }else {
-                MMItem *lastItem = self.item.childrenNodes[path.firstPath].childrenNodes[path.secondPath];
-                lastItem.isSelected = YES;
-            }
-        }];   
-    }
+    //根据isSuccessfulToCallBack字段判断是否要将数据回归到temporaryArray状态
+    [self recoverToTheOriginalState];
    
     self.bottomView.hidden = YES;
     CGFloat top =  CGRectGetMaxY(self.sourceFrame);
@@ -150,10 +132,11 @@
 }
 
 #pragma mark - Private Method
-//当有Switch类型的时候selectedArray index对应path.firstPath
+//当有Switch类型的时候selectedArray index对应(path.firstPath + 1)
 - (NSInteger)_indexOfSelectedArrayByPath:(MMSelectedPath *)path {
     return self.item.isHasSwitch?(path.firstPath + 1):path.firstPath;;
 }
+
 - (BOOL)_iscontainsSelectedPath:(MMSelectedPath *)path sourceArray:(NSMutableArray *)array {
     for (MMSelectedPath *selectedpath in array) {
         if (selectedpath.firstPath == path.firstPath && selectedpath.secondPath == path.secondPath) return YES;
@@ -181,22 +164,57 @@
     }
     return nil;
 }
-
-- (void)resetValue {
-    for (int i = 0; i < self.selectedArray.count; i++) {
-        MMSelectedPath *path = self.selectedArray[i];
-        if (path.isKindOfAlternative == YES) {
-            MMAlternativeItem *item = self.item.alternativeArray[path.firstPath];
-            item.isSelected = NO;
-        }else {
-            MMItem *lastItem = self.item.childrenNodes[path.firstPath].childrenNodes[path.secondPath];
-            lastItem.isSelected = NO;
-            MMItem *currentItem = self.item.childrenNodes[path.firstPath].childrenNodes[0];
-            currentItem.isSelected = YES;
-            path.secondPath = 0;
+//重置
+- (void)_resetValue {
+    [self _clearItemsStateOfSelectedArray];
+    [self.temporaryArray enumerateObjectsUsingBlock:^(NSMutableArray*  _Nonnull subArray, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (self.item.isHasSwitch && idx == 0 ) {
+            for (MMSelectedPath *selectedPath in subArray) {
+                MMAlternativeItem *item = self.item.alternativeArray[selectedPath.firstPath];
+                item.isSelected = NO;
+            }
+            return;
         }
-    }
+//        if (subArray.count == 0) return;
+//        MMSelectedPath *selectedPath = subArray[0];
+        MMSelectedPath *resetPath = [MMSelectedPath pathWithFirstPath:self.item.isHasSwitch?idx-1:idx secondPath:0];
+        MMItem *lastItem = self.item.childrenNodes[resetPath.firstPath].childrenNodes[resetPath.secondPath];
+        lastItem.isSelected = YES;
+        [self.selectedArray[idx] addObject:resetPath];
+    }];
     [self.mainTableView reloadData];
+}
+
+- (void)_clearItemsStateOfSelectedArray {
+    [self.selectedArray enumerateObjectsUsingBlock:^(NSMutableArray*  _Nonnull subArray, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (self.item.isHasSwitch && idx == 0) return;
+        
+        for (MMSelectedPath *selectedPath in subArray) {
+            MMItem *lastItem = self.item.childrenNodes[selectedPath.firstPath].childrenNodes[selectedPath.secondPath];
+            lastItem.isSelected = NO;
+        }
+        [subArray removeAllObjects];
+    }];
+}
+//恢复到最初状态
+- (void)recoverToTheOriginalState {
+    if (self.isSuccessfulToCallBack == NO) {
+        [self _clearItemsStateOfSelectedArray];
+        
+        [self.temporaryArray enumerateObjectsUsingBlock:^(NSMutableArray*  _Nonnull subArray, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (self.item.isHasSwitch && idx == 0 ) {
+                for (MMSelectedPath *selectedPath in subArray) {
+                    MMAlternativeItem *item = self.item.alternativeArray[selectedPath.firstPath];
+                    item.isSelected = selectedPath.isOn;
+                }
+            return;
+            }
+            for (MMSelectedPath *selectedPath in subArray) {
+                MMItem *lastItem = self.item.childrenNodes[selectedPath.firstPath].childrenNodes[selectedPath.secondPath];
+                lastItem.isSelected = YES;
+             }
+        }];
+    }
 }
 
 - (void)callBackDelegate {
@@ -211,8 +229,8 @@
 }
 #pragma mark - Action
 - (void)respondsToButtonAction:(UIButton *)sender {
-    if (sender.tag == 0) {//重置
-        [self resetValue];
+    if (sender.tag == 0) {
+        [self _resetValue];
     } else if (sender.tag == 1) {//确定
         [self callBackDelegate];
     }
@@ -254,7 +272,9 @@
 
 #pragma mark - MMHeaderViewDelegate
 - (void)headerView:(MMHeaderView *)headerView didSelectedAtIndex:(NSInteger)index currentState:(BOOL)isSelected {
-   MMSelectedPath *selectedPath = [self _findAlternativeItemAtIndex:index sourceArray:self.selectedArray];
+   NSInteger indexOfSelectedArray = [self _indexOfSelectedArrayByPath:[MMSelectedPath pathWithFirstPath:0 secondPath:index]];
+   NSMutableArray *itemArray = self.selectedArray[indexOfSelectedArray];
+   MMSelectedPath *selectedPath = [self _findAlternativeItemAtIndex:index sourceArray:itemArray];
    selectedPath.isOn = isSelected;
    MMAlternativeItem *item = self.item.alternativeArray[index];
    item.isSelected = isSelected;
@@ -268,15 +288,16 @@
    
     switch (self.item.selectedType) {
         case MMPopupViewSingleSelection:{ //单选
-            if ([self _iscontainsSelectedPath:[MMSelectedPath pathWithFirstPath:indexPath.row secondPath:index] sourceArray:itemArray]) return; //包含
-                MMSelectedPath *removeIndexPath = [self _removePath:[MMSelectedPath pathWithFirstPath:indexPath.row secondPath:index] sourceArray:itemArray];
+            if ([self _iscontainsSelectedPath:[MMSelectedPath pathWithFirstPath:indexPath.row secondPath:index] sourceArray:itemArray] && itemArray.count == 1) return; //包含
+                MMSelectedPath *removeIndexPath = [itemArray lastObject];
+                [itemArray removeAllObjects];
                 self.item.childrenNodes[removeIndexPath.firstPath].childrenNodes[removeIndexPath.secondPath].isSelected = NO;
                 [itemArray addObject:[MMSelectedPath pathWithFirstPath:indexPath.row secondPath:index]];
                 self.item.childrenNodes[indexPath.row].childrenNodes[index].isSelected = YES;
             
             break;}
             
-        case MMPopupViewMultilSeMultiSelection:{
+        case MMPopupViewMultilSeMultiSelection:{//多选
             if ([self _iscontainsSelectedPath:[MMSelectedPath pathWithFirstPath:indexPath.row secondPath:index] sourceArray:itemArray]) {
                 if (itemArray.count == 1) return;
                 MMSelectedPath *removeIndexPath = [self _removePath:[MMSelectedPath pathWithFirstPath:indexPath.row secondPath:index] sourceArray:itemArray];

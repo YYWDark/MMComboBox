@@ -83,7 +83,7 @@
                     MMItem *firstItem = rootItem.childrenNodes[path.firstPath];
                     MMItem *secondItem = rootItem.childrenNodes[path.firstPath].childrenNodes[path.secondPath];
                     title = firstItem.title;
-                    [subtitles appendString:idx?[NSString stringWithFormat:@"  %@",secondItem.title]:secondItem.title];
+                    [subtitles appendString:[NSString stringWithFormat:@"  %@",secondItem.title]];
                 }
                   NSLog(@"当title为%@时，所选字段为 %@",title,subtitles);
             }];
@@ -136,7 +136,7 @@
      //root 4
         MMItem *rootItem4 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"筛选"];
         rootItem4.displayType = MMPopupViewDisplayTypeFilters;
-//        rootItem4.selectedType = MMPopupViewMultilSeMultiSelection;
+        rootItem4.selectedType = MMPopupViewMultilSeMultiSelection;
         MMAlternativeItem *alternativeItem1 = [MMAlternativeItem itemWithTitle:@"只看免预约" isSelected:NO];
         MMAlternativeItem *alternativeItem2 = [MMAlternativeItem itemWithTitle:@"节假日可用" isSelected:YES];
         [rootItem4.alternativeArray addObject:alternativeItem1];

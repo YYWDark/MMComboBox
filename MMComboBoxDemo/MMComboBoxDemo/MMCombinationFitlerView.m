@@ -32,7 +32,10 @@
             MMAlternativeItem *alternativeItem = self.item.alternativeArray[i];
             [alternativeArray addObject:[MMSelectedPath pathWithFirstPath:i isOn:alternativeItem.isSelected]];
         }
-        [self.selectedArray addObject:alternativeArray];
+        if (alternativeArray.count) {
+         [self.selectedArray addObject:alternativeArray];
+        }
+        
         //遍历MMItems
         for (int i = 0; i < self.item.childrenNodes.count; i++) {
             MMItem *subItem = item.childrenNodes[i];
@@ -115,7 +118,7 @@
     }
     
     //根据isSuccessfulToCallBack字段判断是否要将数据回归到temporaryArray状态
-    [self recoverToTheOriginalState];
+    [self _recoverToTheOriginalState];
    
     self.bottomView.hidden = YES;
     CGFloat top =  CGRectGetMaxY(self.sourceFrame);
@@ -197,7 +200,7 @@
     }];
 }
 //恢复到最初状态
-- (void)recoverToTheOriginalState {
+- (void)_recoverToTheOriginalState {
     if (self.isSuccessfulToCallBack == NO) {
         [self _clearItemsStateOfSelectedArray];
         
@@ -272,8 +275,8 @@
 
 #pragma mark - MMHeaderViewDelegate
 - (void)headerView:(MMHeaderView *)headerView didSelectedAtIndex:(NSInteger)index currentState:(BOOL)isSelected {
-   NSInteger indexOfSelectedArray = [self _indexOfSelectedArrayByPath:[MMSelectedPath pathWithFirstPath:0 secondPath:index]];
-   NSMutableArray *itemArray = self.selectedArray[indexOfSelectedArray];
+    //switch会在index为0的数组里面
+   NSMutableArray *itemArray = self.selectedArray[0];
    MMSelectedPath *selectedPath = [self _findAlternativeItemAtIndex:index sourceArray:itemArray];
    selectedPath.isOn = isSelected;
    MMAlternativeItem *item = self.item.alternativeArray[index];
@@ -281,6 +284,7 @@
 }
 
 #pragma mark - MMCombineCellDelegate
+
 - (void)combineCell:(MMCombineCell *)combineCell didSelectedAtIndex:(NSInteger)index{
     NSIndexPath *indexPath = [self.mainTableView indexPathForCell:combineCell];
     NSInteger indexOfSelectedArray = [self _indexOfSelectedArrayByPath:[MMSelectedPath pathWithFirstPath:indexPath.row secondPath:index]];

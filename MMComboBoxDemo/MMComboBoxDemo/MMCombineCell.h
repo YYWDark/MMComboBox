@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MMItem.h"
+#import "MMCombinationItem.h"
 
 @protocol MMCombineCellDelegate;
 @interface MMCombineCell : UITableViewCell
-@property (nonatomic, strong) MMItem *item; 
+@property (nonatomic, strong) MMItem *item;
 @property (nonatomic, weak) id<MMCombineCellDelegate> delegate;
 @end
 

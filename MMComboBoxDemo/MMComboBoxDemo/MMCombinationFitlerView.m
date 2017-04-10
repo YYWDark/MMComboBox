@@ -12,19 +12,19 @@
 #import "MMHeaderView.h"
 #import "MMSelectedPath.h"
 #import "MMAlternativeItem.h"
+
 @interface MMCombinationFitlerView () <MMHeaderViewDelegate,MMCombineCellDelegate,UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) MMHeaderView *headView;
 @property (nonatomic, assign) BOOL isSuccessfulToCallBack;
-
 @end
 
 @implementation MMCombinationFitlerView
 
-- (id)initWithItem:(MMItem *)item{
+- (id)initWithItem:(MMCombinationItem *)item{
     self = [super init];
     if (self) {
-        self.item = item;
+        self.item = (MMCombinationItem *)item;
         
         //遍历Switch
         NSMutableArray *alternativeArray = [NSMutableArray array];
@@ -60,7 +60,7 @@
     self.sourceFrame = frame;
     CGFloat top =  CGRectGetMaxY(self.sourceFrame);
     CGFloat maxHeight = kScreenHeigth - DistanceBeteewnPopupViewAndBottom - top - PopupViewTabBarHeight;
-    CGFloat resultHeight = MIN(maxHeight, self.item.layout.totalHeight);
+    CGFloat resultHeight = MIN(maxHeight, self.item.combinationLayout.totalHeight);
     self.frame = CGRectMake(0, top, kScreenWidth, 0);
     [rootView addSubview:self];
     
@@ -257,7 +257,7 @@
 #pragma mark - UITableViewDelegate
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (self.headView == nil) {
-     self.headView = [[MMHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.width,self.item.layout.headerViewHeight)];
+     self.headView = [[MMHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.width,self.item.combinationLayout.headerViewHeight)];
      self.headView.delegate = self;
      self.headView.backgroundColor = [UIColor whiteColor];
     }
@@ -266,11 +266,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.item.layout.cellLayoutTotalHeight[indexPath.row] floatValue];
+    return [self.item.combinationLayout.cellLayoutTotalHeight[indexPath.row] floatValue];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return self.item.layout.headerViewHeight;
+    return self.item.combinationLayout.headerViewHeight;
 }
 
 #pragma mark - MMHeaderViewDelegate

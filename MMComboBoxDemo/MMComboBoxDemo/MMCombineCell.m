@@ -36,8 +36,8 @@
     for (int i = 0; i < item.childrenNodes.count; i ++) {
         MMItem *subItem = item.childrenNodes[i];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        CGFloat orginX = [item.layout.cellLayoutTotalInfo[i][0] floatValue];
-        CGFloat orginy = [item.layout.cellLayoutTotalInfo[i][1] floatValue];
+        CGFloat orginX = [item.combinationLayout.cellLayoutTotalInfo[i][0] floatValue];
+        CGFloat orginy = [item.combinationLayout.cellLayoutTotalInfo[i][1] floatValue];
         button.frame = CGRectMake(orginX, orginy, ItemWidth, ItemHeight);
         button.titleLabel.font = [UIFont systemFontOfSize:ButtonFontSize];
         button.layer.borderWidth = 1.0/scale;

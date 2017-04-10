@@ -7,8 +7,8 @@
 //
 
 #import "MMBasePopupView.h"
-
+#import "MMCombinationItem.h"
 @interface MMCombinationFitlerView : MMBasePopupView
-
+@property (nonatomic, strong) MMCombinationItem *item;
 @end
 

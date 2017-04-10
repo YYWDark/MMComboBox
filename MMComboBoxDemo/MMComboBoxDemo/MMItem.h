@@ -8,18 +8,40 @@
 
 #import <Foundation/Foundation.h>
 #import "MMBaseItem.h"
-@class MMSelectedPath;
-@class MMLayout;
+#import "MMSelectedPath.h"
 #import "MMLayout.h"
+
+//这个字段我们暂时留着以后扩展，覆盖可能要有些选项不能选择，显示灰色的情况
+typedef NS_ENUM(NSUInteger, MMPopupViewMarkType) {  //选中的状态
+    MMPopupViewDisplayTypeSelected = 0,      //可以选中
+    MMPopupViewDisplayTypeUnselected = 1,    //不可以选中
+};
+
+typedef NS_ENUM(NSUInteger, MMPopupViewSelectedType) {     //是否支持单选或者多选
+    MMPopupViewSingleSelection,                            //单选
+    MMPopupViewMultilSeMultiSelection,                    //多选
+};
+
+typedef NS_ENUM(NSUInteger, MMPopupViewDisplayType) {  //分辨弹出来的view类型
+    MMPopupViewDisplayTypeNormal = 0,                //一层
+    MMPopupViewDisplayTypeMultilayer = 1,            //两层
+    MMPopupViewDisplayTypeFilters = 2,               //混合
+};
+
 @interface MMItem : MMBaseItem
+@property (nonatomic, assign) MMPopupViewMarkType markType;
+@property (nonatomic, assign) MMPopupViewDisplayType displayType;
+@property (nonatomic, assign) MMPopupViewSelectedType selectedType;
+
+
 @property (nonatomic, copy) NSString *code;                             //支持有的需要上传code而不是title
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, strong) NSMutableArray <MMItem *> *childrenNodes;     
-@property (nonatomic, strong) NSMutableArray *alternativeArray;         //当有这种的类型则一定为MMPopupViewDisplayTypeFilters类型
+@property (nonatomic, strong) NSMutableArray <MMItem *>*childrenNodes;
 @property (nonatomic, assign) BOOL isSelected;                          //默认0
 @property (nonatomic, strong) NSString *subTitle;                       //第一层默认没有
-@property (nonatomic, strong) MMLayout *layout;
-@property (nonatomic, assign) BOOL isHasSwitch;
+
+@property (nonatomic, strong) MMLayout *combinationLayout;
+
 + (instancetype)itemWithItemType:(MMPopupViewMarkType)type
                        titleName:(NSString *)title;
 
@@ -30,7 +52,7 @@
 + (instancetype)itemWithItemType:(MMPopupViewMarkType)type
                       isSelected:(BOOL)isSelected
                        titleName:(NSString *)title
-                     subTileName:(NSString *)subTile;
+                     subtitleName:(NSString *)subTile;
 
 + (instancetype)itemWithItemType:(MMPopupViewMarkType)type
                       isSelected:(BOOL)isSelected
@@ -38,11 +60,15 @@
                     subtitleName:(NSString *)subtitle
                             code:(NSString *)code;
 
+- (instancetype)initWithType:(MMPopupViewMarkType)type
+                  isSelected:(BOOL)isSelected
+                   titleName:(NSString *)title
+                subtitleName:(NSString *)subtitle
+                        code:(NSString *)code;
 
 - (void)addNode:(MMItem *)node;
-- (void)addLayoutInformationWhenTypeFilters;
 - (NSString *)findTitleBySelectedPath:(MMSelectedPath *)selectedPath;
 
-
-
 @end
+
+

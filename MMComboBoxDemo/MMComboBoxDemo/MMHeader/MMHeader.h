@@ -20,7 +20,7 @@ static const CGFloat DistanceBeteewnPopupViewAndBottom =80.0f;
 static const CGFloat PopupViewTabBarHeight = 40.0f;
 static const CGFloat LeftCellHorizontalMargin = 20.0f;
 static const CGFloat LeftCellWidth = 100.0f;
-static const CGFloat ShadowAlpha = .5;
+static const CGFloat ShadowAlpha = 0.5;
 //static const CGFloat
 static  NSString *MainCellID = @"MainCellID";
 static  NSString *SubCellID = @"SubCellID";

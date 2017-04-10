@@ -7,8 +7,7 @@
 //
 
 #import "MMLayout.h"
-#import "MMItem.h"
-
+#import "MMCombinationItem.h"
 @implementation MMLayout
 - (instancetype)init {
     self = [super init];
@@ -16,16 +15,12 @@
         self.cellLayoutTotalHeight = [NSMutableArray array];
         self.cellLayoutTotalInfo = [NSMutableArray array];
         self.rowNumber = (kScreenWidth - 2*ItemHorizontalMargin)/(ItemWidth + ItemHorizontalDistance);
-        [self _initUI];
+        
     }
     return self;
 }
 
-- (void)_initUI {
-    
-}
-
-+ (instancetype)layoutWithItem:(MMItem *)item {
++ (instancetype)layoutWithItem:(MMCombinationItem *)item {
     MMLayout *layout = [[MMLayout alloc] init];
     layout.headerViewHeight = item.alternativeArray.count * (2*AlternativeTitleVerticalMargin + AlternativeTitleHeight);
     layout.totalHeight += layout.headerViewHeight;

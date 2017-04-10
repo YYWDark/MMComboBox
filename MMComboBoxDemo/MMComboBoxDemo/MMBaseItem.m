@@ -12,7 +12,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.displayType = MMPopupViewDisplayTypeNormal;
+//        self.displayType = MMPopupViewDisplayTypeNormal;
     }
     return self;
 }

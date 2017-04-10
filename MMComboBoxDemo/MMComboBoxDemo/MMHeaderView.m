@@ -21,7 +21,7 @@
     return self;
 }
 
-- (void)setItem:(MMItem *)item {
+- (void)setItem:(MMCombinationItem *)item {
     _item = item;
     for (UIView *view in self.subviews) {
         [view removeFromSuperview];

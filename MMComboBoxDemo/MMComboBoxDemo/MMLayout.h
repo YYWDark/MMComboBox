@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class MMItem;
+@class MMCombinationItem;
 #import "MMHeader.h"
 
 @interface MMLayout : NSObject
@@ -19,5 +19,5 @@
 @property (nonatomic, assign) NSInteger rowNumber;
 @property (nonatomic, strong) NSMutableArray *cellLayoutTotalHeight;
 @property (nonatomic, strong) NSMutableArray *cellLayoutTotalInfo;
-+ (instancetype)layoutWithItem:(MMItem *)item;
++ (instancetype)layoutWithItem:(MMCombinationItem *)item;
 @end

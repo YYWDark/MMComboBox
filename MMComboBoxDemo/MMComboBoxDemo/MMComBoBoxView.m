@@ -11,7 +11,7 @@
 #import "MMHeader.h"
 #import "MMBasePopupView.h"
 #import "MMSelectedPath.h"
-
+#import "MMCombinationItem.h"
 @interface MMComBoBoxView () <MMDropDownBoxDelegate,MMPopupViewDelegate>
 @property (nonatomic, strong) NSMutableArray <MMDropDownBox *>*dropDownBoxArray;
 @property (nonatomic, strong) NSMutableArray <MMItem *>*itemArray;
@@ -44,7 +44,10 @@
     if ([self.dataSource respondsToSelector:@selector(comBoBoxView:infomationForColumn:)]) {
         for (NSUInteger i = 0; i < count; i ++) {
             MMItem *item = [self.dataSource comBoBoxView:self infomationForColumn:i];
-            [item addLayoutInformationWhenTypeFilters];
+            if ([item isMemberOfClass:[MMCombinationItem class]]) {
+                [(MMCombinationItem *)item addLayoutInformationWhenTypeFilters];
+            }
+            
             MMDropDownBox *dropBox = [[MMDropDownBox alloc] initWithFrame:CGRectMake(i*width, 0, width, self.height) titleName:item.title];
             dropBox.tag = i;
             dropBox.delegate = self;

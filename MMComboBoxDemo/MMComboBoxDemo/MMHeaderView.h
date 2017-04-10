@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MMItem.h"
+#import "MMCombinationItem.h"
 
 @protocol MMHeaderViewDelegate;
 @interface MMHeaderView : UIView
-@property (nonatomic, strong) MMItem *item;
+@property (nonatomic, strong) MMCombinationItem *item;
 @property (nonatomic, weak) id<MMHeaderViewDelegate> delegate;
 @end
 

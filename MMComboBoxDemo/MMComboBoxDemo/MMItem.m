@@ -7,15 +7,12 @@
 //
 
 #import "MMItem.h"
-#import "MMLayout.h"
-
-#import "MMSelectedPath.h"
 @implementation MMItem
 #pragma mark - init method
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.alternativeArray = [NSMutableArray array];
+        self.displayType = MMPopupViewDisplayTypeNormal;
         self.childrenNodes = [NSMutableArray array];
     }
     return self;
@@ -24,7 +21,7 @@
 + (instancetype)itemWithItemType:(MMPopupViewMarkType)type
                        titleName:(NSString *)title
                      subTileName:(NSString *)subTile{
-    return [MMItem itemWithItemType:type
+    return [self itemWithItemType:type
                          isSelected:NO
                           titleName:title
                        subtitleName:subTile
@@ -33,7 +30,7 @@
 
 + (instancetype)itemWithItemType:(MMPopupViewMarkType)type
                        titleName:(NSString *)title {
-    return [MMItem itemWithItemType:type
+    return [self itemWithItemType:type
                          isSelected:NO
                           titleName:title
                        subtitleName:nil
@@ -43,8 +40,8 @@
 + (instancetype)itemWithItemType:(MMPopupViewMarkType)type
                       isSelected:(BOOL)isSelected
                        titleName:(NSString *)title
-                     subTileName:(NSString *)subTile {
-    return [MMItem itemWithItemType:type
+                     subtitleName:(NSString *)subTile {
+    return [self itemWithItemType:type
                          isSelected:isSelected
                           titleName:title
                        subtitleName:subTile
@@ -56,6 +53,7 @@
                        titleName:(NSString *)title
                     subtitleName:(NSString *)subtitle
                             code:(NSString *)code {
+    
     MMItem *item = [[[self class] alloc] init];
     item.markType = type;
     item.isSelected = isSelected;
@@ -65,24 +63,26 @@
     return item;
 }
 
+- (instancetype)initWithType:(MMPopupViewMarkType)type
+                  isSelected:(BOOL)isSelected
+                   titleName:(NSString *)title
+                subtitleName:(NSString *)subtitle
+                        code:(NSString *)code {
+    self = [self init];
+    if (self) {
+        self.markType = type;
+        self.isSelected = isSelected;
+        self.title = title;
+        self.subTitle = subtitle;
+        self.code = code;
+    }
+    return self;
+}
+
 #pragma mark - public method
 - (void)addNode:(MMItem *)node {
     NSParameterAssert(node);
     [self.childrenNodes addObject:node];
-}
-
-
-
-- (void)addLayoutInformationWhenTypeFilters {
-   if (self.displayType != MMPopupViewDisplayTypeFilters)  return;
-    
-   self.layout = [MMLayout layoutWithItem:self];
-   for (int i = 0; i < self.childrenNodes.count; i++) {
-            MMItem *subItem = self.childrenNodes[i];
-            subItem.layout = [[MMLayout alloc] init];
-            [subItem.layout.cellLayoutTotalInfo addObjectsFromArray:self.layout.cellLayoutTotalInfo[i]];
-    }
-    
 }
 
 
@@ -94,7 +94,5 @@
 }
 
 
-- (BOOL)isHasSwitch {
-    return (self.alternativeArray.count != 0);
-}
+
 @end

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
-
-
+@property (nonatomic, assign) BOOL isMultiSelection;           /*singer和combination类型是否支持多选*/
 @end
 

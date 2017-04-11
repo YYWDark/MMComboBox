@@ -7,7 +7,7 @@
 //
 
 #import "MMCombinationFitlerView.h"
-#import "MMHeader.h"
+#import "MMComboBoxHeader.h"
 #import "MMCombineCell.h"
 #import "MMHeaderView.h"
 #import "MMSelectedPath.h"

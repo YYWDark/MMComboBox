@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class MMCombinationItem;
-#import "MMHeader.h"
+#import "MMComboBoxHeader.h"
 
 @interface MMLayout : NSObject
 @property (nonatomic, assign) CGFloat headerViewHeight;

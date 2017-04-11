@@ -8,7 +8,7 @@
 
 #import "MMComBoBoxView.h"
 #import "MMDropDownBox.h"
-#import "MMHeader.h"
+#import "MMComboBoxHeader.h"
 #import "MMBasePopupView.h"
 #import "MMSelectedPath.h"
 #import "MMCombinationItem.h"

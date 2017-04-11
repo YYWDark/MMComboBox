@@ -7,64 +7,32 @@
 //
 
 #import "MMMultiFitlerView.h"
-#import "MMHeader.h"
+#import "MMComboBoxHeader.h"
 #import "MMLeftCell.h"
 #import "MMNormalCell.h"
 #import "MMSelectedPath.h"
 #import "MMMultiItem.h"
 
 @interface MMMultiFitlerView () <UITableViewDelegate, UITableViewDataSource>
-//@property (nonatomic, assign) NSUInteger selectedIndex;        /* 记录了左边的index**/
 @property (nonatomic, assign) NSUInteger minRowNumber;
 @property (nonatomic, strong) NSMutableArray *tableViewArrays;
 @property (nonatomic, strong) MMMultiItem *item;
 @property (nonatomic, strong) MMSelectedPath *lastSelectedPath;
 @property (nonatomic, assign) BOOL isSuccessfulToCallBack;
 @end
+
 @implementation MMMultiFitlerView
 - (id)initWithItem:(MMItem *)item{
     self = [super init];
     if (self) {
         self.item = (MMMultiItem *)item;
-        [self go];
+        [self _findSelectedItem];
         self.minRowNumber = 4;
         self.backgroundColor = [UIColor clearColor];
         self.temporaryArray= [[NSArray alloc] initWithArray:self.selectedArray copyItems:YES];
     }
     return self;
 }
-
-- (void)go {
-    NSArray *firstLayers = self.item.childrenNodes;
-    for (int i = 0; i < firstLayers.count ; i ++) {
-        MMItem *firstItem = firstLayers[i];//市区
-        if (firstItem.isSelected == YES) {
-           NSArray *secondtLayers = firstItem.childrenNodes;//
-            for (int j = 0; j < secondtLayers.count ; j++) {
-                MMItem *secondItem = secondtLayers[j];
-                if (secondItem.isSelected == YES) {
-                    //两层的位置
-                    if (self.item.numberOflayers == MMPopupViewTwolayers) {
-                       [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:i secondPath:j]];
-                    }
-                    
-               
-                    NSArray *thirdLayers = secondItem.childrenNodes;
-                    for (int k = 0; k < thirdLayers.count; k++) {
-                        MMItem *thirdItem = thirdLayers[k];
-                        if (thirdItem.isSelected == YES) {
-                         if (self.item.numberOflayers == MMPopupViewThreelayers) {
-                             [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:i secondPath:j thirdPath:k]];
-                         }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-
 
 #pragma mark - public method
 - (void)popupViewFromSourceFrame:(CGRect)frame completion:(void (^ __nullable)(void))completion {
@@ -85,6 +53,7 @@
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.tag = index;
+        tableView.tableFooterView = [UIView new];
         if (self.item.numberOflayers == MMPopupViewThreelayers) {
             [tableView registerClass:[MMLeftCell class] forCellReuseIdentifier:MainCellID];
         }else {
@@ -95,7 +64,6 @@
             }
         }
         
-       
         [self addSubview:tableView];
         [self.tableViewArrays addObject:tableView];
         
@@ -134,38 +102,11 @@
     
 }
 
-- (void)resetSelectePath:(MMSelectedPath *)selectdPath isSelected:(BOOL)isSelected {
-    self.item.childrenNodes[selectdPath.firstPath].isSelected = isSelected;
-    if (selectdPath.secondPath == -1) return;
-    self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].isSelected = isSelected;
-    if (selectdPath.thirdPath == -1) return;
-    self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].childrenNodes[selectdPath.thirdPath].isSelected = isSelected;
-}
-
-- (void)resetFromSecondPath:(MMSelectedPath *)selectdPath isSelected:(BOOL)isSelected {
-   if (selectdPath.secondPath == -1) return;
-    self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].isSelected = isSelected;
-    if (selectdPath.thirdPath == -1) return;
-    self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].childrenNodes[selectdPath.thirdPath].isSelected = isSelected;
-}
-
-- (void)resetFromThirdPath:(MMSelectedPath *)selectdPath isSelected:(BOOL)isSelected {
-    if (selectdPath.thirdPath == -1) return;
-    self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].childrenNodes[selectdPath.thirdPath].isSelected = isSelected;
-}
-
-- (void)resetValue {
-    [self resetSelectePath:self.selectedArray.lastObject isSelected:NO];
-    [self resetSelectePath:self.temporaryArray.lastObject isSelected:YES];
-}
-
 - (void)dismiss{
     [super dismiss];
-
     if (self.isSuccessfulToCallBack == NO) {
         [self resetValue];
     }
-    
     if ([self.delegate respondsToSelector:@selector(popupViewWillDismiss:)]) {
         [self.delegate popupViewWillDismiss:self];
     }
@@ -196,6 +137,36 @@
     MMSelectedPath *path = [self.selectedArray lastObject];
     return path.secondPath;
 }
+- (void)_findSelectedItem {
+    NSArray *firstLayers = self.item.childrenNodes;
+    for (int i = 0; i < firstLayers.count ; i ++) {
+        MMItem *firstItem = firstLayers[i];
+        
+        if (firstItem.isSelected == YES) {
+            NSArray *secondtLayers = firstItem.childrenNodes;//
+            for (int j = 0; j < secondtLayers.count ; j++) {
+                MMItem *secondItem = secondtLayers[j];
+                
+                if (secondItem.isSelected == YES) {
+                    //两层的位置
+                    if (self.item.numberOflayers == MMPopupViewTwolayers) {
+                        [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:i secondPath:j]];
+                    }
+                    NSArray *thirdLayers = secondItem.childrenNodes;
+                    for (int k = 0; k < thirdLayers.count; k++) {
+                        
+                        MMItem *thirdItem = thirdLayers[k];
+                        if (thirdItem.isSelected == YES) {
+                            if (self.item.numberOflayers == MMPopupViewThreelayers) {
+                                [self.selectedArray addObject:[MMSelectedPath pathWithFirstPath:i secondPath:j thirdPath:k]];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 - (void)_callBackDelegate {
     self.isSuccessfulToCallBack = YES;
@@ -207,6 +178,30 @@
     }
 }
 
+- (void)_resetSelectePath:(MMSelectedPath *)selectdPath isSelected:(BOOL)isSelected {
+    self.item.childrenNodes[selectdPath.firstPath].isSelected = isSelected;
+    if (selectdPath.secondPath == -1) return;
+    self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].isSelected = isSelected;
+    if (selectdPath.thirdPath == -1) return;
+    self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].childrenNodes[selectdPath.thirdPath].isSelected = isSelected;
+}
+
+- (void)_resetFromSecondPath:(MMSelectedPath *)selectdPath isSelected:(BOOL)isSelected {
+    if (selectdPath.secondPath == -1) return;
+    self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].isSelected = isSelected;
+    if (selectdPath.thirdPath == -1) return;
+    self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].childrenNodes[selectdPath.thirdPath].isSelected = isSelected;
+}
+
+- (void)_resetFromThirdPath:(MMSelectedPath *)selectdPath isSelected:(BOOL)isSelected {
+    if (selectdPath.thirdPath == -1) return;
+    self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].childrenNodes[selectdPath.thirdPath].isSelected = isSelected;
+}
+
+- (void)resetValue {
+    [self _resetSelectePath:self.selectedArray.lastObject isSelected:NO];
+    [self _resetSelectePath:self.temporaryArray.lastObject isSelected:YES];
+}
 #pragma mark - Action
 - (void)respondsToTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
     [self dismiss];
@@ -312,7 +307,7 @@
         case 0:{
             if ([self _getFirstLayerIndex] == indexPath.row) return;
             //清除之前的选中状态
-            [self resetSelectePath:selectdPath isSelected:NO];
+            [self _resetSelectePath:selectdPath isSelected:NO];
             
             //设置现在的选中状态
             self.item.childrenNodes[indexPath.row].isSelected = YES;
@@ -336,7 +331,7 @@
             
             if (selectdPath.secondPath == indexPath.row) return;
             //清除
-            [self resetFromSecondPath:selectdPath isSelected:NO];
+            [self _resetFromSecondPath:selectdPath isSelected:NO];
             //设置现在的选中状态
             MMItem *currentIndex =self.item.childrenNodes[selectdPath.firstPath].childrenNodes[indexPath.row];
             currentIndex.isSelected = YES;
@@ -358,7 +353,7 @@
         case 2:{
             if (selectdPath.thirdPath == indexPath.row) return;
             //清除
-            [self resetFromThirdPath:selectdPath isSelected:NO];
+            [self _resetFromThirdPath:selectdPath isSelected:NO];
             MMItem *currentIndex = self.item.childrenNodes[selectdPath.firstPath].childrenNodes[selectdPath.secondPath].childrenNodes[indexPath.row];;
             currentIndex.isSelected = YES;
             //移除

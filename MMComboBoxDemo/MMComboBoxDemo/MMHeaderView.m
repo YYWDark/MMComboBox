@@ -8,7 +8,7 @@
 
 #import "MMHeaderView.h"
 #import "MMAlternativeItem.h"
-#import "MMHeader.h"
+#import "MMComboBoxHeader.h"
 
 @interface MMHeaderView ()
 @end

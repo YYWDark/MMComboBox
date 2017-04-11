@@ -6,7 +6,7 @@
 //  Copyright © 2016年 yyx. All rights reserved.
 //
 
-#import "UIColor+Extension.h"
+#import "UIColor+ComboBoxExtension.h"
 
 @implementation UIColor (Extension)
 +(UIColor *)colorWithHexString:(NSString*)hexString {

@@ -7,7 +7,7 @@
 //
 
 #import "MMNormalCell.h"
-#import "MMHeader.h"
+#import "MMComboBoxHeader.h"
 static const CGFloat horizontalMargin = 10.0f;
 @interface MMNormalCell ()
 @property (nonatomic, strong) UILabel *title;
@@ -43,6 +43,7 @@ static const CGFloat horizontalMargin = 10.0f;
     if (item.subTitle != nil) {
     self.subTitle.text  = item.subTitle;
     }
+    self.backgroundColor = item.isSelected?[UIColor colorWithHexString:SelectedBGColor]:[UIColor colorWithHexString:UnselectedBGColor];
     self.selectedImageview.hidden = !item.isSelected;
 }
 

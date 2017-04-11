@@ -7,7 +7,7 @@
 //
 
 #import "MMLeftCell.h"
-#import "MMHeader.h"
+#import "MMComboBoxHeader.h"
 @interface MMLeftCell ()
 @property (nonatomic, strong) UILabel *infoLabel;
 @property (nonatomic, strong) CALayer *bottomLine;

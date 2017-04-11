@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface MMSelectedPath : NSObject
-@property (nonatomic, assign) NSInteger firstPath;          //not nil
+@property (nonatomic, assign) NSInteger firstPath;          
 @property (nonatomic, assign) NSInteger secondPath;         //default is -1.
 @property (nonatomic, assign) NSInteger thirdPath;          //default is -1.
 

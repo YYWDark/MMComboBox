@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "MMComBoBoxView.h"
-#import "MMHeader.h"
+#import "MMComboBoxHeader.h"
 #import "MMAlternativeItem.h"
 #import "MMSelectedPath.h"
 #import "MMCombinationItem.h"
@@ -20,6 +20,8 @@
 @interface ViewController () <MMComBoBoxViewDataSource, MMComBoBoxViewDelegate>
 @property (nonatomic, strong) NSArray *mutableArray;
 @property (nonatomic, strong) MMComBoBoxView *comBoBoxView;
+@property (nonatomic, strong) UIButton *nextPageBtn;
+@property (nonatomic, strong) UIImageView *imageView;
 @end
 
 @implementation ViewController
@@ -27,7 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-
 //===============================================Init===============================================
     self.comBoBoxView = [[MMComBoBoxView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, 40)];
     self.comBoBoxView.dataSource = self;
@@ -35,10 +36,10 @@
     [self.view addSubview:self.comBoBoxView];
     [self.comBoBoxView reload];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.comBoBoxView.bottom, self.view.width, self.view.height - 64)];
-    imageView.image = [UIImage imageNamed:@"1.jpg"];
-    [self.view addSubview:imageView];
-    
+    [self.view addSubview:self.imageView];
+    if (self.isMultiSelection == NO)
+       [self.view addSubview:self.nextPageBtn];
+   
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -46,10 +47,18 @@
     [self.comBoBoxView dimissPopView];
 }
 
+#pragma mark - Action
+- (void)respondsToButtonAction:(UIButton *)sender {
+    ViewController *vc = [[ViewController alloc] init];
+    vc.isMultiSelection = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - MMComBoBoxViewDataSource
 - (NSUInteger)numberOfColumnsIncomBoBoxView :(MMComBoBoxView *)comBoBoxView {
     return self.mutableArray.count;
 }
+
 - (MMItem *)comBoBoxView:(MMComBoBoxView *)comBoBoxView infomationForColumn:(NSUInteger)column {
     return self.mutableArray[column];
 }
@@ -99,14 +108,13 @@
     }
 }
 
+#pragma mark - Getter
 - (NSArray *)mutableArray {
     if (_mutableArray == nil) {
        NSMutableArray *mutableArray = [NSMutableArray array];
        //root 1
        MMSingleItem *rootItem1 = [MMSingleItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:nil];
-#ifdef MultiSelection
-        rootItem1.selectedType = MMPopupViewMultilSeMultiSelection;
-#endif
+
        NSMutableString *title = [NSMutableString string];
       [rootItem1 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:YES titleName:@"全部" subtitleName:[NSString stringWithFormat:@"%ld",random()%10000] code:nil]];
         [title appendString:@"全部"];
@@ -118,6 +126,10 @@
         
       //root 2
       MMSingleItem *rootItem2 = [MMSingleItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"排序"];
+        
+      if (self.isMultiSelection)
+          rootItem2.selectedType = MMPopupViewMultilSeMultiSelection;
+        
       [rootItem2  addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:YES titleName:@"排序" subtitleName:nil code:nil]];
       [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"智能排序"]]];
       [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"离我最近"]]];
@@ -143,9 +155,10 @@
      //root 4
         MMCombinationItem *rootItem4 = [MMCombinationItem itemWithItemType:MMPopupViewDisplayTypeUnselected isSelected:NO titleName:@"筛选" subtitleName:nil];
          rootItem4.displayType = MMPopupViewDisplayTypeFilters;
-#ifdef MultiSelection
-      rootItem4.selectedType = MMPopupViewMultilSeMultiSelection;
-#endif
+        
+        if (self.isMultiSelection)
+        rootItem4.selectedType = MMPopupViewMultilSeMultiSelection;
+
         MMAlternativeItem *alternativeItem1 = [MMAlternativeItem itemWithTitle:@"只看免预约" isSelected:NO];
         MMAlternativeItem *alternativeItem2 = [MMAlternativeItem itemWithTitle:@"节假日可用" isSelected:YES];
         [rootItem4 addAlternativeItem:alternativeItem1];
@@ -200,5 +213,24 @@
       _mutableArray  = [mutableArray copy];
     }
     return _mutableArray;
+}
+
+- (UIImageView *)imageView {
+    if (_imageView == nil) {
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.comBoBoxView.bottom, self.view.width, self.view.height - 64)];
+        _imageView.image = [UIImage imageNamed:@"7.jpg"];
+    }
+    return _imageView;
+}
+
+- (UIButton *)nextPageBtn {
+    if (_nextPageBtn == nil) {
+        _nextPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _nextPageBtn.frame = CGRectMake(self.view.width - 80, kScreenHeigth - 60, 100, 30);
+        [_nextPageBtn setTitle:@"多选" forState:UIControlStateNormal];
+        [_nextPageBtn addTarget:self action:@selector(respondsToButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+
+    }
+    return _nextPageBtn;
 }
 @end

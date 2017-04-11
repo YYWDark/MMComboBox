@@ -11,7 +11,7 @@
 @class MMItem;
 @protocol MMPopupViewDelegate;
 @interface MMBasePopupView : UIView 
-@property (nonatomic, strong) MMItem *item;
+//@property (nonatomic, strong) MMItem *item;
 @property (nonatomic, assign) CGRect sourceFrame;                                       /* tapBar的frame**/
 @property (nonatomic, strong) UIView *shadowView;                                       /* 遮罩层**/
 @property (nonatomic, strong) UITableView *mainTableView;

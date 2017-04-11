@@ -13,7 +13,6 @@
     [self.alternativeArray addObject:item];
 }
 
-
 - (void)addLayoutInformationWhenTypeFilters {
     if (self.displayType != MMPopupViewDisplayTypeFilters)  return;
     self.combinationLayout = [MMLayout layoutWithItem:self];
@@ -22,7 +21,6 @@
         subItem.combinationLayout = [[MMLayout alloc] init];
         [subItem.combinationLayout.cellLayoutTotalInfo addObjectsFromArray:self.combinationLayout.cellLayoutTotalInfo[i]];
     }
-    
 }
 
 - (BOOL)isHasSwitch {

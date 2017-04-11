@@ -19,7 +19,6 @@
 - (id)initWithItem:(MMItem *)item {
     self = [self init];
     if (self) {
-        self.item = item;
     }
     return self;
 }

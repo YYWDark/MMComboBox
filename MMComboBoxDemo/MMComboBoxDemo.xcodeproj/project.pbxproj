@@ -17,7 +17,6 @@
 		7507083E1DF80A7700D21D49 /* MMComboBoxDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7507083D1DF80A7700D21D49 /* MMComboBoxDemoUITests.m */; };
 		7507084E1DF80B1F00D21D49 /* MMBasePopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7507084D1DF80B1F00D21D49 /* MMBasePopupView.m */; };
 		750708551DF80BBF00D21D49 /* MMItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708541DF80BBF00D21D49 /* MMItem.m */; };
-		750708581DF80D5C00D21D49 /* MMBaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708571DF80D5C00D21D49 /* MMBaseItem.m */; };
 		7507085B1DF810F800D21D49 /* MMAlternativeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7507085A1DF810F800D21D49 /* MMAlternativeItem.m */; };
 		7507085E1DF8EA0500D21D49 /* MMDropDownBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7507085D1DF8EA0500D21D49 /* MMDropDownBox.m */; };
 		750708611DF8EA2600D21D49 /* MMComBoBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750708601DF8EA2600D21D49 /* MMComBoBoxView.m */; };
@@ -34,6 +33,8 @@
 		75317B881E99E13A00B88E6D /* MMCombinationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 75317B871E99E13A00B88E6D /* MMCombinationItem.m */; };
 		7547C68A1E00D6BC00DD0398 /* MMSelectedPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 7547C6891E00D6BC00DD0398 /* MMSelectedPath.m */; };
 		755759431E0BD210009B8E96 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 755759421E0BD210009B8E96 /* 1.jpg */; };
+		75F6723B1E9B568400DD31B5 /* MMMultiItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F6723A1E9B568400DD31B5 /* MMMultiItem.m */; };
+		75F6723E1E9B59BE00DD31B5 /* MMSingleItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F6723D1E9B59BE00DD31B5 /* MMSingleItem.m */; };
 		75F760B01E03D4AE00487438 /* MMLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F760AF1E03D4AE00487438 /* MMLayout.m */; };
 		75F9B3411E08BA9B00E12FF3 /* MMCombineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9B3401E08BA9B00E12FF3 /* MMCombineCell.m */; };
 		75F9B3441E08C01700E12FF3 /* MMHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9B3431E08C01700E12FF3 /* MMHeaderView.m */; };
@@ -77,8 +78,6 @@
 		7507084D1DF80B1F00D21D49 /* MMBasePopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBasePopupView.m; sourceTree = "<group>"; };
 		750708531DF80BBF00D21D49 /* MMItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMItem.h; sourceTree = "<group>"; };
 		750708541DF80BBF00D21D49 /* MMItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMItem.m; sourceTree = "<group>"; };
-		750708561DF80D5C00D21D49 /* MMBaseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMBaseItem.h; sourceTree = "<group>"; };
-		750708571DF80D5C00D21D49 /* MMBaseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBaseItem.m; sourceTree = "<group>"; };
 		750708591DF810F800D21D49 /* MMAlternativeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAlternativeItem.h; sourceTree = "<group>"; };
 		7507085A1DF810F800D21D49 /* MMAlternativeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAlternativeItem.m; sourceTree = "<group>"; };
 		7507085C1DF8EA0500D21D49 /* MMDropDownBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDropDownBox.h; sourceTree = "<group>"; };
@@ -108,6 +107,10 @@
 		7547C6881E00D6BC00DD0398 /* MMSelectedPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSelectedPath.h; sourceTree = "<group>"; };
 		7547C6891E00D6BC00DD0398 /* MMSelectedPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSelectedPath.m; sourceTree = "<group>"; };
 		755759421E0BD210009B8E96 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		75F672391E9B568400DD31B5 /* MMMultiItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMultiItem.h; sourceTree = "<group>"; };
+		75F6723A1E9B568400DD31B5 /* MMMultiItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMultiItem.m; sourceTree = "<group>"; };
+		75F6723C1E9B59BE00DD31B5 /* MMSingleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSingleItem.h; sourceTree = "<group>"; };
+		75F6723D1E9B59BE00DD31B5 /* MMSingleItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSingleItem.m; sourceTree = "<group>"; };
 		75F760AE1E03D4AE00487438 /* MMLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLayout.h; sourceTree = "<group>"; };
 		75F760AF1E03D4AE00487438 /* MMLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLayout.m; sourceTree = "<group>"; };
 		75F9B33F1E08BA9B00E12FF3 /* MMCombineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCombineCell.h; sourceTree = "<group>"; };
@@ -225,8 +228,6 @@
 			children = (
 				75F760AE1E03D4AE00487438 /* MMLayout.h */,
 				75F760AF1E03D4AE00487438 /* MMLayout.m */,
-				750708561DF80D5C00D21D49 /* MMBaseItem.h */,
-				750708571DF80D5C00D21D49 /* MMBaseItem.m */,
 				750708531DF80BBF00D21D49 /* MMItem.h */,
 				750708541DF80BBF00D21D49 /* MMItem.m */,
 				750708591DF810F800D21D49 /* MMAlternativeItem.h */,
@@ -235,6 +236,10 @@
 				7547C6891E00D6BC00DD0398 /* MMSelectedPath.m */,
 				75317B861E99E13A00B88E6D /* MMCombinationItem.h */,
 				75317B871E99E13A00B88E6D /* MMCombinationItem.m */,
+				75F672391E9B568400DD31B5 /* MMMultiItem.h */,
+				75F6723A1E9B568400DD31B5 /* MMMultiItem.m */,
+				75F6723C1E9B59BE00DD31B5 /* MMSingleItem.h */,
+				75F6723D1E9B59BE00DD31B5 /* MMSingleItem.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -440,9 +445,11 @@
 				7507084E1DF80B1F00D21D49 /* MMBasePopupView.m in Sources */,
 				7507085E1DF8EA0500D21D49 /* MMDropDownBox.m in Sources */,
 				750708751DF8EAFD00D21D49 /* UIColor+Extension.m in Sources */,
+				75F6723E1E9B59BE00DD31B5 /* MMSingleItem.m in Sources */,
 				7547C68A1E00D6BC00DD0398 /* MMSelectedPath.m in Sources */,
 				750708761DF8EAFD00D21D49 /* UIView+Extension.m in Sources */,
 				750708201DF80A7700D21D49 /* ViewController.m in Sources */,
+				75F6723B1E9B568400DD31B5 /* MMMultiItem.m in Sources */,
 				750708BF1DF94B1900D21D49 /* MMCombinationFitlerView.m in Sources */,
 				750708BC1DF94AD100D21D49 /* MMMultiFitlerView.m in Sources */,
 				750708CC1DFFC91400D21D49 /* MMLeftCell.m in Sources */,
@@ -450,7 +457,6 @@
 				7507081D1DF80A7700D21D49 /* AppDelegate.m in Sources */,
 				750708B91DF94A9400D21D49 /* MMSingleFitlerView.m in Sources */,
 				750708C21DFA816500D21D49 /* MMNormalCell.m in Sources */,
-				750708581DF80D5C00D21D49 /* MMBaseItem.m in Sources */,
 				7507081A1DF80A7700D21D49 /* main.m in Sources */,
 				750708551DF80BBF00D21D49 /* MMItem.m in Sources */,
 			);

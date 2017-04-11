@@ -85,14 +85,14 @@
     [self.childrenNodes addObject:node];
 }
 
-
 - (NSString *)findTitleBySelectedPath:(MMSelectedPath *)selectedPath {
+    if (selectedPath.thirdPath != -1) {
+        return self.childrenNodes[selectedPath.firstPath].childrenNodes[selectedPath.secondPath].childrenNodes[selectedPath.thirdPath].title;
+    }
     if (selectedPath.secondPath != -1) {
         return [self.childrenNodes[selectedPath.firstPath].childrenNodes[selectedPath.secondPath] title];
     }
     return [self.childrenNodes[selectedPath.firstPath] title];
 }
-
-
 
 @end

@@ -12,8 +12,10 @@
 #import "MMAlternativeItem.h"
 #import "MMSelectedPath.h"
 #import "MMCombinationItem.h"
-//#define MultiSelection
+#import "MMMultiItem.h"
+#import "MMSingleItem.h"
 
+#define MultiSelection
 
 @interface ViewController () <MMComBoBoxViewDataSource, MMComBoBoxViewDelegate>
 @property (nonatomic, strong) NSArray *mutableArray;
@@ -60,7 +62,7 @@
         case MMPopupViewDisplayTypeMultilayer:{
             //拼接选择项
             NSMutableString *title = [NSMutableString string];
-           __block NSInteger firstPath;
+            __block NSInteger firstPath;
             [array enumerateObjectsUsingBlock:^(MMSelectedPath * path, NSUInteger idx, BOOL * _Nonnull stop) {
                 [title appendString:idx?[NSString stringWithFormat:@";%@",[rootItem findTitleBySelectedPath:path]]:[rootItem findTitleBySelectedPath:path]];
                 if (idx == 0) {
@@ -101,23 +103,21 @@
     if (_mutableArray == nil) {
        NSMutableArray *mutableArray = [NSMutableArray array];
        //root 1
-       MMItem *rootItem1 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:nil];
+       MMSingleItem *rootItem1 = [MMSingleItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:nil];
 #ifdef MultiSelection
         rootItem1.selectedType = MMPopupViewMultilSeMultiSelection;
 #endif
        NSMutableString *title = [NSMutableString string];
-        
+      [rootItem1 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:YES titleName:@"全部" subtitleName:[NSString stringWithFormat:@"%ld",random()%10000] code:nil]];
+        [title appendString:@"全部"];
        for (int i = 0; i < 20; i ++) {
            MMItem *subItem = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:NO titleName:[NSString stringWithFormat:@"蛋糕系列%d",i] subtitleName:[NSString stringWithFormat:@"%ld",random()%10000] code:nil];
-           if (i == 0) subItem.isSelected = YES;
            [rootItem1 addNode:subItem];
-           if (subItem.isSelected) {
-               [title appendString:subItem.title];
-           }
       }
       rootItem1.title = title;
+        
       //root 2
-      MMItem *rootItem2 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"排序"];
+      MMSingleItem *rootItem2 = [MMSingleItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"排序"];
       [rootItem2  addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:YES titleName:@"排序" subtitleName:nil code:nil]];
       [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"智能排序"]]];
       [rootItem2 addNode:[MMItem itemWithItemType:MMPopupViewDisplayTypeSelected titleName:[NSString stringWithFormat:@"离我最近"]]];
@@ -126,14 +126,15 @@
         
         
       //root 3
-      MMItem *rootItem3 = [MMItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"附近"];
+      MMMultiItem *rootItem3 = [MMMultiItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"附近"];
+      
       rootItem3.displayType = MMPopupViewDisplayTypeMultilayer;
       for (int i = 0; i < 30; i++){
-          MMItem *item3_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:NO titleName:[NSString stringWithFormat:@"市区%d",i] subtitleName:nil];
+          MMItem *item3_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:NO titleName:[NSString stringWithFormat:@"市%d",i] subtitleName:nil];
           item3_A.isSelected = (i == 0);
             [rootItem3 addNode:item3_A];
             for (int j = 0; j < random()%30; j ++) {
-             MMItem *item3_B = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:NO titleName:[NSString stringWithFormat:@"市区%d县%d",i,j] subtitleName:[NSString stringWithFormat:@"%ld",random()%10000]];
+             MMItem *item3_B = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:NO titleName:[NSString stringWithFormat:@"市%d县%d",i,j] subtitleName:[NSString stringWithFormat:@"%ld",random()%10000]];
                 item3_B.isSelected = (i == 0 && j == 0);
                 [item3_A addNode:item3_B];
             }
@@ -167,10 +168,35 @@
             }
         }
         
-      [mutableArray addObject:rootItem1];
+        //root 5
+        MMMultiItem *rootItem5 = [MMMultiItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"附近"];
+        
+        rootItem5.displayType = MMPopupViewDisplayTypeMultilayer;
+        rootItem5.numberOflayers = MMPopupViewThreelayers;
+        for (int i = 0; i < MAX(5, random()%30); i++){
+            MMItem *item5_A = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:NO titleName:[NSString stringWithFormat:@"市%d",i] subtitleName:nil];
+            item5_A.isSelected = (i == 0);
+            [rootItem5 addNode:item5_A];
+            
+            for (int j = 0; j < MAX(5, random()%30) ; j ++) {
+                MMItem *item5_B = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:NO titleName:[NSString stringWithFormat:@"市%d县%d",i,j] subtitleName:[NSString stringWithFormat:@"%ld",random()%10000]];
+                item5_B.isSelected = (i == 0 && j == 0);
+                [item5_A addNode:item5_B];
+                
+                for (int k = 0; k < MAX(5, random()%30); k++) {
+                    MMItem *item5_C = [MMItem itemWithItemType:MMPopupViewDisplayTypeSelected isSelected:NO titleName:[NSString stringWithFormat:@"市%d县%d镇%d",i,j,k] subtitleName:[NSString stringWithFormat:@"%ld",random()%10000]];
+                    item5_C.isSelected = (i == 0 && j == 0 && k == 0);
+                    [item5_B addNode:item5_C];
+                }
+            }
+        }
+        
+        
+//      [mutableArray addObject:rootItem1];
       [mutableArray addObject:rootItem2];
       [mutableArray addObject:rootItem3];
       [mutableArray addObject:rootItem4];
+      [mutableArray addObject:rootItem5];
       _mutableArray  = [mutableArray copy];
     }
     return _mutableArray;

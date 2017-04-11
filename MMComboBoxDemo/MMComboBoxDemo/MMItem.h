@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MMBaseItem.h"
 #import "MMSelectedPath.h"
 #import "MMLayout.h"
 
@@ -24,23 +23,22 @@ typedef NS_ENUM(NSUInteger, MMPopupViewSelectedType) {     //是否支持单选�
 
 typedef NS_ENUM(NSUInteger, MMPopupViewDisplayType) {  //分辨弹出来的view类型
     MMPopupViewDisplayTypeNormal = 0,                //一层
-    MMPopupViewDisplayTypeMultilayer = 1,            //两层
+    MMPopupViewDisplayTypeMultilayer = 1,            //多层
     MMPopupViewDisplayTypeFilters = 2,               //混合
 };
 
-@interface MMItem : MMBaseItem
+@interface MMItem : NSObject
 @property (nonatomic, assign) MMPopupViewMarkType markType;
 @property (nonatomic, assign) MMPopupViewDisplayType displayType;
 @property (nonatomic, assign) MMPopupViewSelectedType selectedType;
 
-
+@property (nonatomic, assign) BOOL isSelected;                          //默认0 只有根这个属性没有意义
 @property (nonatomic, copy) NSString *code;                             //支持有的需要上传code而不是title
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) NSMutableArray <MMItem *>*childrenNodes;
-@property (nonatomic, assign) BOOL isSelected;                          //默认0
 @property (nonatomic, strong) NSString *subTitle;                       //第一层默认没有
 
-@property (nonatomic, strong) MMLayout *combinationLayout;
+@property (nonatomic, strong) MMLayout *combinationLayout;       
 
 + (instancetype)itemWithItemType:(MMPopupViewMarkType)type
                        titleName:(NSString *)title;
@@ -59,12 +57,6 @@ typedef NS_ENUM(NSUInteger, MMPopupViewDisplayType) {  //分辨弹出来的view�
                        titleName:(NSString *)title
                     subtitleName:(NSString *)subtitle
                             code:(NSString *)code;
-
-- (instancetype)initWithType:(MMPopupViewMarkType)type
-                  isSelected:(BOOL)isSelected
-                   titleName:(NSString *)title
-                subtitleName:(NSString *)subtitle
-                        code:(NSString *)code;
 
 - (void)addNode:(MMItem *)node;
 - (NSString *)findTitleBySelectedPath:(MMSelectedPath *)selectedPath;

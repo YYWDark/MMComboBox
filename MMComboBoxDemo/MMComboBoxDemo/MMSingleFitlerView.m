@@ -10,16 +10,17 @@
 #import "MMHeader.h"
 #import "MMNormalCell.h"
 #import "MMSelectedPath.h"
-
+#import "MMSingleItem.h"
 @interface MMSingleFitlerView () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, assign) BOOL isSuccessfulToCallBack;
 @property (nonatomic, strong) UIView *bottomView;
+@property (nonatomic, strong) MMSingleItem *item;
 @end
 @implementation MMSingleFitlerView
 - (id)initWithItem:(MMItem *)item {
     self = [super init];
     if (self) {
-        self.item = item;
+        self.item = (MMSingleItem *)item;
         //当为MMPopupViewSingleSelection类型时，默认为YES。因为单选不存在修改了值而取消的情况
         self.isSuccessfulToCallBack = (self.item.selectedType == MMPopupViewSingleSelection)?YES:NO;
         //将默认选中的值

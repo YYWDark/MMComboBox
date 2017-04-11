@@ -19,5 +19,6 @@
 @property (nonatomic, assign) NSInteger rowNumber;
 @property (nonatomic, strong) NSMutableArray *cellLayoutTotalHeight;
 @property (nonatomic, strong) NSMutableArray *cellLayoutTotalInfo;
+
 + (instancetype)layoutWithItem:(MMCombinationItem *)item;
 @end

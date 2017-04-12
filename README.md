@@ -9,10 +9,20 @@
 ## Requirements
 - iOS 7.0 or later
 
-## Rrchitecture
+
+## Installation
+cloning the `MMComboBox folder` into your repository
+
+## Rrchitecture（工程结构图）
 ![结构图.png](http://upload-images.jianshu.io/upload_images/307963-97fa9a27aa16c8e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+
 ##Example code 
+1.导入头文件：
+```
+#import "MMComBoBox.h"
+```
+
 1.初始化视图：
 
 ```

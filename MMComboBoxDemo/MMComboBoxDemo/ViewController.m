@@ -7,16 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "MMComBoBoxView.h"
-#import "MMComboBoxHeader.h"
-#import "MMAlternativeItem.h"
-#import "MMSelectedPath.h"
-#import "MMCombinationItem.h"
-#import "MMMultiItem.h"
-#import "MMSingleItem.h"
-
-#define MultiSelection
-
+#import "MMComBoBox.h"
 @interface ViewController () <MMComBoBoxViewDataSource, MMComBoBoxViewDelegate>
 @property (nonatomic, strong) NSArray *mutableArray;
 @property (nonatomic, strong) MMComBoBoxView *comBoBoxView;
@@ -39,7 +30,6 @@
     [self.view addSubview:self.imageView];
     if (self.isMultiSelection == NO)
        [self.view addSubview:self.nextPageBtn];
-   
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -182,7 +172,7 @@
         }
         
         //root 5
-        MMMultiItem *rootItem5 = [MMMultiItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"附近"];
+        MMMultiItem *rootItem5 = [MMMultiItem itemWithItemType:MMPopupViewDisplayTypeUnselected titleName:@"地区"];
         
         rootItem5.displayType = MMPopupViewDisplayTypeMultilayer;
         rootItem5.numberOflayers = MMPopupViewThreelayers;

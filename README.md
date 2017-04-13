@@ -17,7 +17,7 @@ cloning the `MMComboBox folder` into your repository
 ![结构图.png](http://upload-images.jianshu.io/upload_images/307963-97fa9a27aa16c8e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-##Example code 
+## Example code 
 1.导入头文件：
 ```
 #import "MMComBoBox.h"
@@ -95,5 +95,5 @@ break;
 }
 ```
 
-##Example gif
+## Example gif
 ![example.gif](http://upload-images.jianshu.io/upload_images/307963-58715a141c0ce600.gif?imageMogr2/auto-orient/strip)

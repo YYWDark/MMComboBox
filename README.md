@@ -50,49 +50,7 @@ cloning the `MMComboBox folder` into your repository
 
 ```
 #pragma mark - MMComBoBoxViewDelegate
-- (void)comBoBoxView:(MMComBoBoxView *)comBoBoxViewd didSelectedItemsPackagingInArray:(NSArray *)array atIndex:(NSUInteger)index {
-MMItem *rootItem = self.mutableArray[index];
-switch (rootItem.displayType) {
-case MMPopupViewDisplayTypeNormal:
-case MMPopupViewDisplayTypeMultilayer:{
-//拼接选择项
-NSMutableString *title = [NSMutableString string];
-__block NSInteger firstPath;
-[array enumerateObjectsUsingBlock:^(MMSelectedPath * path, NSUInteger idx, BOOL * _Nonnull stop) {
-[title appendString:idx?[NSString stringWithFormat:@";%@",[rootItem findTitleBySelectedPath:path]]:[rootItem findTitleBySelectedPath:path]];
-if (idx == 0) {
-firstPath = path.firstPath;
-}
-}];
-NSLog(@"当title为%@时，所选字段为 %@",rootItem.title ,title);
-break;}
-case MMPopupViewDisplayTypeFilters:{
-MMCombinationItem * combineItem = (MMCombinationItem *)rootItem;
-[array enumerateObjectsUsingBlock:^(NSMutableArray*  _Nonnull subArray, NSUInteger idx, BOOL * _Nonnull stop) {
-if (combineItem.isHasSwitch && idx == 0) {
-for (MMSelectedPath *path in subArray) {
-MMAlternativeItem *alternativeItem = combineItem.alternativeArray[path.firstPath];
-NSLog(@"当title为: %@ 时，选中状态为: %d",alternativeItem.title,alternativeItem.isSelected);
-}
-return;
-}
-
-NSString *title;
-NSMutableString *subtitles = [NSMutableString string];
-for (MMSelectedPath *path in subArray) {
-MMItem *firstItem = combineItem.childrenNodes[path.firstPath];
-MMItem *secondItem = combineItem.childrenNodes[path.firstPath].childrenNodes[path.secondPath];
-title = firstItem.title;
-[subtitles appendString:[NSString stringWithFormat:@"  %@",secondItem.title]];
-}
-NSLog(@"当title为%@时，所选字段为 %@",title,subtitles);
-}];
-
-break;}
-default:
-break;
-}
-}
+- (void)comBoBoxView:(MMComBoBoxView *)comBoBoxViewd didSelectedItemsPackagingInArray:(NSArray *)array atIndex:(NSUInteger)index;
 ```
 
 ## Example gif
